@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Java 面试题总结（一：基础） | Freedom 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jia Shun">
+    
+    
+
+    <meta name="description" content="前段时间一直在面试，连续面试了十几家，也拿到了几家公司的offer，最终去了一家不算大但技术氛围还不错的小公司。刚进入新公司一开始熟悉项目比较忙，现在终于有时间停下来了，想把之前面试遇到的问题整理一下，希望能够帮助到正在面试的朋友，也算是自己做一个总结。我一直在考虑怎样描述起来比较合理，如果单纯的用文字描述很难写清楚，最后想到用对话的方式模拟面试场景，将常见的问题串起来，这样也免得技术词语看起来枯">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 面试题总结（一：基础） | Freedom">
+<meta property="og:url" content="http://yoursite.com/2017/11/05/Java-面试题总结（一：基础）/index.html">
+<meta property="og:site_name" content="Freedom">
+<meta property="og:description" content="前段时间一直在面试，连续面试了十几家，也拿到了几家公司的offer，最终去了一家不算大但技术氛围还不错的小公司。刚进入新公司一开始熟悉项目比较忙，现在终于有时间停下来了，想把之前面试遇到的问题整理一下，希望能够帮助到正在面试的朋友，也算是自己做一个总结。我一直在考虑怎样描述起来比较合理，如果单纯的用文字描述很难写清楚，最后想到用对话的方式模拟面试场景，将常见的问题串起来，这样也免得技术词语看起来枯">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://oyxd8esz7.bkt.clouddn.com/%E9%9B%86%E5%90%88.jpeg">
+<meta property="og:image" content="http://oyxd8esz7.bkt.clouddn.com/HashMap.jpeg">
+<meta property="og:image" content="http://oyxd8esz7.bkt.clouddn.com/%E7%BE%8E%E5%A5%B31.jpeg">
+<meta property="og:updated_time" content="2017-11-05T08:19:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java 面试题总结（一：基础） | Freedom">
+<meta name="twitter:description" content="前段时间一直在面试，连续面试了十几家，也拿到了几家公司的offer，最终去了一家不算大但技术氛围还不错的小公司。刚进入新公司一开始熟悉项目比较忙，现在终于有时间停下来了，想把之前面试遇到的问题整理一下，希望能够帮助到正在面试的朋友，也算是自己做一个总结。我一直在考虑怎样描述起来比较合理，如果单纯的用文字描述很难写清楚，最后想到用对话的方式模拟面试场景，将常见的问题串起来，这样也免得技术词语看起来枯">
+<meta name="twitter:image" content="http://oyxd8esz7.bkt.clouddn.com/%E9%9B%86%E5%90%88.jpeg">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.jpeg">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Freedom</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">首页</a></li>
+              
+                
+                <li class="navigation__item"><a href="/categories/Java" title="" class="">Java</a></li>
+              
+                
+                <li class="navigation__item"><a href="/categories/音乐" title="" class="">音乐</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">关于</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Java 面试题总结（一：基础）</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-11-05" class="post-meta__date date">2017-11-05</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Java/">Java</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/java/">java</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>前段时间一直在面试，连续面试了十几家，也拿到了几家公司的offer，最终去了一家不算大但技术氛围还不错的小公司。刚进入新公司一开始熟悉项目比较忙，现在终于有时间停下来了，想把之前面试遇到的问题整理一下，希望能够帮助到正在面试的朋友，也算是自己做一个总结。<br>我一直在考虑怎样描述起来比较合理，如果单纯的用文字描述很难写清楚，最后想到用对话的方式模拟面试场景，将常见的问题串起来，这样也免得技术词语看起来枯燥。</p>
+<p>某创业型小公司，位置相对较偏，一栋两层小楼，装修自然也并没有高大上。去的时候唯一的技术领导正在联系阿里云买服务器，一个人事小姑娘和拉钩网沟通招聘的事宜。有点小失望，再怎么样上一家公司也是个上市企业，但转念一想，我这技术水平还达不到去挑公司的水平，有人要就不错了。人事招呼我坐下，倒了一杯水，领导递过来一份面试题说：先做份题吧。<br>技术不够扎实的我看见做题就懵逼，聊天还能吹一吹，手写代码就有问题了，尤其碰见算法题恨不得直接放弃。勉强硬着头皮答完，交给这位有点脱发的领导（我的发际线也高的很伤感）。<br>领导（下文以L简称）看了看我，说：“你这形象也不像搞技术的？”<br>（每次面试官都得先拿我形象说事，我已经习惯了）<br>我（下文以I简称）：“都是瞎玩，哈哈，不过搞技术我是认真的。”<br>L：“喜欢音乐？”<br>I：“那是瞎玩，那玩意完全靠天赋，像我们这样搞技术的都靠逻辑能力，音乐完全靠感性，这完全是相反的两个方向。”<br>L点了一根烟，还真随性，搞的我也想借个火。我仔细观察了下L的办公室，大大的书架，往里一看，还别有洞天啊。L招呼我做到里面的沙发上，茶几上的烟灰缸是个铜的癞蛤蟆，一套精致的功夫茶具，墙壁上还挂着一把宝剑，再想起门口还敬着关二爷，忽然觉得眼前的秃顶大哥有意思啊，搞得我还有点冒冷汗。。。<br>L：“咱聊聊音乐吧，喜欢什么风格？”<br>（有意思，还能这么面试？我是来应聘Java工程师的啊大哥，看来你也是性情中人啊，那咱俩得侃侃）<br>I：“好的音乐都喜欢，哈哈，听的也比较杂，更偏向于摇滚一些吧。”<br>L：“好，喜欢什么乐队啊？”<br>I：“还挺多的，比如U2，铁娘子啊，Lacrimosa，Lake Of Tears，Therion等等”<br>我感觉自己要开启装逼模式了。<br>L皱了皱眉头，应该是后面的都没听过，我莫名的心中窃喜。<br>L：“都是国外的啊，国内的乐队听不听？”<br>I：“听的少一些，国内许巍吧，乐队的话相对我来说都有点老了吧”<br>L：“U2也挺老的啊”<br>I：“我觉得国内的像崔健啊，黑豹啊更多的是代表了一些开创意义，音乐我听得少一些。”<br>L：“说到黑豹，你喜欢哪个时期的窦唯啊”<br>I：“都还挺好的，窦唯在黑豹的时候是黑豹的巅峰吧，后来几张唱片《黑梦》啊《艳阳天》啊都还挺经典，再以后就开始意识流了，总体来说我的理解是越来越牛逼的，不是刚出了一首《重返魔域》嘛，都觉得不好听，我觉得挺好的，尝试一些新的东西并且做的很漂亮，只不过大众接受不了罢了”<br>L：“窦唯又出新歌了？”<br>I：“给一个游戏写的主题曲吧”<br>L：“看来你是真懂哈哈”<br>I：“略懂略懂”<br>（你的题目是Java面试题总结啊。。。）<br> L：“很好，但毕竟咱是搞技术的啊，咱还是聊聊技术。”<br>##<br>正题开始了<br>L翻着我的面试题：“这个题你的解题思路是什么？”<br>我看了一眼题目：取出一堆数字中最大的两个数并输出。“哦，写一个排序将所有的数字由大到小进行排序，取前两位就可以了”。<br>L：“说下数组排序的几种方式”<br>I：“常见的有冒泡，选择，插入，快速，Hash等，我这个用的是冒泡”<br>L：“冒泡的原理？”<br>I：“从前到后依次对比，将大的往前移动，小的往后移动，最终达到由大到小排列。”<br>L：“嗯，说下抽象类和接口的区别”<br>（幸亏没往下问，排序我只会写冒泡哈哈，不过抽象类和接口也太基础了吧）<br>I：“抽象类可以理解为将一些拥有共同特征的类做出的抽象，含有abstract修饰符的类即为抽象类，abstract类不能创建实例对象，含有abstract的方法的类必须定义为abstact class。abstact class里的方法不必是抽象，抽象类中定义抽象方法必须放在具体子类中实现，如果子类没有实现抽象父类中的所有方法，那么子类也必须被定义为抽象类。<br>接口可以说是抽象类的特例。接口中的所有方法必须是抽象的。接口中的方法默认为publc abstract。接口中变量是全局常量，即public static final修饰的。概况如下：<br>1：抽象类里可以有构造方法，而接口中不能有构造方法。<br>2：抽象类中可以有普通成员变量，而接口中不能有普通成员变量。<br>3：抽象类中可以包含非抽象的普通方法，而接口中所有的方法都必须是抽象的，不能有非抽象的普通方法。<br>4：抽象类中的抽象方法的访问类型可以是public，protected和默认类型，但接口中的抽象方法只能是public类型，并且默认为public abstract类型。<br>5：抽象类中可以包含静态方法，接口内不能包含有静态方法。<br>6：抽象类和接口中都可以包含静态成员变量，抽象类中的静态成员变量的访问类型可以任意，但接口中定义的变量只能是public static类型 。<br>7：一个类可以实现多个接口，但只能继承一个抽象类。<br>”<br>L：“嗯，不错，String是基本数据类型吗”<br>I：“不是，是引用类型。”<br>L：“数组有没有length()方法？String呢？”<br>I：“数组没有length方法，有length属性，String有length方法。”<br>L：“是否可以继承String类”<br>I：“不可以，String是final类，不能被继承。”<br>L：“String和StringBuffer，StringBuilder的区别？”<br>I：“String是只读字符串，也就意味着String引用的字符串内容是不能被改变的。而StringBuffer/StringBuilder类便是的字符串对象可以直接进行修改。StringBuilder和StringBuffer的方法完全相同，区别在于它在单线程环境下使用的，因为它的所有方面都没有被synchronized修饰，因此它的效率比StringBuffer要高。”<br>L：“嗯，那说一下集合框架吧”<br>I：“嗯，我画张图吧”<br>说着掏出纸和笔：<br><img src="http://oyxd8esz7.bkt.clouddn.com/%E9%9B%86%E5%90%88.jpeg" alt=""><br>I：“Java集合框架最顶层的有两个接口：Collection和Map。其中Collection接口表示一组纯数据，Map接口表示一组key—value键值对。Collection接口下面有三个子接口：List,Set,Queue，其中最常用的就是List。List和Set的区别是：List是有序的，并且可以重复，而Set是无序的，并且不可以重复。List又有几个实现类，最常用的就是ArrayList和LinkedList，Vector是一种老的动态数组，是线程同步的，效率比较低，一般不使用。ArrayList是基于数组实现的，LinkedList是基于链表实现的，所以ArrayList对于查询速度比较快，而LinkedList插入比较快。”<br>L：“嗯，我打断一下啊，如果对一组对象进行排序应该怎么实现？”<br>I：“呃，用treeSet吧。”<br>L：“如果不用treeSet呢？”<br>I：“哦，要实现Compare接口， 使用compare to（）方法进行比较。”<br>L：“嗯，你继续。。”<br>I：“刚才我说到哪儿啦，哦。下面是Map集合。Map提供了一种映射关系，元素时以键值对（key-value）的相识存储的，能根据key查找value。Map本身是一个接口，要使用Map必须通过子类进行对象实例化，而常见的子类有如下几个：HashMap，HashTable、ConcurrentHashMap。而其中HashMap性能比较高，但是线程不安全的，HashTable性能较低，但线程安全，ConcurrentHashMap可以说是两个的结合，线程安全并且性能较高。”<br>L：“嗯，刚才你提到HashMap的原理”<br>（第一个大Boss，开始问底层了，幸亏我有所准备，嘿嘿😜）<br>I：“我接着画张图吧”<br><img src="http://oyxd8esz7.bkt.clouddn.com/HashMap.jpeg" alt=""><br>I：“其实Map有个entry的内部类。HashMap的底层是数组加链表的实现。当我们初始化一个HashMap的时候，其实是初始化了一组entry数组，数组中有多个entry对象，每个entry对象有key、value、hash、next四个属性。当我们执行put(）方法的时候，会根据key的hashCode()方法算出一个hash值，可以通过一定的算法根据hash值确定这个entry对象在entry数组中的位置（可以理解为算出一个下标位置），如果这个位置是空的，那么就将这个entry对象放到HashMap数组之中即可。如果恰好这个位置已经有了一个entry对象了，也就是发生了Hash冲突，那么这两个entry对象就使用链表的形式进行存储，entry对象的next属性可以作为下一个entry对象的引用。当我们执行get(）方法的时候，同样的会根据key的hashCode()方法算出一个hash值确定所要取得entry对象的位置，如果正好这个位置只有一个entry对象那么取出就好，如果这个位置有两个或者两个以上的entry对象，那么就要调用key的equals()方法，确定具体的entry对象了。”</p>
+<p>今天先到这儿，下次我将和这位大哥聊聊多线程方面的常见面试题。<br>未完待续，美女镇楼。<br><img src="http://oyxd8esz7.bkt.clouddn.com/%E7%BE%8E%E5%A5%B31.jpeg" alt=""></p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+
+    <span class="footer__copyright">&copy; 2014-2015. | 由<a href="https://hexo.io/">Hexo</a>强力驱动 | 主题<a href="https://github.com/someus/huno">Huno</a></span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
