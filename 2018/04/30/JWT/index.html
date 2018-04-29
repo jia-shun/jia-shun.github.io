@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      JSON Web Token | Freedom 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Jia Shun">
+    
+    
+
+    <meta name="description" content="JWT：什么是JWT？JSON Web Token(JWT) 是一种开放式标准(RFC 7519)，它定义了一种紧凑且自包含的方式，用于在各方之间以JSON对象安全传输信息。这些信息可以通过数字签名进行验证和信任。可以使用加密(使用HMAC算法)或使用RSA的公钥/私钥对JWT进行签名。 以上是我百度的，看起来真累，到底什么是JWT？传统方式：基本上所有的前后端登录验证交互这一块都会遵循这样一个流">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JSON Web Token | Freedom">
+<meta property="og:url" content="http://jia-shun.cn/2018/04/30/JWT/index.html">
+<meta property="og:site_name" content="Freedom">
+<meta property="og:description" content="JWT：什么是JWT？JSON Web Token(JWT) 是一种开放式标准(RFC 7519)，它定义了一种紧凑且自包含的方式，用于在各方之间以JSON对象安全传输信息。这些信息可以通过数字签名进行验证和信任。可以使用加密(使用HMAC算法)或使用RSA的公钥/私钥对JWT进行签名。 以上是我百度的，看起来真累，到底什么是JWT？传统方式：基本上所有的前后端登录验证交互这一块都会遵循这样一个流">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://img1.ph.126.net/BD6CKJcNWzLNbS2hM6hXzw==/6597552452263349263.png">
+<meta property="og:image" content="http://img0.ph.126.net/sF8djKbrhW2cgsffeGiuxw==/3860429305687084104.png">
+<meta property="og:updated_time" content="2018-04-29T17:15:09.813Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JSON Web Token | Freedom">
+<meta name="twitter:description" content="JWT：什么是JWT？JSON Web Token(JWT) 是一种开放式标准(RFC 7519)，它定义了一种紧凑且自包含的方式，用于在各方之间以JSON对象安全传输信息。这些信息可以通过数字签名进行验证和信任。可以使用加密(使用HMAC算法)或使用RSA的公钥/私钥对JWT进行签名。 以上是我百度的，看起来真累，到底什么是JWT？传统方式：基本上所有的前后端登录验证交互这一块都会遵循这样一个流">
+<meta name="twitter:image" content="http://img1.ph.126.net/BD6CKJcNWzLNbS2hM6hXzw==/6597552452263349263.png">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.jpeg">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css">
+    <link rel="stylesheet" href="/css/china-social-icon.css">
+
+</head>
+<body>
+
+    <span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+  
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Freedom</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Home</a></li>
+              
+                
+                <li class="navigation__item"><a href="/categories/Java" title="" class="">Java</a></li>
+              
+                
+                <li class="navigation__item"><a href="/categories/音乐" title="" class="">Music</a></li>
+              
+                
+                <li class="navigation__item"><a href="/about" title="" class="">About</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">JSON Web Token</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-04-30" class="post-meta__date date">2018-04-30</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Java/">Java</a>
+            </font>
+          
+
+          
+             &#8226; 标签:
+            <font class="tags">
+              <a class="tags-link" href="/tags/java/">java</a>
+            </font>
+          
+
+      </span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h2 id="JWT："><a href="#JWT：" class="headerlink" title="JWT："></a>JWT：</h2><h3 id="什么是JWT？"><a href="#什么是JWT？" class="headerlink" title="什么是JWT？"></a>什么是JWT？</h3><p>JSON Web Token(JWT) 是一种开放式标准(RFC 7519)，它定义了一种紧凑且自包含的方式，用于在各方之间以JSON对象安全传输信息。这些信息可以通过数字签名进行验证和信任。可以使用加密(使用HMAC算法)或使用RSA的公钥/私钥对JWT进行签名。</p>
+<h3 id="以上是我百度的，看起来真累，到底什么是JWT？"><a href="#以上是我百度的，看起来真累，到底什么是JWT？" class="headerlink" title="以上是我百度的，看起来真累，到底什么是JWT？"></a>以上是我百度的，看起来真累，到底什么是JWT？</h3><h4 id="传统方式："><a href="#传统方式：" class="headerlink" title="传统方式："></a><strong>传统方式：</strong></h4><p>基本上所有的前后端登录验证交互这一块都会遵循这样一个流程：</p>
+<p><img src="http://img1.ph.126.net/BD6CKJcNWzLNbS2hM6hXzw==/6597552452263349263.png" alt="客户端登录验证"></p>
+<p>最早的时候，web端和服务端的交互，我们使用session。后来前后端分离后，通过restful进行数据交互，同样使用类似于上面流程图的交互方式：前端登录，后端根据用户信息生成一个token，并保存这个token和对应的用户信息到关系型数据库，或者缓存数据库redis，接着将token传递给客户端，客户端会存入浏览器cookie。后续http请求都会携带这个token，后端根据token来查询、验证用户的信息。</p>
+<p>单体应用或者用户量少的时候，一切都没有什么问题。随着互联网的高速发展，用户数量的暴增，就开始面临一系列的问题：</p>
+<p>1：后端每次都要根据token查出用户信息，这样就增加了数据库的查询和存储开销。把验证信息保存在session中，加大了服务器端的存储压力。</p>
+<p>2：后端采用分布式服务之后，session的共享问题，也是一个非常棘手的问题。</p>
+<p>3：数据的安全性产生影响(cookie的泄露)。</p>
+<p>虽然以上问题都有各种各样的解决方案，但都不尽人意。有没有一种方式，不用去服务器查询呢？如果我们生成的token遵循一定的规律。比如我们使用加密算法，根据用户的登录信息，以及一个一开始定义好的全局密码生成一个token，这样只需要解密该token就可以知道用户的信息了。</p>
+<p><strong>可以使用JWT。</strong></p>
+<h4 id="JWT"><a href="#JWT" class="headerlink" title="JWT:"></a>JWT:</h4><p>特点：</p>
+<p>简洁：可以通过url，post参数或者在HTTP header中发送。说白了，通过JWT生成的token就是一个JSON字符串，因为数据量小，传输速度快。</p>
+<p>自包含：Payload中包含了用户的信息，避免了多次查询数据库。</p>
+<p><img src="http://img0.ph.126.net/sF8djKbrhW2cgsffeGiuxw==/3860429305687084104.png" alt="JWT详情"></p>
+<p>上面这个图片就是JWT的组成部分：</p>
+<p>Header：头部，包含了两部分：token类型(JWT)和采用的加密算法(HS256)。</p>
+<p>PayLoad：负载，这部分是我们存放信息的地方，你可以把用户的id，name等信息放在这里。JWT规范里有对这部分信息进行了比较详细的介绍，常用的有：iss(签发者)，exp(过期时间)，sub(面向的用户)等信息。</p>
+<p>前面这两部分都是通过Base64进行编码组成JWT的第一部分和第二部分。这两部分并没有经过加密处理，所以可以认为内容是公开的。所以一定不要将用户密码等敏感信息放入。</p>
+<p>Signature：签名。Siguature需要使用编码后的header和payload以及我们提供的一个秘钥，然后使用header中指定的签名算法(HS256)进行签名。签名的作用是保证JWT没有被篡改过。</p>
+<p>三个部分通过.连接在一起就是我们需要的JWT了，它大概长这样：</p>
+<p><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</code></p>
+<p>这样一个完整的token就生成了。而在实际的项目中JWT的运用流程是这样的：</p>
+<p>1：用户首次登录，输入用户名和密码，后端首先去数据库查询出用户的信息，如果用户名和密码信息无误，则根据用户的userId或者name根据上面定义好的算法，再加上后台应用中提供的秘钥生成一个token。将token返回给客户端，并提示登录成功。</p>
+<p>2：随后客户端会将token存入浏览器cookie或者Local Storage中。</p>
+<p>3：之后客户端每次向服务端发送请求都会携带这个token，服务端可以解密token验证用户的合法性，获取用户的信息而不用每次都去数据库查询了。</p>
+<p><strong>说的再多都是浮云，一篇小小的demo就能说明一切（本次我们使用第三方针对Java的一个开源JSON Web Token：jjwt）：</strong></p>
+<p>我们就使用官方提供的最简单的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/**</div><div class="line"> * @author JiaShun</div><div class="line"> * @date 2018/4/29 23:57</div><div class="line"> */</div><div class="line">@Component</div><div class="line">public class JWTUtil &#123;</div><div class="line">    /**</div><div class="line">     * 根据一个String字符串生成一个密钥key，这个字符串只有应用层自己知道，千万不能泄露，建议经常修改。</div><div class="line">     * 这个key相当于你所有用户所公有的一个用户密码。</div><div class="line">     */</div><div class="line">    public SecretKey generalKey()&#123;</div><div class="line">        String stringKey = &quot;helloWorld&quot;;</div><div class="line">        byte[] encodedKey = Base64.decodeBase64(stringKey);</div><div class="line">        SecretKey key = new SecretKeySpec(encodedKey,0,encodedKey.length,&quot;AES&quot;);</div><div class="line">        return key;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 创建JWT</div><div class="line">     * @param subject 用户详细信息</div><div class="line">     * @return</div><div class="line">     * @throws Exception</div><div class="line">     */</div><div class="line">    public String createJWT(String subject)throws Exception&#123;</div><div class="line">        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;</div><div class="line">        SecretKey key = generalKey();</div><div class="line">        JwtBuilder builder = Jwts.builder()</div><div class="line">                .setSubject(subject)</div><div class="line">                .signWith(signatureAlgorithm,key);</div><div class="line">        return builder.compact();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * 解析JWT</div><div class="line">     * @param jwt</div><div class="line">     * @return</div><div class="line">     * @throws Exception</div><div class="line">     */</div><div class="line">    public Claims parseJWT(String jwt)throws Exception&#123;</div><div class="line">        SecretKey key = generalKey();</div><div class="line">        return Jwts.parser().setSigningKey(key).parseClaimsJws(jwt).getBody();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码就这么简单！</p>
+<p>下面我们做一个单元测试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">@RunWith(SpringRunner.class)</div><div class="line">@SpringBootTest</div><div class="line">public class TokenApplicationTests &#123;</div><div class="line"></div><div class="line">	@Autowired</div><div class="line">	private JWTUtil jwtUtil;</div><div class="line"></div><div class="line">	@Test</div><div class="line">	public void contextLoads() &#123;</div><div class="line">	&#125;</div><div class="line"></div><div class="line">	@Test</div><div class="line">	public void testCreateJWT()throws Exception&#123;</div><div class="line">		JSONObject json = new JSONObject();</div><div class="line">		json.put(&quot;userId&quot;,&quot;1&quot;);</div><div class="line">		json.put(&quot;name&quot;,&quot;JiaShun&quot;);</div><div class="line">		String subject = json.toJSONString();</div><div class="line">		String token = jwtUtil.createJWT(subject);</div><div class="line">		System.out.println(token);</div><div class="line">	&#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>输出的结果为：</p>
+<p><code>eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ7XCJuYW1lXCI6XCJKaWFTaHVuXCIsXCJ1c2VySWRcIjpcIjFcIn0ifQ.NqYVyNM2XT_2hKkgTakPf0I6ira00IDANGpZTTLJi_8</code></p>
+<p>这就是一个完整的JSON Web Token。</p>
+<p>随后我们解析这个token，看得到什么信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">@Test</div><div class="line">public void testParseJWT()throws Exception&#123;</div><div class="line">	Claims claims = jwtUtil.parseJWT(&quot;eyJhbGciOiJIUzI1NiJ9&quot; +</div><div class="line">			&quot;.eyJzdWIiOiJ7XCJuYW1lXCI6XCJKaWFTaHVuXCIsXCJ1c2VySWRcIjpcIjFcIn0ifQ&quot; +</div><div class="line">			&quot;.NqYVyNM2XT_2hKkgTakPf0I6ira00IDANGpZTTLJi_8&quot;);</div><div class="line">	System.out.println(claims);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打印出的信息为：</p>
+<p>{sub={“name”:”JiaShun”,”userId”:”1”}}</p>
+<p>这样我们就得到了用户的所有信息，而不用去数据库反复查询请求的真实性了。</p>
+
+  </section>
+
+  <section class="post-comments">
+
+    <!-- 将评论系统（例如Disqus、多说、友言、畅言等）提供的代码片段粘贴在这里 -->
+    
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+	
+	<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+	<span id="busuanzi_container_site_uv"> 
+  	本站访客数<span id="busuanzi_value_site_uv"></span>人次
+	</span>
+
+    <span class="footer__copyright">Copyrights &copy; 2017. | <a href="http://jia-shun.cn">贾 顺</a> | All Rights Reserved </span>
+    
+</footer>
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]-->
+
+</body>
+</html>
