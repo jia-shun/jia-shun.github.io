@@ -17,7 +17,7 @@
     
 
     <meta name="description" content="前段时间一直在面试，连续面试了十几家，也拿到了几家公司的offer，最终去了一家不算大但技术氛围还不错的小公司。刚进入新公司一开始熟悉项目比较忙，现在终于有时间停下来了，想把之前面试遇到的问题整理一下，希望能够帮助到正在面试的朋友，也算是自己做一个总结。我一直在考虑怎样描述起来比较合理，如果单纯的用文字描述很难写清楚，最后想到用对话的方式模拟面试场景，将常见的问题串起来，这样也免得技术词语看起来枯">
-<meta name="keywords" content="java">
+<meta name="keywords" content="java面试">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java 面试题总结（一：基础） | Freedom">
 <meta property="og:url" content="http://jia-shun.cn/2017/11/05/Java-面试题总结（一：基础）/index.html">
@@ -27,7 +27,8 @@
 <meta property="og:image" content="http://oyxd8esz7.bkt.clouddn.com/%E9%9B%86%E5%90%88.jpeg">
 <meta property="og:image" content="http://oyxd8esz7.bkt.clouddn.com/HashMap.jpeg">
 <meta property="og:image" content="http://oyxd8esz7.bkt.clouddn.com/%E7%BE%8E%E5%A5%B31.jpeg">
-<meta property="og:updated_time" content="2017-11-06T02:32:04.000Z">
+<meta property="og:image" content="http://oyxd8esz7.bkt.clouddn.com/code%20ready.jpg">
+<meta property="og:updated_time" content="2018-07-14T13:44:11.329Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java 面试题总结（一：基础） | Freedom">
 <meta name="twitter:description" content="前段时间一直在面试，连续面试了十几家，也拿到了几家公司的offer，最终去了一家不算大但技术氛围还不错的小公司。刚进入新公司一开始熟悉项目比较忙，现在终于有时间停下来了，想把之前面试遇到的问题整理一下，希望能够帮助到正在面试的朋友，也算是自己做一个总结。我一直在考虑怎样描述起来比较合理，如果单纯的用文字描述很难写清楚，最后想到用对话的方式模拟面试场景，将常见的问题串起来，这样也免得技术词语看起来枯">
@@ -177,7 +178,7 @@ classes that you can use:
           
              &#8226; 标签:
             <font class="tags">
-              <a class="tags-link" href="/tags/java/">java</a>
+              <a class="tags-link" href="/tags/java面试/">java面试</a>
             </font>
           
 
@@ -194,7 +195,9 @@ classes that you can use:
 <p>正题开始了<br>L翻着我的面试题：“这个题你的解题思路是什么？”<br>我看了一眼题目：取出一堆数字中最大的两个数并输出。“哦，写一个排序将所有的数字由大到小进行排序，取前两位就可以了”。<br>L：“说下数组排序的几种方式”<br>I：“常见的有冒泡，选择，插入，快速，Hash等，我这个用的是冒泡”<br>L：“冒泡的原理？”<br>I：“从前到后依次循环对比，将大的往前移动，小的往后移动，最终达到由大到小顺序排列。”<br>L：“嗯，说下抽象类和接口的区别”<br>（幸亏没往下问，排序我只会写冒泡哈哈，不过抽象类和接口也太基础了吧）<br>I：“抽象类可以理解为将一些拥有共同特征的类做出的抽象，接口可以说是抽象类的特例。抽象类中定义抽象方法必须放在具体子类中实现，抽象类中可以包含有普通成员变量，而接口中不能有普通成员变量。抽象类中可以包含有普通方法，而接口所有的方法都必须是抽象的。抽象类中的抽象方法的访问类型可以是public，protected和默认类型，但接口中的抽象方法只能是public类型。最重要的是Java有单继承的局限，也就是说一个类可以实现多个接口，但只能继承一个抽象类。<br>L：“嗯，String是基本数据类型吗”<br>I：“不是，是引用类型。”<br>L：“数组有没有length()方法？String呢？”<br>I：“数组没有length()方法，有length属性，String有length()方法。”<br>L：“是否可以继承String类”<br>I：“不可以，String是final类，不能被继承。”<br>L：“String和StringBuffer，StringBuilder的区别？”<br>I：“String是只读字符串，也就意味着String引用的字符串内容是不能被改变的。而StringBuffer/StringBuilder类的字符串对象可以直接进行修改。StringBuilder和StringBuffer的方法完全相同，区别在于它在单线程环境下使用的，因为它的所有方面都没有被synchronized修饰，因此它的效率比StringBuffer要高。”<br>L：“嗯，那说一下集合框架吧”<br>I：“嗯，我画张图吧”<br>说着掏出纸和笔：<br><img src="http://oyxd8esz7.bkt.clouddn.com/%E9%9B%86%E5%90%88.jpeg" alt=""><br>I：“Java集合框架最顶层的有两个接口：Collection和Map。其中Collection接口表示一组纯数据，Map接口表示一组key—value键值对。Collection接口下面有三个子接口：List,Set,Queue，其中最常用的就是List。List和Set的区别是：List是有序的，并且可以重复，而Set是无序的，并且不可以重复。List又有几个实现类，最常用的就是ArrayList和LinkedList，Vector是一种老的动态数组，是线程同步的，效率比较低，一般不使用。ArrayList是基于数组实现的，LinkedList是基于链表实现的，所以ArrayList对于查询速度比较快，而LinkedList插入比较快。”<br>L：“嗯，我打断一下啊，如果对一组无序的对象进行排序应该怎么实现？”<br>I：“呃，用treeSet吧。”<br>L：“呃。。（黑人问号脸）如果不用treeSet呢？”<br>I：“哦，要实现Comparable接口， 使用compare to()方法进行比较。”<br>L：“嗯，你继续。。”<br>I：“刚才我说到哪儿啦，哦。下面是Map集合。Map提供了一种映射关系，元素是以键值对（key-value）的形式存储的，能根据key查找value。Map本身是一个接口，要使用Map必须通过子类进行对象实例化，而常见的子类有如下几个：HashMap，HashTable、ConcurrentHashMap。而其中HashMap性能比较高，但是线程不安全的，HashTable性能较低，但线程安全，ConcurrentHashMap可以说是两个的结合，线程安全并且性能较高。”<br>L：“嗯，刚才你提到HashMap，能说下HashMap的原理吗？”<br>（第一个大Boss，开始问底层了，幸亏我有所准备，嘿嘿😜）<br>I：“我接着画张图吧”<br><img src="http://oyxd8esz7.bkt.clouddn.com/HashMap.jpeg" alt=""><br>I：“其实Map有个entry的内部类。HashMap的底层是数组加链表的实现。当我们初始化一个HashMap的时候，其实是初始化了一个entry数组，数组中有多个entry对象，每个entry对象有key、value、hash、next四个属性。当我们执行put(）方法的时候，会根据key的hashCode()方法算出一个hash值，通过一定的算法根据hash值确定这个entry对象在entry数组中的位置（可以理解为算出一个下标位置），如果这个位置是空的，那么就将这个entry对象放到HashMap数组之中即可。如果恰好这个位置已经有了一个entry对象了，也就是发生了Hash冲突，那么这两个entry对象就使用链表的形式进行存储，entry对象的next属性可以作为下一个entry对象的引用。当我们执行get(）方法的时候，同样的会根据key的hashCode()方法算出一个hash值确定所要取得entry对象的位置，如果正好这个位置只有一个entry对象那么取出就好，如果这个位置有两个或者两个以上的entry对象，那么就要调用key的equals()方法进行对比，就可以确定具体的entry对象了。”<br>L：“如果添加的entry对象过多会有什么问题吗”<br>I：“如果HashMap的大小超过了负载因子定义的容量，默认的负载因子大小是0.75，也就是说HashMap的默认长度是16，当一个map填满了16的75%的时候，将会创建原来HashMap大小的两倍的数组，来重新调整map的大小。”<br>L：“重新调整HashMap大小会存在什么问题？”<br>I：“当重新调整HashMap大小的时候，在多线程的情况下会存在竞争关系。发生竞争关系有可能会造成死循环。另外在多线程的环境下为什么要使用HashMap呢？”<br>L：“那应该用什么呢？”<br>I：“ConcurrentHashMap”</p>
 <p>本人才疏学浅，很多问题都是自己的理解，有错误的地方还请多多包涵。<br>鉴于时间关系今天先到这儿，下次我将和这位大哥聊聊多线程方面的常见面试题。</p>
 <p>未完待续，美女镇楼。<br><img src="http://oyxd8esz7.bkt.clouddn.com/%E7%BE%8E%E5%A5%B31.jpeg" alt=""></p>
+<div align="center"><img src="http://oyxd8esz7.bkt.clouddn.com/code%20ready.jpg" alt="快掏出你的大手机扫我"></div>
 
+<center><code>快掏出你的大手机扫我</code></center>
   </section>
 
   <section class="post-comments">
