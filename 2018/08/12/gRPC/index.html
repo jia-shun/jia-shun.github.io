@@ -32,7 +32,7 @@
 <meta property="og:image" content="http://oyxd8esz7.bkt.clouddn.com/grpc/gRPC-start.png">
 <meta property="og:image" content="http://oyxd8esz7.bkt.clouddn.com/grpc/grpc-web-test.png">
 <meta property="og:image" content="http://oyxd8esz7.bkt.clouddn.com/code%20ready.jpg">
-<meta property="og:updated_time" content="2018-08-12T17:49:03.340Z">
+<meta property="og:updated_time" content="2018-08-13T05:02:49.055Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="gRPC基于Golang和Java的简单实现 | Freedom">
 <meta name="twitter:description" content="一：什么是RPC 简介：RPC：Remote Procedure Call，远程过程调用。简单来说就是两个进程之间的数据交互。正常服务端的接口服务是提供给用户端(在Web开发中就是浏览器)或者自身调用的，也就是本地过程调用。和本地过程调用相对的就是：假如两个服务端不在一个进程内怎么进行数据交互？使用RPC。尤其是现在微服务的大量实践，服务与服务之间的调用不可避免，RPC更显得尤为重要。  原理：计">
@@ -267,7 +267,7 @@ classes that you can use:
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ go get -u google.golang.org/grpc</div></pre></td></tr></table></figure>
 <p>但是由于我们有伟大的长城，一般这条命令都不会下载成功。但Google的文件一般都会在github存有一份镜像。我们可以使用如下命令：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ go get -u github.com/grpc/grpc-go</div></pre></td></tr></table></figure>
-<p>随后将下载的文件夹重命名为go，并放入一个新建的google.golang.org的文件夹中。🤷‍♀️</p>
+<p>随后将下载的文件夹重命名为grpc，并放入一个新建的google.golang.org的文件夹中。🤷‍♀️</p>
 <p>当我们安装完gRPC并定义好了远程接口调用的具体信息后，我们要使用protocol编译器生成我们的stub程序。</p>
 <p>我们安装的Protocol Buffers是用来编译我们的.proto文件的，但是编译后的文件是不能被Java、C、Go等这些语言使用。Google针对不同的语言有不同的编译器。本次我们使用Golang语言，所以要安装针对Golang的编译器，根据官方提供的命令执行：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ go get -u github.com/golang/protobuf/protoc-gen-go</div></pre></td></tr></table></figure>
