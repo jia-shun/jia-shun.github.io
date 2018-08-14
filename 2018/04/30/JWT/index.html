@@ -27,7 +27,7 @@
 <meta property="og:image" content="http://oyxd8esz7.bkt.clouddn.com/%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81.png">
 <meta property="og:image" content="http://oyxd8esz7.bkt.clouddn.com/jwt.png">
 <meta property="og:image" content="http://oyxd8esz7.bkt.clouddn.com/code%20ready.jpg">
-<meta property="og:updated_time" content="2018-07-15T11:01:29.395Z">
+<meta property="og:updated_time" content="2018-08-14T08:04:31.780Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JSON Web Token | Freedom">
 <meta name="twitter:description" content="JWT：什么是JWT？JSON Web Token(JWT) 是一种开放式标准(RFC 7519)，它定义了一种紧凑且自包含的方式，用于在各方之间以JSON对象安全传输信息。这些信息可以通过数字签名进行验证和信任。可以使用加密(使用HMAC算法)或使用RSA的公钥/私钥对JWT进行签名。 以上是我百度的，看起来真累，到底什么是JWT？传统方式：基本上所有的前后端登录验证交互这一块都会遵循这样一个流">
@@ -194,7 +194,7 @@ classes that you can use:
 <p><img src="http://oyxd8esz7.bkt.clouddn.com/%E5%AE%A2%E6%88%B7%E7%AB%AF%E7%99%BB%E5%BD%95%E9%AA%8C%E8%AF%81.png" alt="客户端登录验证"></p>
 <p>最早的时候，web端和服务端的交互，我们使用session。后来前后端分离后，通过restful进行数据交互，同样使用类似于上面流程图的交互方式：前端登录，后端根据用户信息生成一个token，并保存这个token和对应的用户信息到关系型数据库，或者缓存数据库redis，接着将token传递给客户端，客户端会存入浏览器cookie。后续http请求都会携带这个token，后端根据token来查询、验证用户的信息。</p>
 <p>单体应用或者用户量少的时候，一切都没有什么问题。随着互联网的高速发展，用户数量的暴增，就开始面临一系列的问题：</p>
-<p>1：后端每次都要根据token查出用户信息，这样就增加了数据库的查询和存储开销。把验证信息保存在session中，加大了服务器端的存储压力。</p>
+<p>1：后端每次都要根据token查出用户信息，这样就增加了数据层的查询和存储开销。把验证信息保存在session中，加大了服务器端的存储压力。</p>
 <p>2：后端采用分布式服务之后，session的共享问题，也是一个非常棘手的问题。</p>
 <p>3：数据的安全性产生影响(cookie的泄露)。</p>
 <p>虽然以上问题都有各种各样的解决方案，但都不尽人意。有没有一种方式，不用去服务器查询呢？如果我们生成的token遵循一定的规律。比如我们使用加密算法，根据用户的登录信息，以及一个一开始定义好的全局密码生成一个token，这样只需要解密该token就可以知道用户的信息了。</p>
@@ -227,7 +227,7 @@ classes that you can use:
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Test</span></div><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testParseJWT</span><span class="params">()</span><span class="keyword">throws</span> Exception</span>&#123;</div><div class="line">	Claims claims = jwtUtil.parseJWT(<span class="string">"eyJhbGciOiJIUzI1NiJ9"</span> +</div><div class="line">			<span class="string">".eyJzdWIiOiJ7XCJuYW1lXCI6XCJKaWFTaHVuXCIsXCJ1c2VySWRcIjpcIjFcIn0ifQ"</span> +</div><div class="line">			<span class="string">".NqYVyNM2XT_2hKkgTakPf0I6ira00IDANGpZTTLJi_8"</span>);</div><div class="line">	System.out.println(claims);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>打印出的信息为：</p>
 <p>{sub={“name”:”JiaShun”,”userId”:”1”}}</p>
-<p>这样我们就得到了用户的所有信息，而不用去数据库反复查询请求的真实性了。</p>
+<p>这样我们就得到了用户的所有信息，而不用去数据层反复查询请求的真实性了。</p>
 <div align="center"><img src="http://oyxd8esz7.bkt.clouddn.com/code%20ready.jpg" alt="快掏出你的大手机扫我"></div>
 
 <center><code>快掏出你的大手机扫我</code></center>
