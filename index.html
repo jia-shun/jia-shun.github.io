@@ -1,1077 +1,354 @@
 <!DOCTYPE html>
-<html>
+<html lang=zh>
 <head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="utf-8">
-  
-  <title>Freedom</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta property="og:type" content="website">
 <meta property="og:title" content="Freedom">
 <meta property="og:url" content="http://jia-shun.cn/index.html">
 <meta property="og:site_name" content="Freedom">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Freedom">
-  
-    <link rel="alternate" href="/atom.xml" title="Freedom" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
-  
-
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Freedom</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Freedom</a>
-      </h1>
+
+<body class="max-width mx-auto px3 ltr">
+    
+    <div class="content index py4">
+        
+          <header id="header">
+  <a href="/">
+  
+    
+      <div id="logo" style="background-image: url(/images/logo.png);"></div>
+    
+  
+    <div id="title">
+      <h1>Freedom</h1>
+    </div>
+  </a>
+  <div id="nav">
+    <ul>
+      <li class="icon">
+        <a href="#"><i class="fas fa-bars fa-2x"></i></a>
+      </li>
+       
+        <li><a href="/">首页</a></li>
+       
+        <li><a href="/categories/技术">技术</a></li>
+       
+        <li><a href="/categories/音乐">音乐</a></li>
+       
+        <li><a href="/about/">关于</a></li>
+       
+        <li><a href="/archives/">归档</a></li>
       
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://jia-shun.cn"></form>
-      </div>
-    </div>
+    </ul>
   </div>
 </header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-关于RabbitMQ，看这篇文章就够了" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/20/关于RabbitMQ，看这篇文章就够了/" class="article-date">
-  <time datetime="2019-08-19T16:12:15.000Z" itemprop="datePublished">2019-08-20</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
-  </div>
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
         
+        <section id="about">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/20/关于RabbitMQ，看这篇文章就够了/">关于RabbitMQ，看这篇文章就够了</a>
-    </h1>
   
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="RabbitMQ学习笔记"><a href="#RabbitMQ学习笔记" class="headerlink" title="RabbitMQ学习笔记"></a>RabbitMQ学习笔记</h2><h3 id="一：消息中间件"><a href="#一：消息中间件" class="headerlink" title="一：消息中间件"></a>一：消息中间件</h3><ul>
-<li>什么是消息中间件：<br>消息队列中间件(简称MQ)是指利用高效可靠的消息传递机制进行与平台无关的数据交流，并基于数据通信来进行分布式系统的集成。通过提供消息传递和消息排队模型，它可以在分布式环境下扩展进程间的通信。<br>一般分为传递模式：点对点(P2P)和发布/订阅(Pub/sub)模式。<br>目前主流的消息中间件：RabbitMQ、Kafka、RocketMQ、ActiveMQ。它们提供了基于存储和转发的应用程序之间的异步数据发送，即应用程序彼此不直接通信，而是与作为中介的中间件通信。消息中间件提供了有保证的消息发送，应用程序开发任务无需了解远程过程调用(RPC)和网络通信协议的细节。</li>
-<li>消息中间件作用：<ul>
-<li>异步：<br>很多时候应用不想也没有必要立即同步处理一些消息，可以将消息放入消息中间件中，由另外的线程或应用去处理。</li>
-<li>解耦：两个应用系统之间如果有关联,一般使用接口进行交互。这样两套应用就会有耦合，其中一个应用出现问题，有可能会导致另一个关联应用异常。使用MQ作为中间介质，两个应用彼此之和MQ交互，可以松耦合。</li>
-<li>削峰：在访问量剧增的情况下，应用仍然需要继续发挥作用，但是这样的突发流量并不常见，如果以能处理这类峰值能力为标准而投入资源，无疑是巨大的浪费。使用MQ能够使关键组件支撑突发访问压力，不会因为突发的超负荷而完全崩溃。</li>
-</ul>
-</li>
-</ul>
-<h3 id="二：RabbitMQ简介"><a href="#二：RabbitMQ简介" class="headerlink" title="二：RabbitMQ简介"></a>二：RabbitMQ简介</h3><p>RabbitMQ是采用Erlang语言基于AMQP协议的消息中间件。那么RabbitMQ的模型架构是什么？AMQP又是什么？这两者之间又有什么关系？消息从生产者发出到消费者消费这一过程要经历什么?</p>
-<ul>
-<li>相关概念：<ul>
-<li>生产者和消费者：<br>Producer：生产者，就是投递消息的一方。<br>生产者创建消息，然后发布到RabbitMQ中。消息一般可以包含2部分：消息体和标签(Label)。消息体也可以称之为payload，在实际应用中，消息体一般是一个带有业务逻辑结构的数据，比如一个JSON字符串。当然可以进一步对这个消息体进行序列化操作。消息的标签用来表述这条消息，比如一个交换器的名称和一个路由建。生产者把消息交由RabbitMQ，RabbitMQ之后会根据标签把消息发送给感兴趣的消费者(Consumer)。<br>Consumer：消费者，就是接收消息的一方。<br>消费者连接到RabbitMQ服务器，并订阅到队列上啊。当消费者消费一条消息时，只是消费消息的消息体(payload)。在消息路由的过程中，消息的标签会丢弃，存入到队列中的消息只有消息体，消费者也只会消费到消息体，也就不知道消息的生产者是谁，当然也不需要知道。<br>Broker：消息中间件的服务节点。<br>对于RabbitMQ来说，一个RabbitMQ Broker可以简单的看做一个RabbitMQ服务节点或者实例。</li>
-<li>队列：<br>Queue：队列，是RabbitMQ的内部对象，用于存储消息。消费者可以从队列中获取消息并消费。多个消费者可以订阅同一个队列，这时队列中的消息会被平均分摊(轮询)给多个消费者进行处理，而不是每个消费者都收到所有的消息。RabbitMQ不支持队列层面的广播消费，如果需要广播消费，需要在其上进行二次开发，处理起来异常复杂。</li>
-<li>交换器、路由建、绑定：<br>Exchange：交换器。我们暂时可以理解成生产者将消息投递到队列中，实际上这个在RabbitMQ中不会发生。真实情况是，生产者将消息发送给Exchange(交换器),由交换器将消息路由到一个或者多个队列中。如果路由不到，会返回给生产者，或者直接丢弃。这里可以将RabbitMQ中的交换器看做一个实体。RabbitMQ中交换器有四种类型，不同的类型有着不同的路由策略，后续的交换器类型(Exchange Types)中会介绍。<br>RoutingKey：路由键。生产者将消息发送给交换器的时候，一般会指定一个RoutingKey，用来指定这个消息的路由规则，而这个RoutingKey需要与交换器类型和绑定键(BindingKey)联合使用才能最终生效。在交换器类型和绑定键(BindingKey)固定的情况下，生产者可以在发送消息给交换器时，通过指定的routingKey来决定消息流向哪里。<br>Binding：绑定。RabbitMQ中通过绑定将交换器和队列关联起来，在绑定的时候一般会指定一个绑定键(BindingKey)，这样RabbitMQ就知道如何正确地将消息路由到队列了。<br>生产者将消息发送给交换器时，需要一个RoutingKey，当BindingKey和RoutingKey相匹配时，消息会路由到对应的队列中。在绑定多个队列到同一个交换器的时候，它依赖于交换器类型，比如fanout类型的交换器就会无视BindingKey，而是将消息路由到所有绑定到该交换器的队列中。而实际上，在某些情形下，RoutingKey和BindingKey可以看做同一个东西，尤其是在direct交换器类型下，Routingkey和BindingKey需要完全匹配才能使用，所以直接都写成routingKey会显得方便很多。但在topic交换器类型下，RoutingKey和BindingKey之间需要做模糊匹配，两者并不是相同的。</li>
-<li>交换器类型：<br>RabbitMQ常用的交换器类型有fanout、direct、topic、headers这四种。<br><strong>fanout：</strong><br>它会将所有发送到该交换器的消息路由到所有与该交换器绑定的队列中。<br><strong>direct：</strong><br>direct类型的交换器路由规则也很简单，它会把消息路由到那些RoutingKey和BindingKey完全匹配的队列中。<br><strong>topic：</strong><br>前面说到的direct类型的交换器路路由规则是完全匹配BindingKey和RoutingKey，但是这种严格的匹配方式在很多情况下并不能完全满足实际业务的需求。topic类型的交换器在匹配规则上进行扩展，它与direct类型的交换器类似，也是讲消息路由到BindingKey和RoutingKey相匹配的队列中，但匹配规则有些不同，会支持一些模糊匹配。可以为已点号“.”分割的字符串，也可以存在两种特殊字符“_”，“#”用于模糊匹配，其中“_”用于匹配一个单词，“#”用于匹配多规格单词(也可以是零个)。<br><strong>headers：</strong><br>headers类型的交换器不依赖于路由键的匹配规则来路由消息，而是根据发送的消息内容中的headers属性进行匹配。在绑定队列和交换器时指定一组键值对，当发送消息到交换器时，RabbitMQ会获取到该消息的headers，对比其中的键值对是否完全匹配队列和交换器时指定的键值对，如果完全匹配则消息会路由到该队列，否则不会路由到该队列。headers类型的交换器交互性能很差，并且不实用，基本上不会看到它的存在。</li>
-<li>RabbitMQ运转流程：<br>了解了以上的术语之后，我们来回顾下整个消息队列的使用过程。<br><strong>生产者发送消息过程：</strong><br>1：生产者连接到RabbitMQ Broker，建立一个连接(Connection)，开启一个信道(Channel)。<br>2：生产者声明一个交换器，并设置相关属性，比如交换器类型，是否持久化等。<br>3：生产者生命一个队列并设置相关属性，比如是否排他，是否持久化，是否自动删除等。<br>4：生产者通过路由键(BindingKey)将交换器和路由绑定起来。<br>5：生产者发送消息至RabbitMQ Broker，其中包含路由键、交换器等。<br>6：相应的交换器根据接收到的路由键查找匹配的队列。<br>7：如果找到，则将从生产者发送过来的消息存入相应的队列中。<br>8：如果没有找到，则根据生产者配置的属性选择丢弃还是回退给生产者。<br>9：关闭信道。<br>10：关闭连接。<br><strong>消费者接收消息过程：</strong><br>1：消费者连接到RabbitMQ Broker，建立一个连接(Connection)，开启一个信道(Channel)。<br>2：消费者向RabbitMQ Broker请求消费相应队列中的消息，可能会设置一些相应的回调函数，以及做一些准备工作。<br>3：等待RabbitMQ Broker回应并投递到队列中的消息，消费者接收消息。<br>4：消费者确认(ack)接收到的消息。<br>5：RabbitMQ从队列中删除相应已经被确认的消息。<br>6：关闭信道。<br>7：关闭连接。<br><strong>Connection和Channel：</strong><br>上面我们发现引入了两个新的概念：Connection和Channel。我们知道无论是生产者还是消费者，都需要和RabbitMQ Broker建立连接。这个连接就是一条TCP连接，也就是Connection。可以理解Connection对象就是RabbitMQ对TCP连接的一个抽象。一旦TCP连接建立起来，客户端紧接着可以创建一个AMQP信道(Channel)，每个信道都会指派一个唯一的ID。信道是建立在Connection之上的虚拟连接，RabbitMQ处理的每条AMQP指令都是通过信道完成的。<br>我们完全可以直接使用Connection完成信道的工作，为什么还要引入信道呢？在实际情况中，一个应用程序中会有很多歌线程需要从RabbitMQ中生产或者消费消息。那么必然需要建立多个Connection，也就是许多个TCP连接。然而对于操作系统而言，建立和销毁TCP连接都是非常昂贵的开销，如果遇到使用高峰，性能瓶颈也随之呈现。RabbitMQ采用类似NIO的做法，选择TCP连接复用，不仅可以减少性能开销，同时也便于管理。<br>每个线程把持一个信道，所以信道服用了Connection的TCP连接。同时RabbitMQ可以确保每个线程的私密性，就像拥有独立的连接一样。</li>
-</ul>
-</li>
-<li>AMQP协议：<br>从前面的内容可以了解到RabbitMQ是遵从AMQP协议的，换句话说，RabbitMQ就是AMQP协议的Erlang的实现。RabbitMQ中的交换器、队列、绑定、路由等都是遵循AMQP协议中的相应的概念。<br>AMQP说到底还是一个通信协议，通信协议都会涉及报文交互。AMQP本身是应用层的协议，其填充于TCP协议层的数据部分。AMQP是通过协议命令进行交互的。AMQP协议可以看做一系列结构化命令的集合。这里的命令代表一种操作，类似于HTTP中的方法。RabbitMQ只不过封装了AMQP协议，内部还是根据AMQP协议调用了AMQP的命令。</li>
-<li>使用交换器和队列：<br>RabbitMQ的消息存储在队列中，交换器的使用并不真正耗费服务器的性能，而队列会，如果要衡量RabbitMQ当前的QPS只需看队列即可。在实际业务应用中，需要对所创建的队列的流量、内存占用及网卡占用有一个清晰的认知，预估其平均值和峰值，以便在固定硬件资源的情况下能够进行合理有效的分配。<br>生产者和消费者都可以尝试创建(生命操作)队列。但是如果业务本身在架构设计之初就已经充分预估了队列的使用情况，完全可以在业务程序上线之前在服务器上创建好，这样业务代码可以免去声明过程。预先创建还有一个好处就是：可以确保交换器和队列之间正确的绑定匹配：很多时候，由于人为原因、代码缺陷等，发送消息的交换器并没有绑定任何队列，那么消息将会丢失。<br>另外预估队列的使用情况非常重要，可以合理的安排资源和后期更好的扩展。</li>
-</ul>
-<p><strong>代码：</strong></p>
-<ul>
-<li>生产者</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RabbitProducer</span> </span>&#123;  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String EXCHANGE_NAME = <span class="string">"exchange_test"</span>;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String ROUTING_KEY = <span class="string">"routing_test"</span>;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String QUEUE_NAME = <span class="string">"queue_test"</span>;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String IP_ADDRESS = <span class="string">"192.168.1.1"</span>;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PORT = <span class="number">5672</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, TimeoutException </span>&#123;  </span><br><span class="line">        ConnectionFactory factory = <span class="keyword">new</span> ConnectionFactory();  </span><br><span class="line">        factory.setHost(IP_ADDRESS);  </span><br><span class="line">        factory.setPort(PORT);  </span><br><span class="line">        factory.setUsername(<span class="string">"root"</span>);  </span><br><span class="line">        factory.setPassword(<span class="string">"root0000"</span>);  </span><br><span class="line">        Connection connection = factory.newConnection();  </span><br><span class="line">        Channel channel = connection.createChannel();  </span><br><span class="line">        <span class="comment">//type:direct, durable:true, autoDelete:false, arguments:null  </span></span><br><span class="line">        channel.exchangeDeclare(EXCHANGE_NAME, <span class="string">"direct"</span>, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">null</span>);  </span><br><span class="line">        <span class="comment">//durable:true, exclusive:false, autoDelete:false, arguments:null  </span></span><br><span class="line">        channel.queueDeclare(QUEUE_NAME, <span class="keyword">true</span>, <span class="keyword">false</span>, <span class="keyword">false</span>, <span class="keyword">null</span>);  </span><br><span class="line">        channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY);  </span><br><span class="line">        String message = <span class="string">"Hello World!"</span>;  </span><br><span class="line">        channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY,  </span><br><span class="line">                MessageProperties.PERSISTENT_TEXT_PLAIN,  </span><br><span class="line">                message.getBytes());  </span><br><span class="line">        channel.close();  </span><br><span class="line">        connection.close();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>exchangeDeclare方法详解：</strong><br>exchangeDeclare有多个重载方法，返回值为Exchange.DeclareOK，用来标识成功声明了一个交换器。<br>各个参数说明：<br>exchange：交换器名称。<br>type：交换器类型，如：direct，fanout，topic等<br>durable：设置是否持久化。durable设置为true表示持久化。反之。持久化可以将交换器存盘，在服务重启的时候不会丢失相关信息。<br>autoDelete：设置是否自动删除。设置为true表示自动删除。自动删除的前提是至少有一个队列或交换器与这个交换器绑定，之后所有与这个交换器绑定的队列或者交换器解绑。注意不能错误地把这个参数理解为：当与此交换器的连接客户端都断开时，自动删除本交换器。<br>internal：设置是否是内置的。true则表示内置交换器，客户端程序无法直接发送消息到这个交换器中，只能通过交换器路由到交换器的这种方式。<br>argument：其他一些结构化参数。<br><strong>queueDeclare方法详解：</strong><br>不带任何参数的queueDeclare方法默认创建一个由RabbitMQ命名的匿名队列、排他的、自动删除、非持久化的队列。<br>各个参数说明：<br>queue：队列名字。<br>durable：持久化。<br>exclusive：设置是否排他。如果一个队列被声明为排他队列。改队列仅对首次声明它的连接可见，并在连接断开时自动删除。<br>autoDelete：设置是否自动删除。自动删除的前提是：至少有一个消费者连接到这个队列，之后所有与这个队列连接的消费者都断开时，才会自动删除。不能把这个参数错误的理解为：当连接到此队列的所有客户端断开时，这个队列自动删除。不能把这个参数错误的理解为：当连接到此队列的所有客户端断开时，这个队列自动删除。因为生产者客户端创建这个队列，或者没有消费者客户端与这个队列连接时，都不会自动删除这个队列。<br>arguments：设置队列的其他一些参数。<br><strong>queueBind方法详解：</strong><br>将队列和交换器绑定的方法。<br>各个参数说明：<br>queue：队列名字。<br>exchange：交换器名称。<br>routingKey：用来绑定队列和交换器的路由键。<br>argum：定义绑定的一些参数。<br>除了queueBind()方法，也可以使用queueUnbind()方法将已绑定的队列和交换器进行解绑。<br>当然，不仅可以将交换器和队列绑定，也可以将交换器和交换器绑定。使用exchangeBinding()。但这两个方法都不太常用。<br><strong>channel.basicPublish方法详解：</strong><br>如果要发送一个消息，可以使用Channel类的basicPublish方法，比如发送内容为“hello world”的消息：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">byte</span>[] body = <span class="string">"Hello wrold"</span>.getBytes();  </span><br><span class="line">channel.basicPublish(exchangeName, routingKey, <span class="keyword">null</span>, body);</span><br></pre></td></tr></table></figure>
-
-<p>为了更好的控制发送，可以使用mandatory这个参数，或者发送一些特定属性的信息：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">channel.basicPublish(exchange, routingKey, mandatory, immediate,   </span><br><span class="line">                MessageProperties.PERSISTENT_TEXT_PLAIN,  </span><br><span class="line">                meessageBodyBytes);</span><br></pre></td></tr></table></figure>
-
-<p>例：下面这行代码发送了一条消息，投递模式为2，即消息会被持久化在服务器中。同时消息的优先级为1，content-type为“text/plain”。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">channel.basicPublish(exchange, routingKey,   </span><br><span class="line">                <span class="keyword">new</span> AMQP.BasicProperties.Builder()  </span><br><span class="line">                        .contentType(<span class="string">"text/plain"</span>)  </span><br><span class="line">                        .deliveryMode(<span class="number">2</span>)  </span><br><span class="line">                        .priority(<span class="number">1</span>)  </span><br><span class="line">                        .userId(<span class="string">"root"</span>)  </span><br><span class="line">                        .build(),  </span><br><span class="line">                messageBodyBytes);</span><br></pre></td></tr></table></figure>
-
-<p>各个参数说明：<br>BasicProperties：消息的基本属性值，其包含14个属性成员，分别有：contentType、contentEncoding、headers(Map&lt;String, Object&gt;)、deliverMode、priority、correlationId、replyTo、expiration、messageId、timestamp、type、userId、appId、clusterId。</p>
-<ul>
-<li>消费者</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RabbitConsumer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String QUEUE_NAME = <span class="string">"queue_test"</span>;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String IP_ADDRESS = <span class="string">"192.168.1.1"</span>;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> PORT = <span class="number">5672</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, TimeoutException </span>&#123;  </span><br><span class="line">        ConnectionFactory factory = <span class="keyword">new</span> ConnectionFactory();  </span><br><span class="line">        factory.setHost(IP_ADDRESS);  </span><br><span class="line">        factory.setPort(PORT);  </span><br><span class="line">        factory.setUsername(<span class="string">"root"</span>);  </span><br><span class="line">        factory.setPassword(<span class="string">"root0000"</span>);  </span><br><span class="line">        Connection connection = factory.newConnection();  </span><br><span class="line">        Channel channel = connection.createChannel();  </span><br><span class="line">        <span class="comment">//设置客户端最多接收未被ack的消息的个数  </span></span><br><span class="line">        channel.basicQos(<span class="number">64</span>);  </span><br><span class="line">        Consumer consumer = <span class="keyword">new</span> DefaultConsumer(channel) &#123;  </span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleDelivery</span><span class="params">(String consumerTag, Envelope envelope,  </span></span></span><br><span class="line"><span class="function"><span class="params">                                       BasicProperties properties, <span class="keyword">byte</span>[] body)</span> <span class="keyword">throws</span> IOException </span>&#123;  </span><br><span class="line">                System.out.println(<span class="string">"recv message: "</span> + <span class="keyword">new</span> String(body));  </span><br><span class="line">                channel.basicAck(envelope.getDeliveryTag(), <span class="keyword">false</span>);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;;  </span><br><span class="line">        channel.basicConsume(QUEUE_NAME, consumer);  </span><br><span class="line">        channel.close();  </span><br><span class="line">        connection.close();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上面代码中显式的设置autoAck为false，然后在接收到消息之后进行显式ack操作。对于消费者来说，这个设置可以防止消息不必要的丢失。<br><strong>basicCosume方法详解：</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">String <span class="title">basicConsume</span><span class="params">(String queue, <span class="keyword">boolean</span> autoAck,   </span></span></span><br><span class="line"><span class="function"><span class="params">                String consumerTag, <span class="keyword">boolean</span> noLocal,   </span></span></span><br><span class="line"><span class="function"><span class="params">                <span class="keyword">boolean</span> exclusive, Map&lt;String, Object&gt; arguments,   </span></span></span><br><span class="line"><span class="function"><span class="params">                Consumer callback)</span> <span class="keyword">throws</span> IOException</span>;</span><br></pre></td></tr></table></figure>
-
-<p>各个参数说明：<br>queue：队列名称。<br>autoAck：设置是否自动确认，建议为false。<br>consumerTag：消费者标签，用来区分多个消费者。<br>noLocal：设置为true表示不能将同一个Connection中生产者发送的消息传送给这个Connection的消费者。<br>exclusive：设置是否排他。<br>arguments：设置消费者的其他参数。<br>callback：设置消费者的回调函数，用来处理RabbitMQ推送过来的消息。</p>
-<h3 id="三：RabbitMQ进阶"><a href="#三：RabbitMQ进阶" class="headerlink" title="三：RabbitMQ进阶"></a>三：RabbitMQ进阶</h3><ul>
-<li>消息何去何从：<br>以上channel.basicPublish()中有两个参数：mandatory和immediate。他们都有当消息传递过程中不可达目的地时将消息返回给生产者的功能。<ul>
-<li>mandatory：<br>当mandatory参数为true时，交换器无法根据自身类型和路由找到一个符合条件的队列，那么RabbitMQ会调用Basic.Return命令将消息返回给生产者。当mandatory参数为false时，则消息会直接被丢弃。</li>
-<li>immediate：<br>当immediate参数为ture，如果交换器在消息路由到队列时发现并不存在消费者，那么这条消息不会存入队列中，当与路由键匹配的所有队列都没有消费者时，该消息会通过Basic.Return返回给生产者。不常用。<br>RabbitMQ 3.0开始去掉了对immediate参数的支持。对此官方解释是：immediate参数会影响镜像队列的性能，增加代码复杂性。</li>
-</ul>
-</li>
-<li>过期时间(TTL)：<br>Time To Live，RabbitMQ可以对消息和队列设置TTL。<br>目前有两种方法设置消息TTL：第一种是通过队列属性设置，队列中所有的消息都有相同的过期时间。第二种是对消息本身进行单独设置，每条消息的TTL可以不同。如果两种方法一起使用，则消息的TTL以两者之间较小的那个数值为准。消息在队列中的生存时间一旦超过了TTL值，就会变成“死信”。<br>通过队列属性设置消息TTL的方法是在channel.queueDeclare方法中加入x-message-ttl参数实现，参数的单位是毫秒。<code>Map&lt;String, Object&gt; args = new HashMap&lt;&gt;();  
-args.put(&quot;x-message-ttl&quot;, 6000);  
-channel.queueDeclare(queueName, durable, exclusive, autoDelete, args);</code>如果不设置TTL，表示此消息不会过期。<br>针对每条消息设置TTL的方法是在channel.basicPublish方法中加入expiration的属性参数：<code>AMQP.BasicProperties properties = new AMQP.BasicProperties();  
-//持久化消息  
-properties.setDeliveryMode(2);  
-properties.setExpiration(&quot;60000&quot;);  
-channel.basicPublish(exchangeName, routingKey, mandatory, properties, messageBodyBytes);</code></li>
-<li>死信队列：<br>DLX: Dead-Letter-Exchange，可以称之为死信交换器，也被称为死信邮箱。当消息在一个队列中变成死信之后，它被重新发送到另一个交换器中，这个交换器就是DLX，绑定DLX的队列就称为死信队列：<ul>
-<li>消息被拒绝</li>
-<li>消息过期</li>
-<li>队列大道最大长度<br>DLX也是一个正常的交换器，和一般的交换器并没有区别。它能在任何的队列上被指定，实际上就是设置某个队列的属性。当这个队列中存在死信时，RabbitMQ就会自动的将这个消息重新发布到设置的DLX上去，进而被路由到另一个队列，即死信队列。可以监听这个队列中的消息进行相应的处理。<br>通过在channel.queueDeclare方法中设置 x-dead-letter-exchange 参数来为这个队列添加DLX：<code>//创建DLX：dlx_exchange  
-channel.exchangeDeclare(&quot;dlx_exchange&quot;, &quot;direct&quot;);  
-Map&lt;String, Object&gt; args = new HashMap&lt;&gt;();  
-args.put(&quot;x-dead-letter-exchange&quot;, &quot;dlx_exchange&quot;);  
-//为队列添加DLX  
-channel.queueDeclare(&quot;myqueue&quot;, false, false, false, args);</code>DLX是一个非常有用的特性。它可以处理异常情况下，消息不能被消费者正确消费而被置入死信队列中的情况，后续分析程序可以通过消费这个死信队列中的内容来分析当时所遇到的异常情况。</li>
-</ul>
-</li>
-<li>延迟队列：<br>延迟队列存储的对象是对应的延迟消息，所谓“延迟消息”是指当消息被发送以后，并不想让消费者立刻拿到消息，而是等待特定时间后，消费者才能拿到这个消息进行消费。<br>使用场景：<br>用户希望通过手机远程遥控家里的智能设备智能在指定的时间工作，这时候就可以将用户指令发送到延迟队列，当指令设定的时间到了再讲指令推送到智能设备。<br>在AMQP协议中，RabbitMQ本身没有直接支持延迟队列的功能，但是可以通过DLX和TTL模拟出延迟队列的功能。<br>实现：<br>死信队列的用户同样也是延迟队列的用法。对于死信队列，同样可以看作是延迟队列。假设一个应用中需要将每个消息都设置为10秒的延迟，生产者通过交换器exchange.x将消息发送到指定的队列xQueue中。此时queue.x配置DLX:exchange.y，当消息在queue.x中过期后，直接进入exchange.y，exchange.y将消息路由到死信队列：queue.y。消费者监听queue.y。</li>
-<li>优先级队列：<br>优先级队列，具有高优先级的队列具有最高的优先权，优先级高的消息具备优先被消费的特权。可以通过设置队列的 x-max-priority参数来实现。<code>Map&lt;String, Object&gt; args = new HashMap&lt;&gt;();  
-args.put(&quot;x-max-priority&quot;, 10);  
-channel.queueDeclare(&quot;queue.priority&quot;, true, false, false, args);</code>上述代码配置了一个最大优先级为10的队列，之后我们在发送消息的时候设置消息当前的优先级：<code>AMQP.BasicProperties.Builder builder = new AMQP.BasicProperties.Builder();  
-builder.priority(5);  
-AMQP.BasicProperties properties = builder.build();  
-channel.basicPublish(&quot;exchange_priority&quot;, &quot;routing_priority&quot;, properties, messageBodyBytes);</code>上面的代码中设置的消息的优先级为5，默认值最低为0，最高为队列设置的最大优先级10。优先级高的消息可以被优先消费。当然前提是：如果消费者的消费速度大于生产者，这样Broker中没有消息堆积的情况下，设置优先级也就没什么实际意义了。</li>
-<li>RPC实现：<br>RPC: Remote Procedure Call，即远程过程调用。<br>一般在RabbitMQ中进行rpc调用很简单，为了接收相应的消息，我们需要在请求消息中发送一个回调队列：<code>String callbackQueueName = channel.queueDeclare().getQueue();  
-BasicProperties properties = new BasicProperties.Builder.replyTo(callbackQueueName).build();  
-channel.basicPublish(&quot;&quot;, &quot;rpc_queue&quot;, properties, messageBodyBytes);</code>对于代码中的BasicProperties这个类，上面说过，其包含14个，这里就用到两个属性。<ul>
-<li>replyTo：通常用来设置一个回调队列。</li>
-<li>correlationId：用来关联请求和其调用RPC之后的回复。<br>但是如上面代码一样，为每个RPC请求创建一个回调队列是非常低效的。但是幸运的是这里有一个通用的解决方案-可以为每个客户端创建一个单一的回调队列。<br>这样就产生了一个新的问题，对于回调队列而言，在其接收到一条回复的消息之后，它并不知道这条消息应该和哪一个请求匹配。这里就用到了correlationId这个属性。我们应该为每一个请求设置一个唯一的correlationId。</li>
-</ul>
-</li>
-<li>持久化：<br>持久化可以提高RabbitMQ的可靠性，以防在异常情况(重启、关闭、宕机等)下的数据丢失。针对此，RabbitMQ的持久化分为三个部分：交换器的持久化、队列的持久化和消息的持久化。<ul>
-<li>交换器持久化：是通过在声明交换器的时候将durable参数置为true实现的。如果交换器不设置持久化，那么在RabbitMQ重启之后，相关的交换器元数据会丢失，不过消息不会丢失，只是不能将消息发送到这个交换器了。</li>
-<li>队列的持久化：同样，是通过在通过在声明队列时将durable参数设置为true实现。如果队列不设置持久化，那么在RabbitMQ服务重启之后，相关队列元数据会丢失，自然数据也会跟着丢失。队列的持久化能保证其本身的元数据不会因异常情况而丢失。但是并不能保证内部存储的消息不会丢失。</li>
-<li>消息的持久化：要确保消息不会丢失，需要将其设置为持久化。通过将消息的投递模式(BasicProperties中的deliveryMode属性)设置为2即可实现消息的持久化。<br><strong>注意：</strong><br>同时设置了队列和消息的持久化，当RabbitMQ服务重启之后，消息依旧存在。单单只设置队列持久化，重启之后消息会丢失；单单只设置消息持久化，重启之后队列会消失，继而消息也会丢失。将所有的消息都设置为持久化，会严重影响RabbitMQ的性能。写入磁盘的速度比写入内场的速度慢的不知一点点。对于可靠性不是那么高的消息可以不采用持久化处理以提高整体的吞吐量。在选择是否要讲消息持久化时，需要在可靠性和吞吐量之间做一个权衡。<br>将交换器、队列、消息都设置了持久化之后，就能保证数据百分百不丢失了吗？答案是否定的。<br>首先从消费者来说，如果在订阅消息队列时将autoAck参数设置为true，那么当消费者接收到消息之后，还没来得及处理就宕机了，这样也算数据丢失。当然这种情况很好解决，将autoAck参数设置为false，进行手动确认。<br>其次，在持久化的消息正确存入RabbitMQ之后，还需要一段时间(虽然很短)才能存入磁盘之中。RabbitMQ并不会为每条消息进行同步存盘处理。有可能刚保存到操作系统缓存之中还没来得及刷到磁盘之中。如果在这段时间RabbitMQ服务节点发生了宕机或重启等异常情况，name这些消息也将会丢失。解决方式是引入RabbitMQ的镜像队列机制，相当于配置了副本。还可以在发送端引入事务机制来保证消息已经正确地发送并存储至RabbitMQ中。下面会说到这些。</li>
-</ul>
-</li>
-<li>生产者确认：<br>在使用RabbitMQ的时候，可以通过消息持久化操作来解决因为服务器的异常崩溃而导致的消息丢失。除此之外，我们还会遇到一个问题，当消息的生产者将消息发送出去之后，消息到底有没有正确的到达服务器呢？如果不进行特殊的设置，默认情况下发送消息的操作是不会返回任何信息给生产者的。如果消息在到达服务器之前已经丢失，持久化操作也解决不了这个问题，因为消息根本没有到达服务器，何谈持久化？<br>RabbitMQ针对这个问题，提供了两种解决方案：<ul>
-<li>通过事务机制实现：<br>RabbitMQ客户端与事务机制相关的方法有三个：channel.txSelect、channel.txCommint和channel.txRollback。channel.txSelect用于将当前的信道设置为事务模式，channel.txCommit用于提交事务，channel.txRollback用于事务回滚。<code>try {  
-  channel.txSelect();  
-  channel.basicPublish(exchangeName, routingKey,   
-   MessageProperties.PERSISTENT_TEXT_PLAIN, msg.getBytes());  
-  int result = 1 / 0;  
-  channel.txCommit();  
-} catch (Exception e) {  
-  e.printStackTrace();  
-  channel.txRollback();  
-}</code>事务确实能够解决消息发送发和RabbitMQ之间消息确认的问题，只有消息成功被RabbitMQ接收，事务才会提交成功，否则便可以在捕获异常之后进行事务回滚，与此同时也可以进行消息重发。但是使用事务会导致RabbitMQ的性能大幅降低。有没有更好的方法既能够保证消息正确送达，又基本上不浪费性能的损失？</li>
-<li>通过发送方确认机制实现：<br>生产者将信道设置成confirm(确认)模式，一旦信道进入confirm模式，所有在该信道上面发布的消息都会被指派一个唯一的ID(从1开始)，一旦消息被投递到所有匹配的队列之后，RabbitMQ就会发送一个确认(Basic.Ack)给生产者(包含该消息的唯一ID)。这就使得生产者知晓消息已经正确到达目的地了。如果消息和队列是可持久化的，那么确认消息会在消息写入磁盘之后发出。RabbitMQ回传给生产者的确认消息中的deliveryTag包含了确认消息的序号。<br>事务机制在一条消息发送之后会使发送端阻塞，以等待RabbitMQ的回应，之后才能继续发送下一条消息。相比之下，发送方确认机制最大的好处在于它是异步的，一旦发布一条消息，生产者应用程序就可以在等信道返回确认的同事继续发送下一条消息。<br><strong>注意：</strong><br>事务机制和publish confirm机制两者是互斥的，不能共存。<br>事务机制和publish confirm机制确保的是消息能够正确的发送至RabbitMQ，这里的RabbitMQ指的发送到交换器。如果此交换器没有匹配的队列，那么消息也会丢失。</li>
-</ul>
-</li>
-</ul>
-<h3 id="四：RabbitMQ高阶："><a href="#四：RabbitMQ高阶：" class="headerlink" title="四：RabbitMQ高阶："></a>四：RabbitMQ高阶：</h3><p>到目前为止，我们了解了RabbitMQ客户端的使用，服务端的管理了。不过还没有从原理层面来进一步分析，了解一些RabbitMQ的实现原理。</p>
-<ul>
-<li><p>存储机制：<br>不管是持久化的信息还是非持久化的信息都可以被写入到磁盘。持久化的消息在到达队列时被写入到磁盘，并且如果可以，持久化的消息也会在内存中保存一份备份，这样可以提高一定的性能，当内存吃紧的时候会从内存中清除。非持久化的消息一般只保存在内存中，在内存吃紧的时候会被换入到磁盘中，以节省内存空间。这两种类型的消息的落盘处理都在RabbitMQ“持久层”中完成。<br>持久层是一个逻辑概念，实际包含两个部分：队列索引(rabbit_queue_index)和消息存储(rabbit_msg_store)。队列索引负责维护队列中落盘消息的信息，包括消息的存储地点、是否已交付给消费者、是否已被消费者ack等。每个队列都有与之对应的一个队列索引。消息存储(rabbit_msg_store)以键值对的形式存储消息，它被所有队列共享，在每个节点有且只有一个。从技术层面上来说，rabbit_msg_store具体还可以分为msg_store_persistent和msg_store_transient。persistent负责持久化消息的持久化，重启后消息不会丢失，transient负责非持久化消息的持久化，重启后消息会丢失。<br>消息(包括消息体、属性和headers)可以直接存储在rabbit_queue_index中，也可以被保存在rabbit_msg_store中。默认在$RABBITMQ_HOME/var/lib/mnesiz/rabbit@$HOSTNAME/路径下包含queues、msg_store_persistent、msg_store_transient这三个文件夹。<br>最佳的配备是较小的消息存储在rabbit_queue_index中，而较大的消息存储在rabbit_msg_store中。这个消息大小的界定可以通过queue_index_msgs_below来配置，默认大小为4096B。当一个消息小于设定的大小阈值时就可以存储在rabbit_queue_index中，这样可以得到性能上的优化。rabbit_queue_index中以顺序(文件名以0开始累加)的段文件来进行存储，后缀为”.idx”，每个段文件中包含固定的SEGMENT_ENTRY_COUNT条记录，默认值为16384。<br>经过rabbit_msg_store处理的消息都会以追加的方式写入到文件中，当一个文件的大小超过指定的限制(file_size_limit)后，关闭这个文件再创创建一个新的文件以共新的消息写入。文件名(后缀是“.rdq”)从0开始累加，因此文件名最小的文件就是最老的文件。在进行消息的存储时，RabbitMQ会在ETS(Erlang Term Storge)表中记录消息在文件中的位置映射(index)和文件的相关信息(fileSummary)。<br>在读取消息的时候，先根据消息ID(msg_id)找到对应存储的文件，如果文件存在并且未被锁定，则直接打开文件，从指定位置读取消息的内容，如果文件不存在或者被锁住了，则发送请求有rabbit_msg_store进行处理。<br>消息的删除只是从ETS表删除指定消息的相关信息，同时更新消息对应的存储文件的相关信息。执行消息删除操作时，并不立即对在文件中的消息进行删除，也就是说消息依然在文件中，仅仅是标记为垃圾数据而已。当一个文件中都是垃圾数据时可以将这个文件删除。当检测到前后两个文件夹中的有效数据可以合并到一个文件中，并且所有的垃圾数据的大小和所有文件(至少有三个文件存在的情况下)的数据大小的比值超过设置的阈值GARBAGE_FRACTION(默认值为0.5)时才会触发垃圾回收将两个文件合并。<br>执行合并的两个文件一定是逻辑上相邻的两个文件。执行合并时首先锁定这两个文件，并先对前面文件中的有效数据进行整理，再将后面文件的有效数据写入到前面的文件，同时更新消息在ETS表中的记录，最后删除后面的文件。</p>
-<ul>
-<li>队列的结构：<br>通常队列由rabbit_amqqueue_process和backing_queue这两部分组成。rabbit_amqqueue_process负责协议相关的消息处理，即接收生产者发布的消息、向消费者交付消息、处理消息的确认(包括生产端的confirm和消费端的ack)等。backing_queue是消息存储的具体形式和引擎，并向rabbit_amqqueue_process提供相关的接口以供调用。<br>如果消息投递的目的队列是空的，并且有消费者订阅了这个队列，那么该消息会直接发送给消费者，不会经过队列这一步。而当消息无法直接投递给消费者时，需要暂时将消息存入队列，以便重新投递。消息存入队列后，不是固定不变的，它会随着系统的负载在队列中不断的流动，消息的状态会不断发生变化。RabbitMQ中的队列消息可能会处于一下四种状态：<ul>
-<li>alpha：消息内容(包括消息体、属性和headers)和消息索引都存储在内存中。</li>
-<li>beta：消息内容保存在磁盘中，消息索引保存着内存中。</li>
-<li>gamma：消息内容保存在磁盘中，消息索引在磁盘和内存中都有。</li>
-<li>delta：消息内容和索引都在磁盘中。<br>对于持久化的消息，内容和索引都必须先保存在磁盘上，才会处于上述状态中的一种。而gamma状态的消息是只有持久化的消息才有的状态。<br>RabbitMQ在运行时会根据统计的消息传送速度定期计算一个当前内存中能够保存的最大消息数量(target_ram_count)，如果alpha状态的消息数量大于此值时，就会引起消息的状态转换，多余的消息可能会转移到beta、gamma或delta状态。区分这四种状态的主要作用是满足不同的内存和CPU需求。alpha状态最耗内存，但很少消耗CPU。delta状态基本不消耗内存，但是需要消耗更多的CPU和I/O操作。delta状态需要执行两次I/O操作才能读取到消息，一次是读消息索引，一次是读消息内容。beta和gamma状态都只需要一次I/O操作就可以读取到消息。</li>
-</ul>
-</li>
-<li>惰性队列：<br>RabbitMQ从3.6.0开始引入惰性队列(Lazy Queue)的概念。惰性队列会尽可能地将消息存入磁盘中，而在消费者消费到相应的消息时才会被加载到内存中，它的一个重要的设计目的是能够支持更长的队列，即支持更多的消息存储。当消费者由于各种各样的原因(比如消费者下线、宕机，或者由于维护而关闭等)致使长时间不能消费消息而造成堆积时，惰性队列就很有必要了。<br>默认情况下，当生产者发送到RabbitMQ的时候，队列中的消息会尽可能的存储在内存之中，这样可以更加快速的将消息发送给消费者。即使是持久化的消息，在被写入磁盘的同事也会在内存中驻留一份备份。当RabbitMQ需要释放内存的时候，会将内存中的消息换页至磁盘中，这个操作会耗费较长的时间，也会阻塞队列的操作，进而无法接收到新的消息。<br>惰性队列会将收到的消息直接存入文件系统中个，而不管是持久化或者是非持久化的，这样可以减少内存的消耗，但会增加I/O的使用，如果消息是持久化的，那么这样的I/O操作不可避免，惰性队列和持久化的消息可谓是“最佳拍档”，<br>队列具备两种模式：default和lazy。默认是default模式。lazy模式即为惰性队列模式，可以通过调用channel.queueDeclare方法的时候在参数中确认。<code>Map&lt;String, Object&gt; args = new HashMap&lt;&gt;();  
-args.put(&quot;x-queue-mode&quot;, &quot;lazy&quot;);  
-channel.queueDeclare(queueName, false, false, false, args);</code>惰性队列和普通队列相比，只有很小的内存开销。<br>根据官方测试数据显示，对于普通队列，如果要发送1千万条消息，需要耗费801秒，平均发送速度约为13000条/秒。如果使用惰性队列，那么发送同样多的消息，耗时是421秒，平均速度为24000条/秒。出现性能偏差的原因是普通队列会由于内存不足而不得不将消息换页至磁盘。</li>
-</ul>
-</li>
-<li><p>镜像队列：<br>解决Broker单点问题：引入镜像队列。<br>镜像队列机制，可以将队列镜像到集群中的其他Broker节点之上。如果集群中的一个节点失效了，队列能自动的切换到景象中的两一个节点上以保证服务的可用性。在通常的用法中，针对每一个配置镜像的队列都包含一个主节点(master)和若干个从节点(slave)。slave会准确的按照master执行命令的顺序进行动作，故slave和master上维护的状态应该是相同的。如果master由于某种原因失败，那么资历最老(根据slave加入的瞬间排序)的slave会被提升为master。发送到镜像队列的所有消息会被同时发往master和所有的slave上，如果此时master挂了，消息还会在slave上。这样slave提升为master的时候消息也不会丢失。<br>除发送消息(Basic.Publish)外的所有动作都只会向master发送，然后再由master将命令执行的结果广播给各个slave。</p>
-</li>
-</ul>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg" alt="快掏出你的大手机扫我"></p>
-<p><code>快掏出你的大手机扫我</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/" data-id="cjzilsfec0000th4ttx7vizi5" class="article-share-link">Share</a>
+    <p>
+      在这里找到我：
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Life-Is-Gray" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/08/16/Life-Is-Gray/" class="article-date">
-  <time datetime="2019-08-16T10:39:04.000Z" itemprop="datePublished">2019-08-16</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/音乐/">音乐</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+      
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/08/16/Life-Is-Gray/">Life Is Gray</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/life-is-gray/life-is-gray.jpg" alt></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jia-shun.cn/2019/08/16/Life-Is-Gray/" data-id="cjzilheum0005m44tba30f646" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/music/">music</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-我们都是草原的孩子，心里有一首歌" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/11/10/我们都是草原的孩子，心里有一首歌/" class="article-date">
-  <time datetime="2018-11-10T07:50:35.000Z" itemprop="datePublished">2018-11-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/音乐/">音乐</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+          <a class="icon" target="_blank" href="https://github.com/jia-shun">
+            <i class="fab fa-github"></i><!--
+      ---></a><!--
+    ---><!--
+    --->   
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/10/我们都是草原的孩子，心里有一首歌/">我们都是草原的孩子，心里有一首歌</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/prairie/prairie01.jpg" alt></p>
-<p>很小的时候，村上有一户人家去了包头生活，我不知道那是什么地方，但总使我想起大片散落的蒙古包。后来才知道包头是内蒙古的工业中心，他们当时应该是去支援建设了。</p>
-<p>我不了解蒙古，也从未踏上过这片土地。但它对于我来说是个神圣的地方。所有的美好都是我从音乐中听到的。</p>
-<p>听到布仁巴雅尔的《天边》这张专辑完全是因为廖昌永老师。每个学声乐的男孩子都会喜欢廖昌永唱歌，我也一度视他为偶像。曾经在琴房学着他的声音一遍遍的唱《天边》，仿佛在遥远的地方有一些模糊的思念。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/prairie/prairie02.jpg" alt></p>
-<p>后来了解到这首歌的原唱是布仁巴雅尔。大众对他的认识还是因为那首烂大街的《吉祥三宝》，说起这首歌我还能闻到美好时光海苔的味道，而这首歌就出自布仁巴雅尔05年的专辑《天边》。</p>
-<p>那段时间我每周都要坐公共汽车去另一座城市学习，是这张专辑陪伴了我在路上的时光，我总望着车窗外飞速掠过的田野出神。</p>
-<p>那是因为布仁巴雅尔用灵魂在歌唱，我能看到他歌声中所描绘的景象：</p>
-<p>有勤劳勇敢的小伙子阿尔斯楞，他有一双深情的眼睛。有美丽的姑娘努力格日玛，她的眼睛就像弯弯的月亮。有饱受了人间艰辛与忧伤的母亲，她有风霜雕刻的脸庞和温暖的胸膛。还有穿着民族服饰的布里特雅人，围着篝火欢快的跳着他们的舞蹈。。。</p>
-<p>那是广袤的草原，悠远的天空，小河流水，白云朵朵，有展翅翱翔的雄鹰飞过，有风吹草地见牛羊的景象。。。</p>
-<p>我幻想策马奔腾在这辽阔的天地间。那是我魂牵梦绕的地方，那是父亲的草原，母亲的河。</p>
-<p>布仁巴雅尔的声音没有过多的修饰，但正是这种接近原生态的长调更宛转悠扬，每次听到他的声音我总想要落泪。我总能听到一种酸楚，一些悲凉，就像《父亲的草原母亲的河》这首歌的词作者席慕蓉说的那样：“八岁已能驯服野马；亲眼看见亲人死要风雪中；父母远去放牧，只能与老祖母相依为命。他们也有童年，只有父母的歌，伴他们长大。”</p>
-<p>我听过很多草原的歌曲。最早耳濡目染的听《草原之夜》和《敖包相会》。后来听《牧歌》《呼伦贝尔大草原》《乌兰巴托的夜》《迷人的杭盖》。。。这些歌中所描绘的景象总是让我神往。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/prairie/prairie03.jpg" alt></p>
-<p>再到现在中国的蒙古歌手都开始玩起了摇滚。在长调的基础上，开始倾斜于苍凉的呼麦和如泣如诉的马头琴，再加上金属乐的元素，使我对蒙古这个民族的厚重感有了更深的认识。</p>
-<p>这个民族是自由的，也是沉重的。游牧民族的生活总是居无定所，却也有四海为家的洒脱。</p>
-<p>蒙古乐队的音乐一定要听现场，因为他们都是天生的歌者，不是包装出来的声音。只有在现场才能感受到他们音乐中包含的力量，感受到一种像来自遥远的天边，来自古老的从前，来自天堂的声音。</p>
-<p>并且现在这些乐队也开始走向国际市场。就像国内的杭盖乐队其实最初一直声名在国外，后来参加一档选秀节目才被国内大众所熟知。一方面民族的就是世界的。另一方面来说国内只有民族的音乐走向了国际市场，这也是一件很遗憾的事情。</p>
-<p>最后推荐一首来自图瓦国的国宝级乐队恒哈图的《Konguroi》，带你我回到那草飞莺长的蒙古大草原。。。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/prairie/prairie04.jpg" alt></p>
-<blockquote>
-<p>“大雁飞来下蛋，蛋窝就在草地上，老人们只许孩子们远远地看，不许他们的影子落到鸟蛋上，他们说你的影子一遮住蛋窝，大雁就不要小雁了。</p>
-<p>牧民的牛羊就这样在草原上放着，不用管，让它们自己吃草，它们是草原上的生命，它们就这么自己活着。</p>
-<p>牧民死后不留痕迹，掀开一块草皮，挖深一点，把遗体放进去，盖上泥土，盖上草皮，刚开始还鼓起来一点，慢慢就平了，一年、两年以后，就找不到了。</p>
-<p>记忆中的草原是五颜六色的。那时的草原一平方米大的地方就有一百多种草，春天开五彩的花，夏天是一望无际的绿，秋天金灿灿的。很多从草原游玩回来的人告诉我，你的家乡很美，绿绿的。是的，在他们眼里，绿是生命的象征，但是我知道这没有花的单一的绿色不是生机，而是草原在衰老。不开花的草原正在死亡。”    </p>
-<p>——布仁巴雅尔 </p>
-</blockquote>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/road-music.jpg" alt="快掏出你的大手机扫我"></p>
-<p><code>快掏出你的大手机扫我</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jia-shun.cn/2018/11/10/我们都是草原的孩子，心里有一首歌/" data-id="cjzilheuo0006m44t47gzjyow" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/music/">music</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/布仁巴雅尔/">布仁巴雅尔</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-gRPC" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/08/12/gRPC/" class="article-date">
-  <time datetime="2018-08-12T10:08:08.000Z" itemprop="datePublished">2018-08-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/08/12/gRPC/">gRPC基于Golang和Java的简单实现</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="一：什么是RPC"><a href="#一：什么是RPC" class="headerlink" title="一：什么是RPC"></a>一：什么是RPC</h3><ul>
-<li><p><strong>简介：</strong><br>RPC：Remote Procedure Call，远程过程调用。简单来说就是两个进程之间的数据交互。正常服务端的接口服务是提供给用户端(在Web开发中就是浏览器)或者自身调用的，也就是本地过程调用。和本地过程调用相对的就是：假如两个服务端不在一个进程内怎么进行数据交互？使用RPC。尤其是现在微服务的大量实践，服务与服务之间的调用不可避免，RPC更显得尤为重要。</p>
-</li>
-<li><p><strong>原理：</strong><br>计算机的世界中不管使用哪种技术，核心都是对数据的操作。RPC不过是将数据的操作垮了一个维度而已。解决的问题本质上只是数据在不同进程间的传输。说的再多一些，就要了解网络模型的知识，七层也好，四层五层也罢。这个不是本文的重点。<br>我们所说的RPC一般是指在传输层使用TCP协议进行的数据交互，也有很多基于HTTP的成熟框架。</p>
-<p>盗用网络上一张图片说明：</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/rpc.jpg" alt></p>
-<blockquote>
-<p>上图描述了一个RPC的完整调用流程：</p>
-<p>1：client向client stub发起方法调用请求。</p>
-<p>2：client stub接收到请求后，将方法名，请求参数等信息进行编码序列化。</p>
-<p>3：client stub通过配置的ip和端口使用socket通过网络向远程服务器server发起请求。</p>
-<p>4：远程服务器server接收到请求，解码反序列化请求信息。</p>
-<p>5：server将请求信息交给server stub，server stub找到对应的本地真实方法实现。</p>
-<p>6：本地方法处理调用请求并将返回的数据交给server stub。</p>
-<p>7：server stub 将数据编码序列化交给操作系统内核，使用socket将数据返回。</p>
-<p>8：client端socket接收到远程服务器的返回信息。</p>
-<p>9：client stub将信息进行解码反序列化。</p>
-<p>10：client收到远程服务器返回的信息。</p>
-</blockquote>
-<p>上图中有一个stub(存根)的概念。stub负责接收本地方法调用，并将它们委托给各自的具体实现对象。server端stub又被称为skeleton(骨架)。可以理解为代理类。而实际上基于Java的RPC框架stub基本上也都是使用动态代理。我们所说的client端和server端在RPC中一般也都是相对的概念。</p>
-<p><strong>而所谓的RPC框架也就是封装了上述流程中2-9的过程，让开发者调用远程方法就像调用本地方法一样。</strong></p>
-</li>
-</ul>
-<hr>
-<h3 id="二：常用RPC框架选型"><a href="#二：常用RPC框架选型" class="headerlink" title="二：常用RPC框架选型"></a>二：常用RPC框架选型</h3><ul>
-<li><p><strong>Dubbo：</strong></p>
-<p>阿里开源的基于TCP的RPC框架，基本上是国内生产环境应用最广的开发框架了。使用zookeeper做服务的注册与发现，使用Netty做网络通信。遗憾的是不能跨语言，目前只支持Java。</p>
-</li>
-<li><p><strong>Thrift：</strong></p>
-<p>Facebook开源的跨语言的RPC框架，通过IDL来定义RPC的接口和数据类型，使用thrift编译器生成不同语言的实现。据说是目前性能最好的RPC框架，只是暂没使用过。</p>
-</li>
-<li><p><strong>gRPC：</strong></p>
-<p>这个是我们今天要聊的重点。gRPC是Google的开源产品，是跨语言的通用型RPC框架，使用Go语言编写。 Java语言的应用同样使用了Netty做网络通信，Go采用了Goroutine做网络通信。序列化方式采用了Google自己开源的Protobuf。请求的调用和返回使用HTTP2的Stream。</p>
-</li>
-<li><p><strong>SpringCloud：</strong></p>
-<p>SpringCloud并不能算一个RPC框架，它是Spring家族中一个微服务治理的解决方案，是一系列框架的集合。但在这个方案中，微服务之间的通信使用基于HTTP的Restful API，使用Eureka或Consul做服务注册与发现，使用声明式客户端Feign做服务的远程调用。这一系列的功能整合起来构成了一套完整的远程服务调用。</p>
-</li>
-</ul>
-<p><strong>如何选择：</strong></p>
-<blockquote>
-<p>如果公司项目使用Java并不牵扯到跨语言，且规模并没有大到难以治理，我推荐Dubbo。如果项目规模大，服务调用错综复杂，我推荐SpringCloud。</p>
-<p>如果牵扯到跨语言，我推荐gRPC，这也是目前我司的选择。即使Thrift性能是gRPC的2倍，但没办法，它有个好爹，现在我们的开发环境考虑最多的还是生态，不得不向Google爸爸臣服。</p>
-</blockquote>
-<hr>
-<h3 id="三：gRPC的原理"><a href="#三：gRPC的原理" class="headerlink" title="三：gRPC的原理"></a>三：gRPC的原理</h3><blockquote>
-<p>一个RPC框架必须有两个基础的组成部分：数据的序列化和进程数据通信的交互方式。</p>
-</blockquote>
-<p>对于序列化gRPC采用了自家公司开源的Protobuf。什么是Protobuf？先看一句网络上 大部分的解释：</p>
-<p><strong>Google Protocol Buffer(简称 Protobuf)是一种轻便高效的结构化数据存储格式，平台无关、语言无关、可扩展，可用于通讯协议和数据存储等领域。</strong></p>
-<p>上句有几个关键点：它是一种数据存储格式，跨语言，跨平台，用于通讯协议和数据存储。</p>
-<p>这么看和我们熟悉的JSON类似，但其实着重点有些本质的区别。JSON主要是用于数据的传输，因为它轻量级，可读性好，解析简单。Protobuf主要是用于跨语言的IDL，它除了和JSON、XML一样能定义结构体之外，还可以使用自描述格式定于出接口的特性，并可以使用针对不同语言的protocol编译器产生不同语言的stub类。所以天然的适用于跨语言的RPC框架中。</p>
-<p>而关于进程间的通讯，无疑是Socket。Java方面gRPC同样使用了成熟的开源框架Netty。使用Netty Channel作为数据通道。传输协议使用了HTTP2。</p>
-<p>通过以上的分析，我们可以将一个完整的gRPC流程总结为以下几步：</p>
-<ul>
-<li><strong>通过.proto文件定义传输的接口和消息体。</strong></li>
-<li><strong>通过protocol编译器生成server端和client端的stub程序。</strong></li>
-<li><strong>将请求封装成HTTP2的Stream。</strong></li>
-<li><strong>通过Channel作为数据通信通道使用Socket进行数据传输。</strong></li>
-</ul>
-<hr>
-<h3 id="四：代码的简单实现"><a href="#四：代码的简单实现" class="headerlink" title="四：代码的简单实现"></a>四：代码的简单实现</h3><p>概念永远都是枯燥的，只有实战才能真正理解问题。下面我们使用代码基于以上的步骤来实现一个简单gRPC。为了体现gRPC跨语言的特性，这次我们使用两种语言：Go实现server端，Java作为client端来实现。</p>
-<p><strong>1：安装Protocol Buffers，定义.proto文件</strong></p>
-<p>登录Google的 <a href="https://github.com/google/protobuf/releases" target="_blank" rel="noopener">github</a>下载对应Protocol Buffers版本。</p>
-<p>安装完成后当我们执行protoc命令如果返回如下信息说明安装成功。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/protoc.png" alt></p>
-<p>下面我们定义一个simple.proto文件，这也是后续我们实现gRPC的基础</p>
-<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">syntax = <span class="string">"proto3"</span>; <span class="comment">//定义了我们使用的Protocol Buffers版本。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//表明我们定义了一个命名为Simple的服务(接口)，内部有一个远程rpc方法，名字为SayHello。</span></span><br><span class="line"><span class="comment">//我们只要在server端实现这个接口，在实现类中书写我们的业务代码。在client端调用这个接口。</span></span><br><span class="line"><span class="class"><span class="keyword">service</span> <span class="title">Simple</span> </span>&#123;</span><br><span class="line">   <span class="function"><span class="keyword">rpc</span> SayHello(HelloRequest) <span class="keyword">returns</span> (HelloReplay) &#123;&#125;</span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function">//请求的结构体</span></span><br><span class="line"><span class="function">message HelloRequest &#123;</span></span><br><span class="line"><span class="function">    string name = 1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//返回的结构体</span></span><br><span class="line"><span class="class"><span class="keyword">message</span> <span class="title">HelloReplay</span> </span>&#123;</span><br><span class="line">    <span class="built_in">string</span> <span class="class"><span class="keyword">message</span> = 1;</span></span><br><span class="line"><span class="class">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<p>通过上面的注释可以看出此文件是一个简单的RPC远程方法描述。</p>
-<p><strong>2：使用Golang实现sever端</strong></p>
-<p>根据官方文档使用如下命令安装针对Go的gRPC:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ go get -u google.golang.org/grpc</span><br></pre></td></tr></table></figure>
-
-<p>但是由于我们有伟大的长城，一般这条命令都不会下载成功。但Google的文件一般都会在github存有一份镜像。我们可以使用如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ go get -u github.com/grpc/grpc-go</span><br></pre></td></tr></table></figure>
-
-<p>随后将下载的文件夹重命名为grpc，并放入一个新建的google.golang.org的文件夹中。🤷‍♀️</p>
-<p>当我们安装完gRPC并定义好了远程接口调用的具体信息后，我们要使用protocol编译器生成我们的stub程序。</p>
-<p>我们安装的Protocol Buffers是用来编译我们的.proto文件的，但是编译后的文件是不能被Java、C、Go等这些语言使用。Google针对不同的语言有不同的编译器。本次我们使用Golang语言，所以要安装针对Golang的编译器，根据官方提供的命令执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ go get -u github.com/golang/protobuf/protoc-gen-go</span><br></pre></td></tr></table></figure>
-
-<p>但有可能我们会下载不成功，因为这个会依赖很多Golang的类库，这些类库和上面安装gRPC一样，鉴于墙的原因，还要执行一系列繁琐的改文件夹的步骤。但这个不是我们的重点，就不细说了。</p>
-<p>安装成功之后我们就可以建立Go的project了。</p>
-<p>本次我们建立一个grpc-server的项目，然后将前面写的simple.proto放入项目proto的package中。</p>
-<p>随后在项目的目录下使用命令行执行如下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc -I grpc-server/ proto/simple.proto --go_out=plugins=grpc:simple</span><br></pre></td></tr></table></figure>
-
-<p>这样就将simple.proto编译成了Go语言对应的stub程序了。</p>
-<p>随后我们就可以写我们server端的代码了：main.go。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"context"</span></span><br><span class="line">	<span class="string">"grpc-server/proto"</span></span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"net"</span></span><br><span class="line">	<span class="string">"log"</span></span><br><span class="line">	<span class="string">"google.golang.org/grpc"</span></span><br><span class="line">	<span class="string">"google.golang.org/grpc/reflection"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个常量：gRPC的端口</span></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">	port = <span class="string">":50051"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> server <span class="keyword">struct</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//服务的具体实现函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *server)</span> <span class="title">SayHello</span><span class="params">(ctx context.Context,req *simple.HelloRequest)</span> <span class="params">(*simple.HelloReplay, error)</span></span> &#123;</span><br><span class="line">    <span class="comment">//打印请求参数</span></span><br><span class="line">	fmt.Println(req.Name)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> &amp;simple.HelloReplay&#123;Message:<span class="string">"hello =======&gt; "</span> + req.Name&#125;,<span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//main函数。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	lis,err := net.Listen(<span class="string">"tcp"</span>,port)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(<span class="string">"fail to listen"</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	s := grpc.NewServer()</span><br><span class="line"></span><br><span class="line">	simple.RegisterSimpleServer(s, &amp;server&#123;&#125;)</span><br><span class="line"></span><br><span class="line">	reflection.Register(s)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err:= s.Serve(lis);err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(<span class="string">"fail to server"</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>以上的代码都是模板代码，main函数是socket使用Go的标准实现。作为开发者我们只关注远程服务提供的具体接口实现即可。</p>
-<p>最终我们的项目目录是这样的：</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-server.png" alt></p>
-<p>就这样一个使用Go语言实现的最简单server端就完成了。</p>
-<p><strong>3：使用Java实现client端</strong></p>
-<p>相对来说Java实现就简单一些，首先我们可以使用熟悉的Maven插件进行stub代码的生成。</p>
-<p>新建一个grpc-client的父项目，两个子项目：client和lib。lib用于stub程序的代码生成。</p>
-<p>lib项目编辑pom.xml，添加gRPC针对Java的插件编译器：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.js<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lib<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>lib<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span>gRPC lib<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">os-maven-plugin.version</span>&gt;</span>1.5.0.Final<span class="tag">&lt;/<span class="name">os-maven-plugin.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">protobuf-maven-plugin.version</span>&gt;</span>0.5.1<span class="tag">&lt;/<span class="name">protobuf-maven-plugin.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">protoc.version</span>&gt;</span>3.5.1-1<span class="tag">&lt;/<span class="name">protoc.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">protobuf.version</span>&gt;</span>3.6.0<span class="tag">&lt;/<span class="name">protobuf.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">grpc.version</span>&gt;</span>1.13.1<span class="tag">&lt;/<span class="name">grpc.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.google.protobuf<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>protobuf-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;protobuf.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.grpc<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>grpc-netty<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;grpc.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.grpc<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>grpc-protobuf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;grpc.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.grpc<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>grpc-stub<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;grpc.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">extensions</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">extension</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>kr.motd.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>os-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;os-maven-plugin.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">extension</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">extensions</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.xolstice.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>protobuf-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;protobuf-maven-plugin.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">protocArtifact</span>&gt;</span>com.google.protobuf:protoc:$&#123;protoc.version&#125;:exe:$&#123;os.detected.classifier&#125;<span class="tag">&lt;/<span class="name">protocArtifact</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">pluginId</span>&gt;</span>grpc-java<span class="tag">&lt;/<span class="name">pluginId</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">pluginArtifact</span>&gt;</span>io.grpc:protoc-gen-grpc-java:$&#123;grpc.version&#125;:exe:$&#123;os.detected.classifier&#125;<span class="tag">&lt;/<span class="name">pluginArtifact</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="name">goal</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="name">goal</span>&gt;</span>compile-custom<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>将定义好的simple.proto文件拷贝项目proto的package下。随后右键：Run Maven——compile。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-client-lib.png" alt></p>
-<p>生成完成后将target下图中的两个文件拷贝到client项目目录中。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-client-lib-target.png" alt></p>
-<p>之后就是编写我们的业务代码进行gRPC的远程调用了。本次我们写一个简单的web程序模拟远程的调用。</p>
-<p>定义一个class：SimpleClient：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.js.client.grpc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.grpc.ManagedChannel;</span><br><span class="line"><span class="keyword">import</span> io.grpc.ManagedChannelBuilder;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> JiaShun</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/8/11 12:11</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SimpleClient</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ManagedChannel channel;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SimpleGrpc.SimpleBlockingStub blockingStub;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">SimpleClient</span><span class="params">(String host, <span class="keyword">int</span> port)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(ManagedChannelBuilder.forAddress(host, port).usePlaintext());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">SimpleClient</span><span class="params">(ManagedChannelBuilder&lt;?&gt; channelBuilder)</span> </span>&#123;</span><br><span class="line">        channel = channelBuilder.build();</span><br><span class="line">        blockingStub = SimpleGrpc.newBlockingStub(channel);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">shutdown</span><span class="params">()</span><span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        channel.shutdown().awaitTermination(<span class="number">5</span>, TimeUnit.SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//核心业务代码，将请求参数通过channel传进去，并返回远程服务的返回结果。</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        SimpleOuterClass.HelloRequest req = </span><br><span class="line">                SimpleOuterClass.HelloRequest.newBuilder().setName(name).build();</span><br><span class="line">        SimpleOuterClass.HelloReplay replay = blockingStub.sayHello(req);</span><br><span class="line">        <span class="keyword">return</span> replay.getMessage();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>基本都是模板代码。下面再编写一个简单的web请求：</p>
-<p>controller代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.js.client.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.js.client.service.IHelloService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PathVariable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> JiaShun</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/8/10 22:20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> IHelloService helloService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/&#123;name&#125;"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">(@PathVariable String name)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> helloService.sayHello(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>service实现类：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.js.client.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.js.client.grpc.SimpleClient;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> JiaShun</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/8/10 22:22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloServiceImpl</span> <span class="keyword">implements</span> <span class="title">IHelloService</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Logger logger = LoggerFactory.getLogger(HelloServiceImpl.class);</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;gRPC.host&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String host;</span><br><span class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;gRPC.port&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> port;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">sayHello</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">        SimpleClient client = <span class="keyword">new</span> SimpleClient(host,port);</span><br><span class="line">        String replay = client.sayHello(name);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            client.shutdown();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            logger.error(<span class="string">"channel关闭异常：err=&#123;&#125;"</span>,e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> replay;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>就这么简单。</p>
-<p>随后我们测试一下：</p>
-<p>分别启动Go server端，Java client端。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/gRPC-start.png" alt></p>
-<p>访问：<a href="http://localhost:8080/jiashun" target="_blank" rel="noopener">http://localhost:8080/jiashun</a></p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-web-test.png" alt></p>
-<p><strong>可以发现server端打印出了client端的请求，client端也收到了server端的返回。</strong></p>
-<blockquote>
-<p>完整代码：</p>
-<p>server：<a href="https://github.com/jia-shun/grpc-server" target="_blank" rel="noopener">https://github.com/jia-shun/grpc-server</a></p>
-<p>client：<a href="https://github.com/jia-shun/grpc-client" target="_blank" rel="noopener">https://github.com/jia-shun/grpc-client</a></p>
-</blockquote>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg" alt="快掏出你的大手机扫我"></p>
-<p><code>快掏出你的大手机扫我</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jia-shun.cn/2018/08/12/gRPC/" data-id="cjzilhew70013m44tzh66vz25" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/gRPC/">gRPC</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-u2：以爱的名义歌唱，比爱更伟大" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/15/u2：以爱的名义歌唱，比爱更伟大/" class="article-date">
-  <time datetime="2018-07-15T10:22:35.000Z" itemprop="datePublished">2018-07-15</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/音乐/">音乐</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+          <a class="icon" target="_blank" href="/jiashun@outlook.com">
+            <i class="fas fa-envelope"></i><!--
+      ---></a><!--
+      ---><!--
+    --->.
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/15/u2：以爱的名义歌唱，比爱更伟大/">u2：以爱的名义歌唱，比爱更伟大</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
       
-        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/u2/u2-1.jpg" alt></p>
-<p>前段时间我和一个哥们开车去天津看望另一个哥们，在回京的高速公路上，天气骤变，整个世界瞬间被黑暗笼罩，我赶忙把车里的音乐切换成U2，音量开到最大。紧接着一道巨大的闪电把天地连成一条线，爆炸般的巨雷响起，如同U2音乐的灯光与和声，Bono粗狂悠远的声音回荡在耳边，The Edge的吉他锋利如刀。我们驰骋在这辽阔的高速公路上，此刻的我多么希望这段路程不要有尽头，因为U2的音乐我们经历了一段惊险而美好的旅程…</p>
-<p>诚然，我刚才装了一个逼。</p>
-<p>初次接触U2，大概是02年左右，听到的第一首歌是《Walk On》。01年，这首歌获得格莱美奖，而后在全球大火。因为我从小生活在一个贫困的小县城，那个时候没有现在互联网这么发达，等到传到我们那儿的时候已经是02年的事情了。我当时想：大名鼎鼎的U2也不过如此吗。一直“我靠，我靠（Walk On）”的唱着，并没有很好听啊，随后听了两遍就放下了，但不知道为什么，“我靠，我靠”这段旋律一直在我脑海中旋转，（当然并不是现在这种神曲洗脑的感觉）忍不住返回去听，从此一发不可收拾。</p>
-<p>《Walk On》出自U2 2000年发行的回归神专《All that you can’t leave behind》，我想很多人也是从这张专辑开始入坑U2的，也被很多人称为摇滚入门专辑。摇滚乐有门槛吗？我认为是有的，每个人听音乐总会经历几个阶段。而U2的音乐在摇滚中也是比较有深度的，所以我并不认为用这张专辑入门摇滚合适。但你开始听摇滚之后，U2是你永远不能错过的歌手。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/u2/u2-2.jpg" alt></p>
-<p>1976年，当Larry（U2鼓手）在学校告示板张贴了一张乐队成员招募告示的时候，他不知道因为这一张告示，一个伟大的乐队将要开启用音乐征服世界的旅程。这张告示得到了Bono（主唱），Adam（贝斯手），The Edge（吉他手）的回应，而这四个当时平均年龄不到20岁的年轻人组成的乐队就是U2。</p>
-<p>七十年代，爱尔兰都柏林经济形势严峻，国家死气沉沉，一片糟糕。再加上北爱尔兰问题，每天都有炸弹爆炸。没有人会相信事情会有所好转，而U2就是在这样的环境下诞生的。作为六十年代出生的四位成员，这些事件深深的影响了他们的成长，他们开始去学习理解这个社会，这就注定了U2的音乐从一开始就具有了战斗性。再加上七十年代以Sex Pistols（性手枪）为代表的朋克乐队开始横扫全球，所以对于还是青少年的他们，显然朋克是最合适的呐喊方式。</p>
-<p>1980年，U2发行了他们真正意义上的第一张专辑《Boy》（男孩），其实我们一般都会把《Boy》（男孩）《October》（十月）《War》（战争）这前三张专辑放到一起来说，因为这三张都是明显的后朋风格，也被成为U2的“青少年三部狂想曲”。朋克这种风格我始终认为只存在于年轻人当中，代表着青少年的热血狂躁，想要释放的状态。或许我已不在年轻，或许朋克只是某个时代的产物，我始终没有爱上朋克，即使是艺术性更强的后朋。所以放在前些年这些作品我也听不下去。不过当我想要去理解U2的时候重新返回去听这些早期的专辑，还是可以感受U2在音乐上的变化性，他们在逐步走向成熟。</p>
-<p>具体到专辑来说：《Boy》是U2的初次发声，你仔细听的话还是能感觉到一点粗糙，或者是朋克风格的噪音感。到《October》时，就会有一些丰富的感情色彩，亦或是有了更深的孤独感和悲伤。专辑同名歌曲《October》甚至是一首悲伤的以钢琴铺垫进入的作品，完全没有摇滚的气息。而歌曲《Tomorrow》可以说加入了他们的民族音乐，开头的苏格兰风笛悠扬婉转，如泣如诉。而到了《War》这张专辑则充满了愤怒。以名作《Sunday，bloody Sunday》开篇，这是一首著名的反战歌曲。描述的是72年北爱尔兰的血色星期天事件（关于北爱问题有兴趣的可自行百度）。从这张专辑开始，U2不再描述少年的青春期世界，而是开始谈论眼前的世界，关于政治，关于自由。U2从这张专辑开始，开始研究怎样用摇滚乐去影响世界的探索。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/u2/u2-3.jpg" alt></p>
-<p>1984年，U2发行了第四张录音室专辑《The Unforgettable Fire》（难忘之火）。这张专辑可以是U2的一张转型作品，音乐在旋律性上有所加强，逐步摆脱了早期后朋风格的粗糙。U2开始更直接的用音乐表达去社会的不满和看法。为民权运动领袖马丁路德金写了名作《Pride》，甚至有一首歌《MLK》直接用马丁路德金的名字命名。关于音乐性，Bono后来谈过：“The Beatles的歌都有绝妙的无人能及的旋律，但我们的歌有一种你们所没有的力量”。我认为这种力量在这张专辑的《Bad》这首歌中表现的淋漓尽致。1985年为埃塞俄比亚大饥荒募捐的慈善演唱会上U2深情演绎了这首作品。你可能会觉得这首歌旋律性没那么强（其实这首歌旋律非常优美），但我想你会从这首歌中感受到这种所谓的力量。而参加这场演唱会也说明U2开始跻身于世界级的摇滚歌手行列。</p>
-<p>1987年，U2开始大爆发，发行了不只是对于U2自己，我认为对整个摇滚届或者说整个音乐届都意义非凡的专辑《The Joshua Tree》（约书亚树）。直接以三大名作《Where The Streets Have No Name》《I Still Haven’t Hound What I’m Looking For》《With Or Without You》开场。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/u2/u2-4.jpg" alt></p>
-<p>在这张专辑中，The Edge的吉他开始出神入化。其实你返回去听前三张专辑，你会发现The Edge的吉他才是整个乐队的灵魂。我一直都说，你看台上那些弹起吉他来摇头晃脑的人一般都不咋地，弹得快绝不代表弹的好。很多人认为The Edge是个没有特色的吉他手，在乐队中的地位无足轻重，甚至是任何一个吉他手都可以代替他的位置。因为在U2的音乐作品中很少有大段的吉他solo。而事实恰恰相反，我认为摇滚乐中的吉他手有两个极端，一个代表是我们大枪花的吉他手Slash，每首歌都有华丽的riff，中间大段的吉他solo，恨不得能把你听到高潮。而The Edge则是另一个极端。The Edge的吉他胜在他对于延时效果的运用，一些最简单最基本的东西，经过The Edge的双手，将各种效果叠加在一起，呈现在听者耳朵前的声音平淡却绚丽多彩。The Edge一直在研究对于吉他这种硬件设备究竟能发挥到什么程度。他喜欢效果器，他是真正的效果器大师。甚至一把吉他The Edge能给你做出一个交响乐团的效果。Bono也说过：“幸亏身边有The Edge这么一个天才音乐家，我的一些想法，他都能帮我实现”。下面的这首《With Or Without You》中，开始，中间和后面大家都可以感受到The Edge用吉他和效果器制造出来的一大段迷幻的和声空间，使得Bono能在这个空间中收放自如的放声歌唱。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/u2/u2-5.jpg" alt></p>
-<p>之后1988年U2发行了一张现场专辑《Rattle And Hum》（神采风扬）。1991年，U2发行了第七张录音室专辑《Achtung Baby》（注意点宝贝）。同样是一张获得巨大成功的专辑。这一张也可以说是U2的转型之作。U2开始加入了大量的电子元素，使作品充满了迷幻的味道，是U2对摇滚乐的一种新的探索与创新。其实每次音乐上的改变都是商业上的一种自杀行为。而这次U2又一次成功了。很多歌迷把这张专辑奉为经典，甚至说是U2最牛逼的一张。而我有不同的观点，我一直认为这张专辑的成功归功于这一首重要的神级作品《One》。其余的一些作品同样很精致，营造了很好的迷幻的空间和氛围。我没有说不好，只是我不喜欢。应该是《Achtung Baby》获得巨大成功的原因，而后的两张专辑：1993年的《Zooropa》和1997年的《Pop》（流行超市）都大量的加入电子元素。这些听起来什么感觉呢，就像在摇滚作品中外边裹了一层电流一样，不光是吉他，贝斯，鼓，甚至是Bono的声音也像过了一层电流一样。我支持一切形式的创新。但我重申一遍，我不喜欢U2音乐的电气化。我最喜欢的两首歌还是保持原来风格的《Zooropa》中的一首《Stay》和《Pop》中的《If God Will Send His Angles》。</p>
-<p>而2000年发行《All That You Can’t Leave Behind》（无法遗忘）。U2重新开始“摇滚”了。这张算是U2对于商业和评论界的一次强有力的回击：我并不是不可以做原来的风格，我甚至可以做到更好，只不过是我想尝试不一样的东西。这张也在当年格莱美获奖无数。《Beautiful Day》《Elevation》《Walk On》《Kite》…曲曲经典。</p>
-<p>随后2004年的《How To Dismantle An Atomic Bomb》（如何拆除原子弹）算是《All That You Can’t Leave Behind》的延续作品。风格基本保持一致，而其中一首Bono写给父亲的《Sometimes You Can’t Make It OnYour Own》每次也听得我如痴如醉。后来偶尔听到我们中国巨星某杰先生的名作《这就是爱》的编曲和出自这张专辑的《City Of Blinding Lights》简直一模一样。我没有说我们的大某杰抄袭，都是一些没有底线的音乐制作者干得好事，我们大某杰只负责唱罢了。或许我们的巨星某杰先生都没听过U2呢。</p>
-<p>09年发行的《No Line On The Horizon》（消失的地平线）是一张值得反复聆听的专辑，但绝对不适合初次听U2的人，第一遍听过去基本上没有能黏住你耳朵的作品。而现在这个浮躁的社会，谁会有耐心真正去感受一张专辑。甚至包括我在内，一度也听不进去。</p>
-<p>还好2014年我们的U2又回来了，发行了第十三张录音室专辑《Songs Of Innocence》（纯真之歌）。这张也有人批我就纳闷了，说什么流行元素太多，不够摇滚之类的，我草你….我只想说这是我一直喜欢的U2，这是一张很U2的专辑。</p>
-<p>​    <strong>“如果摇滚乐不敢质问大的问题，那还是摇滚乐吗？！”Bono说道。</strong></p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/u2/u2-6.jpg" alt></p>
-<p>在网上看到过一个关于什么是朋克的解说很有意思：</p>
-<p>说国内某flower乐队主唱大某伟小学的时候特贫，经常被几个校霸按在地上打，打到讨饶为止，说再也不敢了。然后起身跑到安全范围，消失在拐角之前，探个头大叫：我CNMB，老子还敢！</p>
-<p>这TM是真朋克。</p>
-<p>我一直认为在某个年龄阶段要承担某个年龄阶段的责任。青少年期间可以很朋克，而等到长大成熟了，还用朋克的方式去解决问题就会变得很可笑。关于摇滚乐是否可以改变世界一直有所争议，但关键是摇滚明星去不去做？怎么做？我想在这方面U2走的更深更远。</p>
-<p>国内知名年轻导演小明（代表作品X时代）很了解现在的青少年喜欢什么样的东西，把握市场对症下药，在商业上取的了很大的成功。我承认他是一个成功的人，但绝不是一个伟大的人。</p>
-<p>在发行完《The Joshua Tree》之后，U2已经成为了世界最赚钱的摇滚明星。他们依旧可以高唱反战歌曲，过属于摇滚明星的生活。但U2没有。 Bono开始走进非洲，走进战争地区，走进贫困地区。U2开始思索是什么导致了这些不公平的生活方式和不同的社会状态。</p>
-<p>1992年至1996年发生了现代战争史上最长的萨拉热窝围城战役（具体有兴趣请自行百度）。1995年U2为此事件特别发行了一首单曲《Miss Sarajevo》（萨拉热窝小姐）。描述了一群萨拉热窝女性不愿意去避难所，而是去参加选美比赛，以这种方式来获得世界对围城事件的关注。U2总是能从一个独特的视角来表达问题，这首歌有力的批评了国际社会对这场战争的不作为。而在这首歌的MV中，有大量的战争画面，有年轻的女孩子在破旧的残区中欢快的奔跑，和无处不在的爆炸声形成鲜明的对比，生命在此刻显得尤为脆弱。这群选美小姐在台上拉起横幅，上面写着“Don’t Let Them Kill Us（不要让他们杀了我们）”。围城战结束后，U2是第一个到萨拉热窝巨星演唱会的摇滚乐队，在这场演唱会中U2和帕瓦罗蒂（男高音我只服帕瓦罗蒂）合作了这首《Miss Sarajevo》。每次听我都想要落泪。在这场演唱会Bono也几度失控哽咽很多歌都唱不下去。这个世界上还有很多普通的老百姓生活在水深火热之中，每天在枪林弹雨中艰难度日。而这确是他们平常的生活。</p>
-<p>世界的问题一直都是那些政治家的议题，一个摇滚明星想要参与进来会有多难？大家可以对照一下，中国有个乐队在一个TV节目唱了一句“哪里有压迫有理就有反抗”就被禁播。当然国情不同，问题也不同。但我觉得性质是一样的。你要对抗的可能是整个世界的政治经济体系。只是发行几首反战歌曲，开几场慈善演唱会能不能解决问题？Bono开始重新思考这些问题。之后的Bono带上了茶色墨镜，开始行走于各大政治经济论坛之间，和各国元首政治家交谈问题的解决之道。而很多人开始斥责Bono作秀：一方面大谈世界问题，一方面衣着光鲜的站在舞台上受人瞩目。甚至有批评家说U2参与政治是为了更好地推广他们的音乐。人心叵测，媒体无良。非要穿成破烂，扛起枪炮去战斗才算去改变世界吗！试问如果是你，你是否可以做的更好？</p>
-<p>抛开这些U2参与世界的作为，单从音乐上来说，写给马丁路德金的《Pride》，描写北爱问题的《Sunday，bloody Sunday》，写给缅甸民主领袖昂山素季的《Walk On》，描写萨拉热窝围城事件的《Miss Sarajevo》，写给曼德拉的《Ordinary Love》，以及最重要的政治歌曲《One》…哪一首不是上乘之作？</p>
-<p>U2的音乐结构并不复杂，但绝不是简单。我一直都说U2的音乐特别有深度。什么是有深度的音乐？我认为是音乐中蕴含着一种精神，一种态度，一种力量。绝对不止是旋律的优美，可能是你经过很长时间的沉淀才能感受到的一种状态。说得直白一点。呃，就是越听越好听！能够经得起时间的检验。如果你感受不到，我的建议是多听听…</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/u2/u2-7.jpg" alt></p>
-<p>1976年成军，U2至今已走过了40个年头，并且人员从未有过变动，基本上快是世界上最长寿的乐队。庆幸的是这群摇滚老炮依旧活跃在世界的舞台上，这何尝不是我们的福分。在这个浮躁的社会至少我们还有U2可以期待！</p>
-<p>最后以一首我非常喜欢的歌曲《Kite》歌词结束。</p>
-<p>在这首歌曲中U2唱到：</p>
-<blockquote>
-<p>​    Did I waste it</p>
-<p>​    Not so much Icouldn’t taste it</p>
-<p>​    是否我不花费时间去经历就不能够去品味生活</p>
-<p>​    Life should befragrant</p>
-<p>​    生活芬芳而甘甜</p>
-<p>​    Rooftop to thebasement</p>
-<p>​    何必患得患失</p>
-<p>​    The last of the rocksstars</p>
-<p>​    摇滚依然存在</p>
-<p>​    When hip hop drovethe big cars</p>
-<p>​    当嘻哈大行其道的时候</p>
-<p>​    In the time when newmedia</p>
-<p>​    当新事物出现</p>
-<p>​    Was the big idea</p>
-<p>​    并主宰流行的时候</p>
-<p>​    That was the big idea</p>
-<p>​    那就随他去吧  </p>
-</blockquote>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/road-music.jpg" alt="快掏出你的大手机扫我"></p>
-<p><code>快掏出你的大手机扫我</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jia-shun.cn/2018/07/15/u2：以爱的名义歌唱，比爱更伟大/" data-id="cjzilhew90014m44tdm3k4gxu" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/music/">music</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/u2/">u2</a></li></ul>
-
-    </footer>
-  </div>
+    </p>
   
-</article>
-
-
-  
-    <article id="post-TiDB-重新定义下一代关系型数据库" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/07/14/TiDB-重新定义下一代关系型数据库/" class="article-date">
-  <time datetime="2018-07-14T12:51:15.000Z" itemprop="datePublished">2018-07-14</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/07/14/TiDB-重新定义下一代关系型数据库/">TiDB:重新定义下一代关系型数据库</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><div align="center">
-![](https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/timg.gif)
-</div>
-
-
-<p>从宏观的角度来看，计算机科学的基础模型早已被定义完整。从数学思维发散嵌入硬件产品，一些晦涩难懂的概念经过层层的封装，对于大多数人，甚至大部分从业人员来说都是黑盒。</p>
-<p> 随着硬件技术的进步，底层技术的完善，加上规则的制定，包括我们共同认同的协议和标准。计算机科学开始走出实验室，但有人的地方就有江湖，尤其是互联网的爆发，所有人都融入了网络的环境中。</p>
-<p> 机器是冰冷的，但人是多变的，或许计算机革命真的带来了所谓的便利性，但人总想着让它更便利，从而任何一个行业都想用计算机网络来解决痛点。最终导致网络技术另外一个维度的难点变成了如何应对复杂多变的业务，如何承受突如其来的并发量和如何处理堆积如山的数据。</p>
-<hr>
-<h3 id="一：数据库面临的挑战："><a href="#一：数据库面临的挑战：" class="headerlink" title="一：数据库面临的挑战："></a>一：数据库面临的挑战：</h3><p>上文所说的几个难点都和数据库技术息息相关。</p>
-<p> 当我们做计算的时候要求相关的数据建立某种关系。一个简单的线性结构并不能满足我们的需求，需要一个数据模型存储这种关系。这些数据不仅要参与结算，还要落地，关系型数据库应运而生。尤其是后来面向对象思想的发展，以及越来越多复杂业务数据的存储要求，关系型数据库更变得不可或缺。</p>
-<p> 但从硬件方面来说，却存在一些驳论。摩尔定律认为集成电路每18个月集成度会成倍增长，计算机的产品性能会提升一倍。安迪-比尔定律认为硬件提升的性能会被软件的升级所吃掉（搞来搞去，最终好像结果没有多少变化）。具体到数据库，最初一块磁盘可以搞定，一块软盘可以搞定，后来一块硬盘可以搞定，100块硬盘可以搞定。最后不好意思，某小哥的数据库需要一座山才可以搞定。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/tengxun.jpg" alt></p>
-<p>还是不行，量大了，但是速度变慢了。贪婪的人类还喜欢瞎凑热闹，某一天半夜12点，某爸爸公司的数据层1秒钟处理了4200万次请求 …</p>
-<p>仅从软件层面来说，我们习惯和喜欢通过解耦的方式去处理痛点。抽象和分层是很好的实践。所有程序的核心思维都是对真实世界的抽象。我们把程序分成三层也好，四层也罢，最终的痛点都卡在了数据层。针对业务层，控制层我们可以通过各种各样的复杂的简单的有用的没用的技术去实现。到了数据层，不好意思，你得等一会。为啥？前几层都可以在内存中操作，数据层是硬盘，哪怕是SSD，在上亿的数据面前也无能为力，何况还要求对数据层的操作遵从各种事务原则（从另外一个层面上来说，硬件技术还有太多提升的空间）。</p>
-<p> 没关系，可以考虑分库分表，可以整合卡车数据库，可以整合NoSQL。但复杂的业务sharding规则，以及后续的动态水平扩展，Cache数据库的同步和持久化，即时业务NoSQL的支持都是后续不可避免的问题。</p>
-<p>有没有一种数据库，遵循jdbc原则，学习成本低，强关系型，强一致性，不用担心主从配置，不用考虑分库分表，还可以无缝动态扩展 …</p>
-<p> 做梦呢，有也不让你免费用啊。</p>
-<p><a href="https://pingcap.com/" target="_blank" rel="noopener">直到有一天我看到了TiDB…</a></p>
-<hr>
-<h3 id="TiDB的解决方案"><a href="#TiDB的解决方案" class="headerlink" title="TiDB的解决方案"></a>TiDB的解决方案</h3><p>官方给出三篇文章了解TiDB技术内幕：</p>
-<p>- <strong><a href="https://pingcap.com/blog-cn/tidb-internal-1/" target="_blank" rel="noopener">说存储</a></strong></p>
-<p>- <strong><a href="https://pingcap.com/blog-cn/tidb-internal-2/" target="_blank" rel="noopener">说计算</a></strong></p>
-<p>- <strong><a href="https://pingcap.com/blog-cn/tidb-internal-3/" target="_blank" rel="noopener">谈调度</a></strong></p>
-<p><strong>下面的内容仅是我对三篇文章自己的总结，如果你认真看完了上面三篇文章，本节内容完全没必要读，因为大部分是摘抄，并且很多理解也仅限于我有限的理解。</strong></p>
-<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>TiDB是传统的数据库中间件，数据库分库分表等sharding方案非常优雅而理想的替代和解决方案。</p>
-<p>核心特征：水平扩展和高可用</p>
-<blockquote>
-<p>说白了：就是上层封装了mysql协议，让程序员完全无感知，和使用mysql基本没有异同。下层使用KV数据库，保证了数据的扩展性和高可用。</p>
-</blockquote>
-<p>而TiDB如何做到这一点：</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/tidb-architecture.png" alt></p>
-<p>以上是官方的一张TiDB整体架构图片。</p>
-<p><strong>可以看出TiDB集群分为三个组件：</strong></p>
-<p><strong>TiKV Server：</strong></p>
-<p>我们暂时不关注数据之间的关系性，也就是说暂时先忘记SQL中table的概念。先从最底层了解一下数据的存储模型。</p>
-<p>对于TiKV我们只需要记住两点：</p>
-<p>1：这是一个巨大的Map，也就是存储的是Key-Value键值对。</p>
-<p>2：这个Map中的Key-Valuepair按照key的二进制顺序排序，也就是我们可以查找到某一个key的位置，然后不断的调用next方法递增的获取数据。</p>
-<p>TiKV使用了Facebook开源的存储引擎RocksDB。在此可以将RocksDB当做一个简单的单机Key-ValueMap。</p>
-<p>现在我们已经为数据找到了一个高效可靠的本地存储方法。随后解决的问题是怎样让此方案高可用。在此，TiKV使用Raft协议。Raft是一个一致性算法。如果你原来配置过redis的高可用集群，肯定了解Paxos算法，Raft和Paxos等价。</p>
-<p>Raft作为一致性协议，提供以下几个重要的功能：</p>
-<p>1：leader选举。</p>
-<p>2：成员变更。</p>
-<p>3：日志复制。</p>
-<p>TiKV利用Raft做数据复制。每个数据变更都会落地为一条Raft日志。通过Raft日志的复制功能，可以将数据安全可靠的同步到Group的多数节点中。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/raft-rocksdb.png" alt></p>
-<blockquote>
-<p>至此，我们简单总结一下：</p>
-</blockquote>
-<blockquote>
-<p>通过单机的RocksDB，我们可以将数据快速的存储在磁盘上，通过Raftkey将数据复制到多台机器上，防止单机失效。数据的写入通过Raft这一层的接口写入，而不是直接写RocksDB，通过实现Raft，我们拥有了一个分布式的KV，现在再也不用担心某台数据库挂掉了。</p>
-</blockquote>
-<p>下面我们聊一个非常重要的概念：Region</p>
-<p>对于一个KV系统，将数据分散在多台机器上有两种比较经典的方案：一种按照key做Hash，根据Hash值选择对应的存储节点；另一种是分Range（范围）。TiKV选择了第二种。将整个KV空间分成很多段。每一段是一系列连续的key，我们将每一段叫做一个Region，并且会尽量保持每个Region中保存的数据不超过一定的大小。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/raft-region.png" alt></p>
-<p>也就是说我们将数据根据一系列连续的key将分段，每一段根据Raft协议复制成三份组成Raft Group分布式存储在不同的节点中，这样即使任何一台节点出现异常，我们都可以保证数据的完整性。</p>
-<p>同时为了上层客户端能够访问所需要的数据，系统中也会有一个组件记录Region在节点上的分布情况，也就是通过任意一个Key就能查到这个key在哪个Region中，以及这个Region目前在哪个节点上，这个组件就是后面我们讲到的PD。</p>
-<p>很多数据库都会实现多版本控制，TiKV的实现是比较常见的在每一个Key后面添加一个version字段。从而事务来说，TiKV采用Percolator模型，但核心只提一点：使用了乐观锁的机制实现。</p>
-<p><strong>TiDB Server：</strong></p>
-<p>TiDB Server解决的问题就是关系模型和KV模型的映射。</p>
-<p>在这里我们将关系模型简单理解为Table的SQL语句，解决的问题就是如何在KV结构上运行SQL语句。</p>
-<p>对于一个Table来说，需要存储的数据包括三部分：</p>
-<p>1：表的元信息 2：Table中的Row 3：索引数据</p>
-<p>现在我们使用TiKV已经有了一个全局有序的分布式KV引擎。全局有序这一点很重要，可以帮助我们解决很多问题。比如对于快速获取一行数据，我们利用TiKV提供的Seek方法就可以快速的定义到这一行数据所在的位置。再比如说对于全表扫描的需求，如果能够映射为一个Key的Range，从StartKey扫描到EndKey，那么久可以简单的通过这种方式获取全表数据。操作索引数据也是类似的思路。TiDB的做法是这样的：</p>
-<p>TiDB为每张表分配一个TableID，每一个索引都会分配一个IndexID，每一行分配一个RowID（如果表有整数型的PrimaryKey，那么会用Parimary Key的值当做RowID，从这方面来说，如果我们从零开始使用TiDB，主键尽量使用整型）。其中TableID在整个集群内唯一，IndexID/RowID在表内唯一。这些ID都是长整型，并且每行数据都按照一定的规则进行编码。</p>
-<p>也就是说，一个Table内部所有的Row都有相同的前缀，一个Index的数据也都相同的前缀。这样具体相同前缀的数据，在TiKV的Key空间内，是排列在一起的。同时只要我们小心的设计后缀部分的编码方案，就可以将Row或者Index数据有序的保存在TiKV中。</p>
-<p>这样就极大的方便了我们后续对数据的查询操作。</p>
-<p> 下面所做的工作就是SQL运算了，也就是说TiDB Server负责接收sql请求，然后对sql语句做语法解析，查询计划制定和优化，最终将SQL语句映射为KV的查询。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/tidb-core.png" alt></p>
-<p><strong>PD：</strong></p>
-<p>总结上面文章中提到的一些信息：TiKV集群是TiDB数据库的分布式存储引擎，但同样也会面临很多问题，包括Region具体如何负载均衡，如何跨机房容灾，TiKV集群数据的有效迁移等。</p>
-<p>这样就需要一个掌握全局信息，可以对全局进行调度，并且可以配置的组件。因此我们需要一个中心节点，来对系统进行整体状况的把控和调整，这就是PD模块。</p>
-<p>调度的基本操作：</p>
-<p>上述需求看起来很复杂，但是整理下来无非就三件事：</p>
-<p>增加一个Replica</p>
-<p>删除一个Replica</p>
-<p>将Leader角色在一个Raft Group的不同Replica之间transfer</p>
-<p>刚好Raft协议能够满足这三个需求，通过AddReplica，RemoveReplice。TransgerLeader这个三个命令，可以支撑上述三个基本操作。</p>
-<p>信息收集：</p>
-<p>每个TiKV节点都会定期向PD汇报节点的整体信息：</p>
-<p>TiKV和PD之间存在心跳包。一方面PD通过心跳包检测每个TiKV节点是否存活，以及是否有新加入的TiKV节点。另一方面，心跳包中也会携带这个节点的状态信息。</p>
-<p>每个Raft Group的Leader会定期向PD汇报信息。</p>
-<p>PD不断的通过这两类心跳信息收集这个集群的信息，再以这些信息作为决策的依据。</p>
-<p>调度的策略：</p>
-<p>PD收集了这些信息后，还需要一些策略来指定具体的调度计划：</p>
-<p>一个Region的Replica数量正确。</p>
-<p>一个Raft Group中的多个Replica不在同一个位置。</p>
-<p>副本在Store（TiKV节点）之间的分布均匀分配。</p>
-<p>Leader数量在Store之间均匀分配。</p>
-<p>每个Store的存储空间占用大致相等。</p>
-<p>控制调度速度，避免影响在线服务。</p>
-<p>支持手动下线节点。</p>
-<hr>
-<h3 id="三：TiDB实践"><a href="#三：TiDB实践" class="headerlink" title="三：TiDB实践"></a>三：TiDB实践</h3><p>TiDB集群部署简单，如果仅仅是测试功能，完全可以<a href="https://pingcap.com/docs-cn/op-guide/docker-deployment/" target="_blank" rel="noopener">使用Docker部署一个简单的TiDB集群</a>。</p>
-<p>官方推荐<a href="https://pingcap.com/docs-cn/op-guide/ansible-deployment/" target="_blank" rel="noopener">使用Ansible部署方案</a>。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/TiDB.png" alt></p>
-<p> 我司使用TiDB官方最低配置要求进行测试，目前已插入数据1亿2千万+，持续运行良好。这用mysql中是不可想象的，依据单表千万级别考虑分库分表的话如果使用mysql集群估计sharding规则就已经复杂到一定的级别了。这对运维人员和开发人员都是不小的挑战，而TiDB完全避免了这些问题。</p>
-<p>针对数据进行操作，简单的查询都在毫秒级别，复杂的查询根据业务情况在where条件加索引，也可以正常满足需求。只不过需要全表扫描的情况下（比如count操作）比较耗时。在业务中进行sql优化根据TiDB的存储规则尽量避免全表扫描。</p>
-<hr>
-<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><p>根据自己的业务体量，如果数据量在很长一段时间内都不会达到千万级别，完全没必要考虑TiDB。</p>
-<p>如果现在的数据量单数据库已无法支持，已经开始考虑分库分表，此时不妨了解一下TiDB。</p>
-<p>如果从一开始就预见了数据量的规模，5000万+的数据量可以考虑TiDB。</p>
-<p>并且现在TiDB针对复杂的OLAP还推出了解决方案TiSpark，再加上拥有完善的监控界面这样的小亮点，有理由相信TiDB会成为数据库领域的一个颠覆者。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg" alt="快掏出你的大手机扫我"></p>
-<p><code>快掏出你的大手机扫我</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jia-shun.cn/2018/07/14/TiDB-重新定义下一代关系型数据库/" data-id="cjzilhevj000pm44te96gkb5q" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tidb/">tidb</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-JWT" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/04/30/JWT/" class="article-date">
-  <time datetime="2018-04-29T17:44:15.000Z" itemprop="datePublished">2018-04-30</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/30/JWT/">JSON Web Token</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="JWT："><a href="#JWT：" class="headerlink" title="JWT："></a>JWT：</h2><h3 id="什么是JWT？"><a href="#什么是JWT？" class="headerlink" title="什么是JWT？"></a>什么是JWT？</h3><p>JSON Web Token(JWT) 是一种开放式标准(RFC 7519)，它定义了一种紧凑且自包含的方式，用于在各方之间以JSON对象安全传输信息。这些信息可以通过数字签名进行验证和信任。可以使用加密(使用HMAC算法)或使用RSA的公钥/私钥对JWT进行签名。</p>
-<h3 id="以上是我百度的，看起来真累，到底什么是JWT？"><a href="#以上是我百度的，看起来真累，到底什么是JWT？" class="headerlink" title="以上是我百度的，看起来真累，到底什么是JWT？"></a>以上是我百度的，看起来真累，到底什么是JWT？</h3><h4 id="传统方式："><a href="#传统方式：" class="headerlink" title="传统方式："></a><strong>传统方式：</strong></h4><p>基本上所有的前后端登录验证交互这一块都会遵循这样一个流程：</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jwt/login-token.png" alt="客户端登录验证"></p>
-<p>最早的时候，web端和服务端的交互，我们使用session。后来前后端分离后，通过restful进行数据交互，同样使用类似于上面流程图的交互方式：前端登录，后端根据用户信息生成一个token，并保存这个token和对应的用户信息到关系型数据库，或者缓存数据库redis，接着将token传递给客户端，客户端会存入浏览器cookie。后续http请求都会携带这个token，后端根据token来查询、验证用户的信息。</p>
-<p>单体应用或者用户量少的时候，一切都没有什么问题。随着互联网的高速发展，用户数量的暴增，就开始面临一系列的问题：</p>
-<p>1：后端每次都要根据token查出用户信息，这样就增加了数据层的查询和存储开销。把验证信息保存在session中，加大了服务器端的存储压力。</p>
-<p>2：后端采用分布式服务之后，session的共享问题，也是一个非常棘手的问题。</p>
-<p>3：数据的安全性产生影响(cookie的泄露)。</p>
-<p>虽然以上问题都有各种各样的解决方案，但都不尽人意。有没有一种方式，不用去服务器查询呢？如果我们生成的token遵循一定的规律。比如我们使用加密算法，根据用户的登录信息，以及一个一开始定义好的全局密码生成一个token，这样只需要解密该token就可以知道用户的信息了。</p>
-<p><strong>可以使用JWT。</strong></p>
-<h4 id="JWT"><a href="#JWT" class="headerlink" title="JWT:"></a>JWT:</h4><p>特点：</p>
-<p>简洁：可以通过url，post参数或者在HTTP header中发送。说白了，通过JWT生成的token就是一个JSON字符串，因为数据量小，传输速度快。</p>
-<p>自包含：Payload中包含了用户的信息，避免了多次查询数据库。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jwt/jwt.png" alt="JWT详情"></p>
-<p>上面这个图片就是JWT的组成部分：</p>
-<p>Header：头部，包含了两部分：token类型(JWT)和采用的加密算法(HS256)。</p>
-<p>PayLoad：负载，这部分是我们存放信息的地方，你可以把用户的id，name等信息放在这里。JWT规范里有对这部分信息进行了比较详细的介绍，常用的有：iss(签发者)，exp(过期时间)，sub(面向的用户)等信息。</p>
-<p>前面这两部分都是通过Base64进行编码组成的。这两部分并没有经过加密处理，所以可以认为内容是公开的。所以一定不要将用户密码等敏感信息放入。</p>
-<p>Signature：签名。Siguature需要使用编码后的header和payload以及我们提供的一个秘钥，然后使用header中指定的签名算法(HS256)进行签名。签名的作用是保证JWT没有被篡改过。</p>
-<p>三个部分通过.连接在一起就是我们需要的JWT了，它大概长这样：</p>
-<p><code>eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c</code></p>
-<p>这样一个完整的token就生成了。而在实际的项目中JWT的运用流程是这样的：</p>
-<p>1：用户首次登录，输入用户名和密码，后端首先去数据库查询出用户的信息，如果用户名和密码信息无误，则根据用户的userId或者name或者我们其他我们想要放入的信息根据上面定义好的算法，再加上后台应用中提供的密钥生成一个token。将token返回给客户端，并提示登录成功。</p>
-<p>2：随后客户端会将token存入浏览器cookie或者Local Storage中。</p>
-<p>3：之后客户端每次向服务端发送请求都会携带这个token，服务端可以解密token验证用户的合法性，获取用户的信息而不用每次都去数据库查询了。</p>
-<p><strong>说的再多都是浮云，一篇小小的demo就能说明一切（本次我们使用第三方针对Java的一个开源JSON Web Token：jjwt）：</strong></p>
-<p>我们就使用官方提供的最简单的例子：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> JiaShun</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/4/29 23:57</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JWTUtil</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据一个String字符串生成一个密钥key，这个字符串只有应用层自己知道，千万不能泄露，建议经常修改。</span></span><br><span class="line"><span class="comment">     * 这个key相当于你所有用户所公有的一个用户密码。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> SecretKey <span class="title">generalKey</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        String stringKey = <span class="string">"helloWorld"</span>;</span><br><span class="line">        <span class="keyword">byte</span>[] encodedKey = Base64.decodeBase64(stringKey);</span><br><span class="line">        SecretKey key = <span class="keyword">new</span> SecretKeySpec(encodedKey,<span class="number">0</span>,encodedKey.length,<span class="string">"AES"</span>);</span><br><span class="line">        <span class="keyword">return</span> key;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建JWT</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> subject 用户详细信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">createJWT</span><span class="params">(String subject)</span><span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;</span><br><span class="line">        SecretKey key = generalKey();</span><br><span class="line">        JwtBuilder builder = Jwts.builder()</span><br><span class="line">                .setSubject(subject)</span><br><span class="line">                .signWith(signatureAlgorithm,key);</span><br><span class="line">        <span class="keyword">return</span> builder.compact();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解析JWT</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> jwt</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Claims <span class="title">parseJWT</span><span class="params">(String jwt)</span><span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        SecretKey key = generalKey();</span><br><span class="line">        <span class="keyword">return</span> Jwts.parser().setSigningKey(key).parseClaimsJws(jwt).getBody();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>代码就这么简单！</p>
-<p>下面我们做一个单元测试：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith</span>(SpringRunner.class)</span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TokenApplicationTests</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	<span class="keyword">private</span> JWTUtil jwtUtil;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">contextLoads</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testCreateJWT</span><span class="params">()</span><span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">		JSONObject json = <span class="keyword">new</span> JSONObject();</span><br><span class="line">		json.put(<span class="string">"userId"</span>,<span class="string">"1"</span>);</span><br><span class="line">		json.put(<span class="string">"name"</span>,<span class="string">"JiaShun"</span>);</span><br><span class="line">		String subject = json.toJSONString();</span><br><span class="line">		String token = jwtUtil.createJWT(subject);</span><br><span class="line">		System.out.println(token);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出的结果为：</p>
-<p><code>eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ7XCJuYW1lXCI6XCJKaWFTaHVuXCIsXCJ1c2VySWRcIjpcIjFcIn0ifQ.NqYVyNM2XT_2hKkgTakPf0I6ira00IDANGpZTTLJi_8</code></p>
-<p>这就是一个完整的JSON Web Token。</p>
-<p>随后我们解析这个token，看得到什么信息：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testParseJWT</span><span class="params">()</span><span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">	Claims claims = jwtUtil.parseJWT(<span class="string">"eyJhbGciOiJIUzI1NiJ9"</span> +</span><br><span class="line">			<span class="string">".eyJzdWIiOiJ7XCJuYW1lXCI6XCJKaWFTaHVuXCIsXCJ1c2VySWRcIjpcIjFcIn0ifQ"</span> +</span><br><span class="line">			<span class="string">".NqYVyNM2XT_2hKkgTakPf0I6ira00IDANGpZTTLJi_8"</span>);</span><br><span class="line">	System.out.println(claims);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>打印出的信息为：</p>
-<p>{sub={“name”:”JiaShun”,”userId”:”1”}}</p>
-<p>这样我们就得到了用户的所有信息，而不用去数据层反复查询请求的真实性了。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg" alt="快掏出你的大手机扫我"></p>
-<p><code>快掏出你的大手机扫我</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jia-shun.cn/2018/04/30/JWT/" data-id="cjzilheug0002m44t3udnccdp" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jwt/">jwt</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-基于SpringBoot、STOMP使用WebSocket实现聊天室功能" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/11/16/基于SpringBoot、STOMP使用WebSocket实现聊天室功能/" class="article-date">
-  <time datetime="2017-11-15T17:44:15.000Z" itemprop="datePublished">2017-11-16</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/技术/">技术</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/16/基于SpringBoot、STOMP使用WebSocket实现聊天室功能/">基于SpringBoot、STOMP使用WebSocket实现聊天室功能</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="WebSocket："><a href="#WebSocket：" class="headerlink" title="WebSocket："></a>WebSocket：</h2><p>新项目中有一个模块需求使用到了WebSocket，因为之前没用过，所以做了一些研究。</p>
-<p>关于WebSocket，简单说两句：最初前端与后端交互都是基于Http协议，前端发送request，后端返回response。存在的问题就是：response永远是被动的，不能主动发起。如果要想保持与后端的长连接，最初的实现方式基本都是ajax轮询或者http long poll。这两种方式都需要占用很多的资源，并且Http还是一个无状态协议。而WebSocket是HTML5出的东西，通俗点就是可以实现前端只发送一次请求，后端就可以与前端保持长连接，并实时的传输数据。最直白的例子就是聊天系统的实现，点对点两个人聊天，你一句我一句。也可以群嗨，一大群人叽叽歪歪，这样每个人对于其他人来说可以理解为一个广播系统，其他人可以理解为自己的订阅者。</p>
-<p>项目中基于SpringBoot和STOMP，其中的逻辑相对复杂，这儿仅写一个简单的Demo：实现点对点聊天功能。话不多说，直接开搞。</p>
-<h3 id="代码中的具体解释看注释，都描述的很清楚。"><a href="#代码中的具体解释看注释，都描述的很清楚。" class="headerlink" title="代码中的具体解释看注释，都描述的很清楚。"></a>代码中的具体解释看注释，都描述的很清楚。</h3><p>首先了解下STOMP：<br>Stomp是一种简单（流）文本定向消息协议，提供了一个可互操作的链接格式。允许stomp客户端与任意stomp消息代理（Broker）进行交互。</p>
-<h2 id="一：新建一个SpringBoot项目，选择Security、Thymeleaf和WebSocket依赖。"><a href="#一：新建一个SpringBoot项目，选择Security、Thymeleaf和WebSocket依赖。" class="headerlink" title="一：新建一个SpringBoot项目，选择Security、Thymeleaf和WebSocket依赖。"></a>一：新建一个SpringBoot项目，选择Security、Thymeleaf和WebSocket依赖。</h2><p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/websocket/WechatIMG45.jpeg" alt="WechatIMG45"></p>
-<h2 id="二：Spring-Security的简单配置"><a href="#二：Spring-Security的简单配置" class="headerlink" title="二：Spring Security的简单配置"></a>二：Spring Security的简单配置</h2><p>本例只是实现了一个简单的聊天室程序。例子中有两个用户，互相发送消息给彼此，所以我们在这里我们先对Spring Security做一些简单的配置。对于Spring Security这里不做特别多的解释，Spring Security是专门针对基于Spring的项目安全框架，和Shiro一样可以实现程序的认证和权限控制。</p>
-<p>这里主要是分配两个用户，名字为“Michael”和“Janet”，密码都是“freedom”。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.js.websocket.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.web.builders.HttpSecurity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.web.builders.WebSecurity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity httpSecurity)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        httpSecurity</span><br><span class="line">        .authorizeRequests()</span><br><span class="line">        .antMatchers(<span class="string">"/"</span>,<span class="string">"/login"</span>)<span class="comment">//设置Spring Security对/和/"login"路径不拦截</span></span><br><span class="line">        .permitAll()</span><br><span class="line">        .anyRequest()</span><br><span class="line">        .authenticated()</span><br><span class="line">        .and()</span><br><span class="line">        .formLogin()</span><br><span class="line">        .loginPage(<span class="string">"/login"</span>)<span class="comment">//设置SpringSecurity的登录页面为/login</span></span><br><span class="line">        .defaultSuccessUrl(<span class="string">"/chat"</span>)<span class="comment">//登录成功后转向/chat路径</span></span><br><span class="line">        .permitAll()</span><br><span class="line">        .and()</span><br><span class="line">        .logout()</span><br><span class="line">        .permitAll();</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">//在内存中分配两个用户Michael和Janet，密码都为freedom，角色都是USER</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder authenticationManagerBuilder)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        authenticationManagerBuilder</span><br><span class="line">        .inMemoryAuthentication()</span><br><span class="line">        .withUser(<span class="string">"Michael"</span>).password(<span class="string">"freedom"</span>).roles(<span class="string">"USER"</span>)</span><br><span class="line">        .and()</span><br><span class="line">        .withUser(<span class="string">"Janet"</span>).password(<span class="string">"freedom"</span>).roles(<span class="string">"USER"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">// /resources/static/目录下的静态资源，Spring Security不拦截</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(WebSecurity webSecurity)</span><span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    	webSecurity.ignoring().antMatchers(<span class="string">"/resources/static/**"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="三：配置WebSocket"><a href="#三：配置WebSocket" class="headerlink" title="三：配置WebSocket"></a>三：配置WebSocket</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> cn.js.websocket.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.messaging.simp.config.MessageBrokerRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.socket.config.annotation.StompEndpointRegistry;</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//此注解表示开启WebSocket支持。通过此注解开启使用STOMP协议来传输基于代理（message broker）的消息。</span></span><br><span class="line"><span class="meta">@EnableWebSocketMessageBroker</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSocketConfig</span> <span class="keyword">extends</span> <span class="title">AbstractWebSocketMessageBrokerConfigurer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerStompEndpoints</span><span class="params">(StompEndpointRegistry stompEndpointRegistry)</span> </span>&#123;</span><br><span class="line">    	<span class="comment">//注册一个名为/endpointChat的节点，并指定使用SockJS协议。</span></span><br><span class="line">    	stompEndpointRegistry.addEndpoint(<span class="string">"/endpointChat"</span>).withSockJS();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//配置消息代理（Message Broker），可以理解为信息传输的通道</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configureMessageBroker</span><span class="params">(MessageBrokerRegistry messageBrokerRegistry)</span> </span>&#123;</span><br><span class="line">    	<span class="comment">//点对点式应增加一个/queue的消息代理。相应的如果是广播室模式可以设置为"/topic"</span></span><br><span class="line">   		messageBrokerRegistry.enableSimpleBroker(<span class="string">"/queue"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="四：编写控制器"><a href="#四：编写控制器" class="headerlink" title="四：编写控制器"></a>四：编写控制器</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.js.websocket.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.messaging.handler.annotation.MessageMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.messaging.simp.SimpMessagingTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> java.security.Principal;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSocketController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="comment">//通过SimpMessagingTemplate模板向浏览器发送消息。如果是广播模式，可以直接使用注解@SendTo</span></span><br><span class="line">    <span class="keyword">private</span> SimpMessagingTemplate simpMessagingTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//开启STOMP协议来传输基于代理的消息，这时控制器支持使用@MessageController，就像使用@RequestMapping	   是一样的</span></span><br><span class="line">    <span class="comment">//当浏览器向服务端发送请求时，通过@MessageController映射/chat这个路径</span></span><br><span class="line">    <span class="meta">@MessageMapping</span>(<span class="string">"/chat"</span>)</span><br><span class="line">    <span class="comment">//在SpringMVC中，可以直接在参数中获得principal,其中包含当前用户的信息</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleChat</span><span class="params">(Principal principal,String msg)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//下面的代码就是如果发送人是Michael，接收人就是Janet，发送的信息是message，反之亦然。</span></span><br><span class="line">		<span class="keyword">if</span>(principal.getName().equals(<span class="string">"Michael"</span>))&#123;</span><br><span class="line">    	<span class="comment">//通过SimpMessagingTemplate的convertAndSendToUser向用户发送消息。</span></span><br><span class="line">    	<span class="comment">//第一参数表示接收信息的用户，第二个是浏览器订阅的地址，第三个是消息本身</span></span><br><span class="line">        simpMessagingTemplate.convertAndSendToUser(<span class="string">"Janet"</span>,<span class="string">"/queue/notifications"</span>,</span><br><span class="line">        principal.getName() + <span class="string">"-发送:"</span> + msg);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        simpMessagingTemplate.convertAndSendToUser(<span class="string">"Michael"</span>,<span class="string">"/queue/notifications"</span>,</span><br><span class="line">        principal.getName() + <span class="string">"-发送:"</span> + msg);</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="五：添加脚本"><a href="#五：添加脚本" class="headerlink" title="五：添加脚本"></a>五：添加脚本</h2><p>将sockjs.min.js（SockJS的客户端脚本）、stomp.js（STOMP协议的客户端脚本）、jquery-3.1.1.js（jQuery）放置在src/main/resources/static下，（可在文末GitHub中Clone项目得到三个文件）</p>
-<h2 id="六：编写登录和聊天室页面"><a href="#六：编写登录和聊天室页面" class="headerlink" title="六：编写登录和聊天室页面"></a>六：编写登录和聊天室页面</h2><p>因为此Demo基于Thymeleaf，所以在src/main/resources/templates下新建一个最简单的login.html页面，代码如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span> <span class="attr">xmlns:th</span>=<span class="string">"http://www.w3.org/1999/xhtml"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>聊天室登录页面<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:if</span>=<span class="string">"$&#123;param.error&#125;"</span>&gt;</span></span><br><span class="line">无效的账号和密码</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:if</span>=<span class="string">"$&#123;param.logout&#125;"</span>&gt;</span></span><br><span class="line">您已注销</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">th:action</span>=<span class="string">"@&#123;/login&#125;"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>账号：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>/&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span>/&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"登录"</span>/&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>在src/main/resources/templates下新建chat.html页面，代码如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns:th</span>=<span class="string">"http://www.thymeleaf.org"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>聊天页面<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">th:src</span>=<span class="string">"@&#123;sockjs.min.js&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">th:src</span>=<span class="string">"@&#123;stomp.js&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">th:src</span>=<span class="string">"@&#123;jquery-3.1.1.js&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">聊天室</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"JanetForm"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">rows</span>=<span class="string">"4"</span> <span class="attr">cols</span>=<span class="string">"60"</span> <span class="attr">name</span>=<span class="string">"text"</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">th:inline</span>=<span class="string">"javascript"</span>&gt;</span></span><br><span class="line">$('#JanetForm').submit(function (e) &#123;</span><br><span class="line">e.preventDefault();</span><br><span class="line">var text = $('#JanetForm').find('textarea[name="text"]').val();</span><br><span class="line">sendSpittle(text);</span><br><span class="line">&#125;);</span><br><span class="line">//    连接endpoint为"/endpointChat"的节点</span><br><span class="line">var sock = new SockJS("/endpointChat");</span><br><span class="line">var stomp = Stomp.over(sock);</span><br><span class="line">//    连接WebSocket服务端</span><br><span class="line">stomp.connect('guest','guest',function (frame) &#123;</span><br><span class="line">//        订阅/user/queue/notifications发送的消息，这里与在控制器的messagingTemplate.convertAndSendToUser中定义的订阅地址保持一致。</span><br><span class="line">//        这里多了一个/user，并且这个user是必须的，使用了/user才会发送消息到指定的用户</span><br><span class="line">stomp.subscribe("/user/queue/notifications",handleNotification);</span><br><span class="line">&#125;);</span><br><span class="line">function handleNotification(message) &#123;</span><br><span class="line"><span class="xml">$('#output').append("<span class="tag">&lt;<span class="name">b</span>&gt;</span>收到了:" + message.body + "<span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span>")</span></span><br><span class="line">&#125;</span><br><span class="line">function sendSpittle(text) &#123;</span><br><span class="line">//        表示向后端路径/chat发送消息请求，这个是在控制器中@MessageMapping中定义的。</span><br><span class="line">stomp.send("/chat",&#123;&#125;,text);</span><br><span class="line">&#125;</span><br><span class="line">$('#stop').click(function () &#123;</span><br><span class="line">&#123;sock.close()&#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"output"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="七：增加页面的viewController，指定页面的跳转"><a href="#七：增加页面的viewController，指定页面的跳转" class="headerlink" title="七：增加页面的viewController，指定页面的跳转"></a>七：增加页面的viewController，指定页面的跳转</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.js.websocket.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.ViewControllerRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebMvcConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addViewControllers</span><span class="params">(ViewControllerRegistry viewControllerRegistry)</span> </span>&#123;</span><br><span class="line">		viewControllerRegistry.addViewController(<span class="string">"/login"</span>).setViewName(<span class="string">"/login"</span>);</span><br><span class="line">		viewControllerRegistry.addViewController(<span class="string">"/chat"</span>).setViewName(<span class="string">"/chat"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="八：测试"><a href="#八：测试" class="headerlink" title="八：测试"></a>八：测试</h2><p>这样我们开两个浏览器窗口，地址为localhost:8080/login,分别用Michael和Janet两个用户登录，就可以互相发送消息聊天了。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/websocket/WechatIMG48.jpeg" alt="WechatIMG48"></p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/websocket/WechatIMG50.jpeg" alt="WechatIMG50"></p>
-<p>项目Github地址：<a href="https://github.com/jia-shun/websocket" target="_blank" rel="noopener">https://github.com/jia-shun/websocket</a></p>
-<p>欢迎关注我的GitHub。</p>
-<p>参考资料：Java EE开发的颠覆者：SpringBoot 实战</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg" alt="快掏出你的大手机扫我"></p>
-<p><code>快掏出你的大手机扫我</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jia-shun.cn/2017/11/16/基于SpringBoot、STOMP使用WebSocket实现聊天室功能/" data-id="cjzilhevl000rm44tdcq83c4d" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/websocket/">websocket</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Life-Is-Blue" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/11/05/Life-Is-Blue/" class="article-date">
-  <time datetime="2017-11-05T02:39:04.000Z" itemprop="datePublished">2017-11-05</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/音乐/">音乐</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/05/Life-Is-Blue/">Life Is Blue</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/life-is-blue/life-is-blue.jpeg" alt></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jia-shun.cn/2017/11/05/Life-Is-Blue/" data-id="cjzilheu90000m44t6umwxb81" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/music/">music</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 </section>
+
+<section id="writing">
+  <span class="h1"><a href="/archives">文章</a></span>
+  
+  <ul class="post-list">
+    
+    
+      
+    
+    
+      <li class="post-item">
         
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
+    <div class="meta">
+      
+        
+          <time datetime="2019-08-19T16:12:15.000Z" itemprop="datePublished">2019-08-20</time>
+        
+      
     </div>
-  </div>
 
 
-  
+        <span>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/gRPC/">gRPC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jwt/">jwt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/music/">music</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/rabbitmq/">rabbitmq</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tidb/">tidb</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/u2/">u2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/websocket/">websocket</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/布仁巴雅尔/">布仁巴雅尔</a></li></ul>
+        <a class="" href="/2019/08/20/关于RabbitMQ，看这篇文章就够了/">关于RabbitMQ，看这篇文章就够了</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2019-08-16T10:39:04.000Z" itemprop="datePublished">2019-08-16</time>
+        
+      
     </div>
-  </div>
 
 
-  
+        <span>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/gRPC/" style="font-size: 10px;">gRPC</a> <a href="/tags/java/" style="font-size: 20px;">java</a> <a href="/tags/jwt/" style="font-size: 10px;">jwt</a> <a href="/tags/music/" style="font-size: 15px;">music</a> <a href="/tags/rabbitmq/" style="font-size: 10px;">rabbitmq</a> <a href="/tags/tidb/" style="font-size: 10px;">tidb</a> <a href="/tags/u2/" style="font-size: 10px;">u2</a> <a href="/tags/websocket/" style="font-size: 10px;">websocket</a> <a href="/tags/布仁巴雅尔/" style="font-size: 10px;">布仁巴雅尔</a>
+        <a class="" href="/2019/08/16/Life-Is-Gray/">Life Is Gray</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2018-11-10T07:50:35.000Z" itemprop="datePublished">2018-11-10</time>
+        
+      
     </div>
-  </div>
 
-  
+
+        <span>
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/08/">八月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">八月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">七月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">四月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a></li></ul>
+        <a class="" href="/2018/11/10/我们都是草原的孩子，心里有一首歌/">我们都是草原的孩子，心里有一首歌</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2018-08-12T10:08:08.000Z" itemprop="datePublished">2018-08-12</time>
+        
+      
     </div>
-  </div>
 
 
+        <span>
+    
+        <a class="" href="/2018/08/12/gRPC/">gRPC基于Golang和Java的简单实现</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2018-07-15T10:22:35.000Z" itemprop="datePublished">2018-07-15</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2018/07/15/u2：以爱的名义歌唱，比爱更伟大/">u2：以爱的名义歌唱，比爱更伟大</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2018-07-14T12:51:15.000Z" itemprop="datePublished">2018-07-14</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2018/07/14/TiDB-重新定义下一代关系型数据库/">TiDB:重新定义下一代关系型数据库</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2018-04-29T17:44:15.000Z" itemprop="datePublished">2018-04-30</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2018/04/30/JWT/">JSON Web Token</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2017-11-15T17:44:15.000Z" itemprop="datePublished">2017-11-16</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2017/11/16/基于SpringBoot、STOMP使用WebSocket实现聊天室功能/">基于SpringBoot、STOMP使用WebSocket实现聊天室功能</a>
+    
+
+
+</span>
+      </li>
+    
+      <li class="post-item">
+        
+    <div class="meta">
+      
+        
+          <time datetime="2017-11-05T02:39:04.000Z" itemprop="datePublished">2017-11-05</time>
+        
+      
+    </div>
+
+
+        <span>
+    
+        <a class="" href="/2017/11/05/Life-Is-Blue/">Life Is Blue</a>
+    
+
+
+</span>
+      </li>
+    
+  </ul>
   
     
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
+
+  
+</section>
+
+
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2019 Jia Shun
+  </div>
+  <div class="footer-right">
+    <nav>
       <ul>
-        
-          <li>
-            <a href="/2019/08/20/关于RabbitMQ，看这篇文章就够了/">关于RabbitMQ，看这篇文章就够了</a>
-          </li>
-        
-          <li>
-            <a href="/2019/08/16/Life-Is-Gray/">Life Is Gray</a>
-          </li>
-        
-          <li>
-            <a href="/2018/11/10/我们都是草原的孩子，心里有一首歌/">我们都是草原的孩子，心里有一首歌</a>
-          </li>
-        
-          <li>
-            <a href="/2018/08/12/gRPC/">gRPC基于Golang和Java的简单实现</a>
-          </li>
-        
-          <li>
-            <a href="/2018/07/15/u2：以爱的名义歌唱，比爱更伟大/">u2：以爱的名义歌唱，比爱更伟大</a>
-          </li>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/categories/技术">技术</a></li>
+         
+          <li><a href="/categories/音乐">音乐</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
         
       </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 Jia Shun<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
+    </nav>
   </div>
 </footer>
+
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-  </div>
 </body>
 </html>
