@@ -7,7 +7,7 @@
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="JVM &amp;amp; GC一：Write Once, Run Everywhere在计算机的世界，操作系统封装了各种硬件平台的操作指令，我们大部分使用的开发语言都是基于或依赖于操作系统和硬件打交道。这样的话编程语言如何能够兼容所有的硬件平台和操作系统成了一个问题。 我们先了解下C语言是如何实现兼容性的。C语言实现系统兼容性的思路很简单，那就是通过在不同的硬件平台和操作系统开发各自特定的编译器，从而将">
-<meta name="keywords" content="java,JVM,GC">
+<meta name="keywords" content="Java,JVM,GC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM &amp; GC">
 <meta property="og:url" content="http://jia-shun.cn/2019/10/15/JVM & GC/index.html">
@@ -31,7 +31,7 @@
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/ygc_end.jpg">
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/ogc_concurrent_mark.jpg">
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg">
-<meta property="og:updated_time" content="2019-10-15T15:50:53.075Z">
+<meta property="og:updated_time" content="2019-10-15T15:59:22.163Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM &amp; GC">
 <meta name="twitter:description" content="JVM &amp;amp; GC一：Write Once, Run Everywhere在计算机的世界，操作系统封装了各种硬件平台的操作指令，我们大部分使用的开发语言都是基于或依赖于操作系统和硬件打交道。这样的话编程语言如何能够兼容所有的硬件平台和操作系统成了一个问题。 我们先了解下C语言是如何实现兼容性的。C语言实现系统兼容性的思路很简单，那就是通过在不同的硬件平台和操作系统开发各自特定的编译器，从而将">
@@ -161,7 +161,7 @@
       
     <div class="article-tag">
         <i class="fas fa-tag"></i>
-        <a class="tag-link" href="/tags/GC/">GC</a>, <a class="tag-link" href="/tags/JVM/">JVM</a>, <a class="tag-link" href="/tags/java/">java</a>
+        <a class="tag-link" href="/tags/GC/">GC</a>, <a class="tag-link" href="/tags/JVM/">JVM</a>, <a class="tag-link" href="/tags/Java/">Java</a>
     </div>
 
 
@@ -269,7 +269,8 @@
 <h4 id="三：GC"><a href="#三：GC" class="headerlink" title="三：GC"></a>三：GC</h4><p>理论上，如果有一些数据已经不再使用了，我们要释放掉它所占用的内存空间。</p>
 <p>垃圾自动回收最早可以追溯到50年代的Lisp语言，后续大部分的高级语言都实现了自动回收。但相对来说Java的垃圾回收是比较复杂比较成熟的。</p>
 <p><strong>对象创建：</strong></p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/jvm_create_obj.png" alt="create_obj"></p>
+<img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/jvm_create_obj.png" alt="jvm_create_obj" style="zoom:28%;">
+
 <p><strong>TLAB：</strong></p>
 <p>如果有大片连续的内存可用于分配给新对象，这种情况下分配空间时非常简单快速的，只需要一个简单的指针碰撞就可以，每次分配对象空间只要检测一下是否有足够的空间，如果有，指针往前移动N位就分配好空间了，然后就可以初始化这个对象了。</p>
 <p>问题在于对于多线程应用，对象分配必须要保证线程安全性，如果使用同步锁(CAS + 失败重试)，那么分配空间将成功程序性能瓶颈。HotSpot使用了称之为TLAB(Thread-Local Allocation Buffers)的技术，该技术能改善多线程空间分配的吞吐量。首先，给予每个线程一部分内存作为缓存区，每个线程都在自己的缓存区进行指针碰撞，这样就不用获取全局锁了。只有当一个线程使用完了自己的TLAB，它才需要使用同步来获取一个新的缓冲区。</p>
