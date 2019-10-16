@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="HandheldFriendly" content="True">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="JVM &amp;amp; GC一：Write Once, Run Everywhere在计算机的世界，操作系统封装了各种硬件平台的操作指令，我们大部分使用的开发语言都是基于或依赖于操作系统和硬件打交道。这样的话编程语言如何能够兼容所有的硬件平台和操作系统成了一个问题。 我们先了解下C语言是如何实现兼容性的。C语言实现系统兼容性的思路很简单，那就是通过在不同的硬件平台和操作系统开发各自特定的编译器，从而将">
+    <meta name="description" content="一：Write Once, Run Everywhere在计算机的世界，操作系统封装了各种硬件平台的操作指令，我们大部分使用的开发语言都是基于或依赖于操作系统和硬件打交道。这样的话编程语言如何能够兼容所有的硬件平台和操作系统成了一个问题。 我们先了解下C语言是如何实现兼容性的。C语言实现系统兼容性的思路很简单，那就是通过在不同的硬件平台和操作系统开发各自特定的编译器，从而将相同的C语言源代码翻译为">
 <meta name="keywords" content="Java,JVM,GC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM &amp; GC">
 <meta property="og:url" content="http://jia-shun.cn/2019/10/15/JVM & GC/index.html">
 <meta property="og:site_name" content="Freedom">
-<meta property="og:description" content="JVM &amp;amp; GC一：Write Once, Run Everywhere在计算机的世界，操作系统封装了各种硬件平台的操作指令，我们大部分使用的开发语言都是基于或依赖于操作系统和硬件打交道。这样的话编程语言如何能够兼容所有的硬件平台和操作系统成了一个问题。 我们先了解下C语言是如何实现兼容性的。C语言实现系统兼容性的思路很简单，那就是通过在不同的硬件平台和操作系统开发各自特定的编译器，从而将">
+<meta property="og:description" content="一：Write Once, Run Everywhere在计算机的世界，操作系统封装了各种硬件平台的操作指令，我们大部分使用的开发语言都是基于或依赖于操作系统和硬件打交道。这样的话编程语言如何能够兼容所有的硬件平台和操作系统成了一个问题。 我们先了解下C语言是如何实现兼容性的。C语言实现系统兼容性的思路很简单，那就是通过在不同的硬件平台和操作系统开发各自特定的编译器，从而将相同的C语言源代码翻译为">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/James_Gosling.jpg">
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/jvm_compile.png">
@@ -32,10 +32,10 @@
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/ygc_end.jpg">
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/ogc_concurrent_mark.jpg">
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg">
-<meta property="og:updated_time" content="2019-10-16T15:11:36.502Z">
+<meta property="og:updated_time" content="2019-10-16T15:31:28.121Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM &amp; GC">
-<meta name="twitter:description" content="JVM &amp;amp; GC一：Write Once, Run Everywhere在计算机的世界，操作系统封装了各种硬件平台的操作指令，我们大部分使用的开发语言都是基于或依赖于操作系统和硬件打交道。这样的话编程语言如何能够兼容所有的硬件平台和操作系统成了一个问题。 我们先了解下C语言是如何实现兼容性的。C语言实现系统兼容性的思路很简单，那就是通过在不同的硬件平台和操作系统开发各自特定的编译器，从而将">
+<meta name="twitter:description" content="一：Write Once, Run Everywhere在计算机的世界，操作系统封装了各种硬件平台的操作指令，我们大部分使用的开发语言都是基于或依赖于操作系统和硬件打交道。这样的话编程语言如何能够兼容所有的硬件平台和操作系统成了一个问题。 我们先了解下C语言是如何实现兼容性的。C语言实现系统兼容性的思路很简单，那就是通过在不同的硬件平台和操作系统开发各自特定的编译器，从而将相同的C语言源代码翻译为">
 <meta name="twitter:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/James_Gosling.jpg">
     
     
@@ -122,7 +122,7 @@
 
     </div>
     <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JVM-amp-GC"><span class="toc-number">1.</span> <span class="toc-text">JVM &amp; GC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一：Write-Once-Run-Everywhere"><span class="toc-number">1.0.1.</span> <span class="toc-text">一：Write Once, Run Everywhere</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二：Runtime-Data-Area："><span class="toc-number">1.0.2.</span> <span class="toc-text">二：Runtime Data Area：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三：GC"><span class="toc-number">1.0.3.</span> <span class="toc-text">三：GC</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2：如何辨别对象是否是垃圾："><span class="toc-number">1.0.3.1.</span> <span class="toc-text">2：如何辨别对象是否是垃圾：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3：垃圾回收算法："><span class="toc-number">1.0.3.2.</span> <span class="toc-text">3：垃圾回收算法：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4：垃圾收集器："><span class="toc-number">1.0.3.3.</span> <span class="toc-text">4：垃圾收集器：</span></a></li></ol></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#一：Write-Once-Run-Everywhere"><span class="toc-number">1.</span> <span class="toc-text">一：Write Once, Run Everywhere</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二：Runtime-Data-Area："><span class="toc-number">2.</span> <span class="toc-text">二：Runtime Data Area：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三：GC"><span class="toc-number">3.</span> <span class="toc-text">三：GC</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2：如何辨别对象是否是垃圾："><span class="toc-number">3.1.</span> <span class="toc-text">2：如何辨别对象是否是垃圾：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3：垃圾回收算法："><span class="toc-number">3.2.</span> <span class="toc-text">3：垃圾回收算法：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4：垃圾收集器："><span class="toc-number">3.3.</span> <span class="toc-text">4：垃圾收集器：</span></a></li></ol></li></ol>
     </div>
   </span>
 </div>
@@ -171,7 +171,7 @@
   
 
   <div class="content" itemprop="articleBody">
-    <h2 id="JVM-amp-GC"><a href="#JVM-amp-GC" class="headerlink" title="JVM &amp; GC"></a>JVM &amp; GC</h2><h4 id="一：Write-Once-Run-Everywhere"><a href="#一：Write-Once-Run-Everywhere" class="headerlink" title="一：Write Once, Run Everywhere"></a>一：Write Once, Run Everywhere</h4><p>在计算机的世界，操作系统封装了各种硬件平台的操作指令，我们大部分使用的开发语言都是基于或依赖于操作系统和硬件打交道。这样的话编程语言如何能够兼容所有的硬件平台和操作系统成了一个问题。</p>
+    <h4 id="一：Write-Once-Run-Everywhere"><a href="#一：Write-Once-Run-Everywhere" class="headerlink" title="一：Write Once, Run Everywhere"></a>一：Write Once, Run Everywhere</h4><p>在计算机的世界，操作系统封装了各种硬件平台的操作指令，我们大部分使用的开发语言都是基于或依赖于操作系统和硬件打交道。这样的话编程语言如何能够兼容所有的硬件平台和操作系统成了一个问题。</p>
 <p>我们先了解下C语言是如何实现兼容性的。C语言实现系统兼容性的思路很简单，那就是通过在不同的硬件平台和操作系统开发各自特定的编译器，从而将相同的C语言源代码翻译为底层平台相关的硬件指令。这种思路很棒，但缺陷在于，当涉及到系统调用时，开发者仍然要关注具体底层系统的API。例如，在Linux平台，创建线程的接口是pthread_create()，而在Windows平台则是CreateThread()。</p>
 <p>这样有时为了适用不同的操作系统我们依然要开两套或者发多套代码。另外一点在于底层的细节比较复杂，要熟悉各种底层API需要大量的实践，学习成本比较高，开发效率比较底下。</p>
 <p>那么如何使开发者写出可以兼容所有底层平台的程序？</p>
@@ -422,7 +422,7 @@
     </div>
 
     <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#JVM-amp-GC"><span class="toc-number">1.</span> <span class="toc-text">JVM &amp; GC</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#一：Write-Once-Run-Everywhere"><span class="toc-number">1.0.1.</span> <span class="toc-text">一：Write Once, Run Everywhere</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二：Runtime-Data-Area："><span class="toc-number">1.0.2.</span> <span class="toc-text">二：Runtime Data Area：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三：GC"><span class="toc-number">1.0.3.</span> <span class="toc-text">三：GC</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2：如何辨别对象是否是垃圾："><span class="toc-number">1.0.3.1.</span> <span class="toc-text">2：如何辨别对象是否是垃圾：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3：垃圾回收算法："><span class="toc-number">1.0.3.2.</span> <span class="toc-text">3：垃圾回收算法：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4：垃圾收集器："><span class="toc-number">1.0.3.3.</span> <span class="toc-text">4：垃圾收集器：</span></a></li></ol></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#一：Write-Once-Run-Everywhere"><span class="toc-number">1.</span> <span class="toc-text">一：Write Once, Run Everywhere</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#二：Runtime-Data-Area："><span class="toc-number">2.</span> <span class="toc-text">二：Runtime Data Area：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#三：GC"><span class="toc-number">3.</span> <span class="toc-text">三：GC</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2：如何辨别对象是否是垃圾："><span class="toc-number">3.1.</span> <span class="toc-text">2：如何辨别对象是否是垃圾：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3：垃圾回收算法："><span class="toc-number">3.2.</span> <span class="toc-text">3：垃圾回收算法：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4：垃圾收集器："><span class="toc-number">3.3.</span> <span class="toc-text">4：垃圾收集器：</span></a></li></ol></li></ol>
     </div>
 
     <div id="share-footer" style="display: none">
