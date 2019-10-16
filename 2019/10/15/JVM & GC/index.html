@@ -18,6 +18,7 @@
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/jvm_compile.png">
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/Runtime_Data_Area.png">
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/jvm_stack.png">
+<meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/Java%20Heap.PNG">
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/jvm_create_obj.png">
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/gc_roots.png">
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/mark_clean.png">
@@ -31,7 +32,7 @@
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/ygc_end.jpg">
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/ogc_concurrent_mark.jpg">
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg">
-<meta property="og:updated_time" content="2019-10-15T15:59:22.163Z">
+<meta property="og:updated_time" content="2019-10-16T15:11:36.502Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM &amp; GC">
 <meta name="twitter:description" content="JVM &amp;amp; GC一：Write Once, Run Everywhere在计算机的世界，操作系统封装了各种硬件平台的操作指令，我们大部分使用的开发语言都是基于或依赖于操作系统和硬件打交道。这样的话编程语言如何能够兼容所有的硬件平台和操作系统成了一个问题。 我们先了解下C语言是如何实现兼容性的。C语言实现系统兼容性的思路很简单，那就是通过在不同的硬件平台和操作系统开发各自特定的编译器，从而将">
@@ -242,7 +243,7 @@
 </li>
 <li><p>堆(Heap)：</p>
 <p>Java Heap是JVM所管理的内存中最大的一块。此内存区域唯一的作用就是存放对象实例。几乎所有的对象实例都需要在堆中分配内存。而堆空间还可以细分为：新生代和老年代。具体到新生代又分为Eden空间、From Survivor空间和To Survivor空间。</p>
-<p>![heap](/Users/jiashun/Desktop/JVM/Java Heap.PNG)</p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/Java%20Heap.PNG" alt="heap"></p>
 <p>无论哪个区域，存储的都是对象实例。那为什么还需要分代。唯一的目的就是为了更好的回收内存，或者更快的分配内存。也就是垃圾回收。</p>
 </li>
 </ul>
@@ -330,7 +331,7 @@
 <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/parallel_collection.png" alt="parallel_collection"></p>
 <p>串行非常简单，当串行收集器工作时，Stop The World，应用被完全挂起，挂起后堆内存空间不再发生变化，回收起来很简单。缺陷在于STW的时间有时是我们不能接受的。并行完全利用了现在大内存多核心的能力，多个GC线程同时进行，会大量降低STW的时间。</p>
 <p>那么还有没有优化的空间？</p>
-<p>有没有可能垃圾回收线程和程序线程同时工作，也就是垃圾回收的同时程序不需要挂起？答案是NO！但可以以获取最短回收停顿时间为目标。</p>
+<p>有没有可能垃圾回收线程和程序线程同时工作，也就是垃圾回收的同时程序不需要挂起？或者说可不可以永远不STW，答案是NO！最起码目前是NO，但可以以获取最短回收停顿时间为目标。</p>
 <p><strong>CMS</strong></p>
 <p>而CMS收集器就是为此而生。<img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/cms_gc.png" alt="cms_gc"></p>
 <p>CMS采用的是标记-清除算法，并且是并发的。</p>
@@ -341,7 +342,7 @@
 <li>重新标记：为了修正并发标记期间因用户程序继续运行而导致标记产生变动的那一部分的标记记录，此阶段同样需要STW。</li>
 <li>并发清除。</li>
 </ul>
-<p>优点：并发手机、低停顿。</p>
+<p>优点：并发收集、低停顿。</p>
 <p>由于整个过程中耗时最长的并发标记和并发清除过程中，收集线程和程序线程一起工作，所以总体上来说，CMS收集器的内存回收过程和程序线程是并发执行，两次STW的过程都特别短暂。</p>
 <p>缺点：</p>
 <ul>
