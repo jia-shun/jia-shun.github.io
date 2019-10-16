@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/ygc_end.jpg">
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/ogc_concurrent_mark.jpg">
 <meta property="og:image" content="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg">
-<meta property="og:updated_time" content="2019-10-16T15:31:28.121Z">
+<meta property="og:updated_time" content="2019-10-16T15:33:35.576Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM &amp; GC">
 <meta name="twitter:description" content="一：Write Once, Run Everywhere在计算机的世界，操作系统封装了各种硬件平台的操作指令，我们大部分使用的开发语言都是基于或依赖于操作系统和硬件打交道。这样的话编程语言如何能够兼容所有的硬件平台和操作系统成了一个问题。 我们先了解下C语言是如何实现兼容性的。C语言实现系统兼容性的思路很简单，那就是通过在不同的硬件平台和操作系统开发各自特定的编译器，从而将相同的C语言源代码翻译为">
@@ -184,7 +184,6 @@
 <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/jvm_compile.png" alt="jvm_compile"></p>
 <p>此时，James针对不同的操作系统发明了不同的虚拟机，我们只需安装好虚拟机，只需熟悉Java语言规范和API就可以快速开发程序。用一句话总结就是：</p>
 <p><strong>write once, run everywhere</strong></p>
-<hr>
 <h4 id="二：Runtime-Data-Area："><a href="#二：Runtime-Data-Area：" class="headerlink" title="二：Runtime Data Area："></a>二：Runtime Data Area：</h4><p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/Runtime_Data_Area.png" alt="jvm_structure"></p>
 <p>根据JVM规范，JVM内存共分为<strong>程序计数器、虚拟机栈、本地方法栈、方法区、堆</strong>五个部分。</p>
 <p>内存空间按照线程数是否共享分为两块：线程私有和线程共享。而计算的本质可以理解为指令+数据。正常线程私有的为指令，线程共享的为数据。  </p>
@@ -266,7 +265,6 @@
 </ul>
 <p>因为他们是线程私有的，生命周期是和线程同步的，随着线程的销毁，占用的内存会自动释放。</p>
 </blockquote>
-<hr>
 <h4 id="三：GC"><a href="#三：GC" class="headerlink" title="三：GC"></a>三：GC</h4><p>理论上，如果有一些数据已经不再使用了，我们要释放掉它所占用的内存空间。</p>
 <p>垃圾自动回收最早可以追溯到50年代的Lisp语言，后续大部分的高级语言都实现了自动回收。但相对来说Java的垃圾回收是比较复杂比较成熟的。</p>
 <p><strong>对象创建：</strong></p>
