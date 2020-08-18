@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang=zh>
+<head><meta name="generator" content="Hexo 3.9.0">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="description" content="简介synchronized用的锁是存在Java对象头里的。JVM基于进入和退出Monitor对象来实现方法同步和代码块同步。同步是使用monitorenter和monitorexit指令实现的。monitorenter指令在编译后出入到同步代码块的开始位置，而monitorexit是插入到方法结束处或者异常处，任何一个对象都有一个monitor与之关联，当一个monitor被持有后，它将处于锁定">
+<meta name="keywords" content="Java,Synchronized">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Synchronized关键字">
+<meta property="og:url" content="http://jia-shun.cn/2019/12/15/Synchronized/index.html">
+<meta property="og:site_name" content="Freedom">
+<meta property="og:description" content="简介synchronized用的锁是存在Java对象头里的。JVM基于进入和退出Monitor对象来实现方法同步和代码块同步。同步是使用monitorenter和monitorexit指令实现的。monitorenter指令在编译后出入到同步代码块的开始位置，而monitorexit是插入到方法结束处或者异常处，任何一个对象都有一个monitor与之关联，当一个monitor被持有后，它将处于锁定">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-12-15T09:13:30.471Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Synchronized关键字">
+<meta name="twitter:description" content="简介synchronized用的锁是存在Java对象头里的。JVM基于进入和退出Monitor对象来实现方法同步和代码块同步。同步是使用monitorenter和monitorexit指令实现的。monitorenter指令在编译后出入到同步代码块的开始位置，而monitorexit是插入到方法结束处或者异常处，任何一个对象都有一个monitor与之关联，当一个monitor被持有后，它将处于锁定">
+    
+    
+        
+          
+              <link rel="shortcut icon" href="/images/favicon.ico">
+          
+        
+        
+          
+            <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+          
+        
+        
+          
+            <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+          
+        
+    
+    <!-- title -->
+    <title>Synchronized关键字</title>
+    <!-- styles -->
+    <link rel="stylesheet" href="/css/style.css">
+    <!-- persian styles -->
+    
+      <link rel="stylesheet" href="/css/rtl.css">
+    
+    <!-- rss -->
+    
+    
+</head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/categories/技术">技术</a></li>
+         
+          <li><a href="/categories/音乐">音乐</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/08/19/蒙太奇旅行/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2019/11/30/ThreadLocal/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://jia-shun.cn/2019/12/15/Synchronized/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://jia-shun.cn/2019/12/15/Synchronized/&text=Synchronized关键字"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://jia-shun.cn/2019/12/15/Synchronized/&is_video=false&description=Synchronized关键字"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Synchronized关键字&body=Check out this article: http://jia-shun.cn/2019/12/15/Synchronized/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://jia-shun.cn/2019/12/15/Synchronized/&name=Synchronized关键字&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        Synchronized关键字
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Freedom</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2019-12-15T15:55:15.000Z" itemprop="datePublished">2019-12-15</time>
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/技术/">技术</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link" href="/tags/Java/">Java</a>, <a class="tag-link" href="/tags/Synchronized/">Synchronized</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p><strong>简介</strong><br>synchronized用的锁是存在Java对象头里的。<br>JVM基于进入和退出Monitor对象来实现方法同步和代码块同步。同步是使用monitorenter和monitorexit指令实现的。monitorenter指令在编译后出入到同步代码块的开始位置，而monitorexit是插入到方法结束处或者异常处，任何一个对象都有一个monitor与之关联，当一个monitor被持有后，它将处于锁定状态。<br><strong>注意：</strong>  </p>
+<ul>
+<li>synchronized同步块对同一个线程来说是可重入的，不会出现自己把自己锁死的问题；  </li>
+<li>同步块在已进入的线程执行完之前，会阻塞后面其他线程的进入。  </li>
+</ul>
+<p><strong>Mutex Lock</strong><br>监视器锁(Monitor)本质是依赖于底层的操作系统的Mutex Lock(互斥锁)来实现的。每个对象都对应于一个可称为”互斥锁”的标记，这个标记用来保证在任一时刻，只能有一个线程访问该对象。<br>由于Java的线程是映射到操作系统的原生线程之上的，如果要阻塞或唤醒一条线程，都需要操作系统来帮忙，这就需要从用户态转换到内核态中，因此状态转换需要耗费很多的处理器时间。所以synchronized是Java语言中的一个重量级操作。不过在JDK1.6中加入了针对锁的优化措施，使得synchronized和ReentrantLock的性能基本持平，ReentrantLock只是提供了synchronized更丰富的功能，而不一定有更优的性能，所以在synchronized能实现需求的情况下，优先使用synchronized来进行同步。  </p>
+<p><strong>锁优化</strong><br>Java SE 1.6为了减少获得和释放锁带来的性能消耗，引入了”偏向锁”和”轻量级锁”：锁一共有四个状态：无锁状态、偏向锁状态、轻量级锁状态和重量级锁状态。<br>偏向锁、轻量级锁都是乐观锁，重量级锁是悲观锁。  </p>
+<ul>
+<li>一个对象刚开始实例化的时候，没有任何线程访问它的时候，它是可偏向的，意味着，它现在认为只可能有一个线程来访问它，当第一个线程来访问它的时候，它会偏向这个线程，此时，对象持有偏向锁。偏向第一个线程，这个线程在修改对象头称为偏向锁的时候使用CAS操作，并将对象头中的ThreadID改为自己的ID，之后再次访问这个对象的时候，只需要对比ID，不需要再使用CAS进行判断操作。  </li>
+<li>一旦有第二个线程访问这个对象，因为偏向锁不会主动释放，所以第二个线程可以看到对象是偏向状态，这时表明在这个对象上已经存在竞争了。检查原来持有该对象锁的线程是否存活，如果挂了，则可以将对象改为无锁状态，然后重新偏向新的线程。如果原来的线程仍然存活，则马上执行那个线程的操作栈，检查该对象的使用情况，如果仍然需要持有偏向锁，则偏向锁升级为轻量级锁，此时轻量级锁由原持有该偏向锁的线程持有，继续执行其同步代码，而正在竞争的线程会进入自旋等待获得该轻量级锁，如果不存在使用了，则可以将对象恢复成无锁状态，然后重新偏向。  </li>
+<li>轻量级锁认为竞争存在，但是竞争的程度很轻，一般两个线程对于同一个锁的操作都会错开，或者稍微等待一下(自旋)，两一个线程就会释放锁。但是当自旋超过一定的次数或者一个线程在持有锁，一个在自旋，又有第三个来访时，轻量级锁膨胀微重量级锁，重量级锁使除了拥有锁的线程以外的线程都阻塞，防止CPU空转。  </li>
+</ul>
+<p><strong>锁消除</strong><br>锁消除即删除不必要的加锁操作，虚拟机在即时编辑器运行时，对一些“代码上要求同步，但是被检测到不可能存在共享数据竞争”的锁进行消除。<br>根据代码逃逸技术：如果判断到一段代码中，堆上的数据不会逃逸出当前线程，那么可以认为这段代码是线程安全的，不必要加锁。  </p>
+<p><strong>锁粗化</strong><br>如果一系列的联系操作都是对同一个对象反复的加锁和解锁，甚至加锁操作时出现在循环体中的，那即使没有出现想成竞争，频繁的进行互斥同步操作也会导致不必要的性能损耗。如果虚拟机检测到有一串零碎的操作都是对同一个对象加锁，将会把加锁同步的范围扩展到整个操作序列的外部。  </p>
+<p><strong>自旋锁和自适应锁</strong>  </p>
+<ul>
+<li>引入自旋锁的原因：互斥同步对性能最大的影响是阻塞的实现，因为挂起线程和恢复线程的操作都需要转入内核态中完成，这些操作给系统的并发性能带来了很大的压力。同时虚拟机的开发团队也注意到在许多应用上面，共享数据的锁定状态只会保持很短一段时间，为了这一段很短的时间频繁阻塞和唤醒线程是非常不值得的。  </li>
+<li>自旋锁：让该线程执行一段无意义的忙循环(自旋)等待一段时间，不会被立即挂起(自旋不放弃处理器执行时间)，看持有锁的线程是否会很快释放锁。  </li>
+<li>自旋锁的特点：自旋等待不能替代阻塞，虽然它可以避免线程切换带来的开销，但是它占用了处理器的时间，如果持有锁的线程很快就释放了锁，那么自旋的效率就非常好，反之，自旋的线程会白白消耗掉持利器的资源，它不会做任何有意义的工作，这样反而会带来性能上浪费。所以自旋等待的时间(次数)必须要有一个限制。默认为10.  </li>
+<li>自适应的自旋锁：JDK1.6引入自适应的自旋锁，自适应意味着自旋的次数不再是固定的，它是由前一次在同一个锁上的自旋时间及锁的拥有者的状态来决定的。简单说：就是线程如果自旋成功了，则下次自旋的次数会更多，如果自旋失败了，则自旋的次数就会减少。  </li>
+<li>自旋锁的使用场景：当线程在获取轻量级锁的过程中执行CAS操作失败时，是要通过自旋来获取重量级锁的。</li>
+</ul>
+
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/categories/技术">技术</a></li>
+         
+          <li><a href="/categories/音乐">音乐</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://jia-shun.cn/2019/12/15/Synchronized/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://jia-shun.cn/2019/12/15/Synchronized/&text=Synchronized关键字"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://jia-shun.cn/2019/12/15/Synchronized/&is_video=false&description=Synchronized关键字"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Synchronized关键字&body=Check out this article: http://jia-shun.cn/2019/12/15/Synchronized/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://jia-shun.cn/2019/12/15/Synchronized/&name=Synchronized关键字&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy; 2020 Jia Shun
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/categories/技术">技术</a></li>
+         
+          <li><a href="/categories/音乐">音乐</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+    <!-- jquery -->
+<script src="/lib/jquery/jquery.min.js"></script>
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+<!-- clipboard -->
+
+  <script src="/lib/clipboard/clipboard.min.js"></script>
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight .code pre").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      target: function(trigger) {
+        return trigger.nextElementSibling;
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+<script src="/js/main.js"></script>
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Disqus Comments -->
+
+
+</body>
+</html>
