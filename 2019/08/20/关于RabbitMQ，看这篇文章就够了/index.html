@@ -10,7 +10,7 @@
 <meta name="keywords" content="Java,Rabbitmq">
 <meta property="og:type" content="article">
 <meta property="og:title" content="关于RabbitMQ，看这篇文章就够了">
-<meta property="og:url" content="http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/index.html">
+<meta property="og:url" content="http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/index.html">
 <meta property="og:site_name" content="Freedom">
 <meta property="og:description" content="RabbitMQ学习笔记一：消息中间件 什么是消息中间件：消息队列中间件(简称MQ)是指利用高效可靠的消息传递机制进行与平台无关的数据交流，并基于数据通信来进行分布式系统的集成。通过提供消息传递和消息排队模型，它可以在分布式环境下扩展进程间的通信。一般分为传递模式：点对点(P2P)和发布/订阅(Pub/sub)模式。目前主流的消息中间件：RabbitMQ、Kafka、RocketMQ、Active">
 <meta property="og:locale" content="zh-CN">
@@ -93,16 +93,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&text=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&is_video=false&description=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=关于RabbitMQ，看这篇文章就够了&body=Check out this article: http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&name=关于RabbitMQ，看这篇文章就够了&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&text=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&is_video=false&description=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=关于RabbitMQ，看这篇文章就够了&body=Check out this article: http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&name=关于RabbitMQ，看这篇文章就够了&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -315,16 +315,16 @@ channel.queueDeclare(queueName, false, false, false, args);</code>惰性队列�
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&text=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&is_video=false&description=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=关于RabbitMQ，看这篇文章就够了&body=Check out this article: http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://jia-shun.cn/2019/08/20/关于RabbitMQ，看这篇文章就够了/&name=关于RabbitMQ，看这篇文章就够了&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&text=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&is_video=false&description=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=关于RabbitMQ，看这篇文章就够了&body=Check out this article: http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&title=关于RabbitMQ，看这篇文章就够了"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://jiashun.tech/2019/08/20/关于RabbitMQ，看这篇文章就够了/&name=关于RabbitMQ，看这篇文章就够了&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

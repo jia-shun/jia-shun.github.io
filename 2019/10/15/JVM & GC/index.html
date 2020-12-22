@@ -10,7 +10,7 @@
 <meta name="keywords" content="Java,JVM,GC">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JVM &amp; GC">
-<meta property="og:url" content="http://jia-shun.cn/2019/10/15/JVM & GC/index.html">
+<meta property="og:url" content="http://jiashun.tech/2019/10/15/JVM & GC/index.html">
 <meta property="og:site_name" content="Freedom">
 <meta property="og:description" content="一：Write Once, Run Everywhere在计算机的世界，操作系统封装了各种硬件平台的操作指令，我们大部分使用的开发语言都是基于或依赖于操作系统和硬件打交道。这样的话编程语言如何能够兼容所有的硬件平台和操作系统成了一个问题。 我们先了解下C语言是如何实现兼容性的。C语言实现系统兼容性的思路很简单，那就是通过在不同的硬件平台和操作系统开发各自特定的编译器，从而将相同的C语言源代码翻译为">
 <meta property="og:locale" content="zh-CN">
@@ -110,16 +110,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://jia-shun.cn/2019/10/15/JVM &amp; GC/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&text=JVM &amp; GC"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&is_video=false&description=JVM &amp; GC"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=JVM &amp; GC&body=Check out this article: http://jia-shun.cn/2019/10/15/JVM &amp; GC/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&name=JVM &amp; GC&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://jiashun.tech/2019/10/15/JVM &amp; GC/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&text=JVM &amp; GC"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&is_video=false&description=JVM &amp; GC"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JVM &amp; GC&body=Check out this article: http://jiashun.tech/2019/10/15/JVM &amp; GC/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&name=JVM &amp; GC&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -429,16 +429,16 @@ result:
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://jia-shun.cn/2019/10/15/JVM &amp; GC/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&text=JVM &amp; GC"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&is_video=false&description=JVM &amp; GC"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=JVM &amp; GC&body=Check out this article: http://jia-shun.cn/2019/10/15/JVM &amp; GC/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://jia-shun.cn/2019/10/15/JVM &amp; GC/&name=JVM &amp; GC&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://jiashun.tech/2019/10/15/JVM &amp; GC/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&text=JVM &amp; GC"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&is_video=false&description=JVM &amp; GC"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=JVM &amp; GC&body=Check out this article: http://jiashun.tech/2019/10/15/JVM &amp; GC/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&title=JVM &amp; GC"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://jiashun.tech/2019/10/15/JVM &amp; GC/&name=JVM &amp; GC&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>

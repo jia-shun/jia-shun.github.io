@@ -10,7 +10,7 @@
 <meta name="keywords" content="Java,Synchronized">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Synchronized关键字">
-<meta property="og:url" content="http://jia-shun.cn/2019/12/15/Synchronized/index.html">
+<meta property="og:url" content="http://jiashun.tech/2019/12/15/Synchronized/index.html">
 <meta property="og:site_name" content="Freedom">
 <meta property="og:description" content="简介synchronized用的锁是存在Java对象头里的。JVM基于进入和退出Monitor对象来实现方法同步和代码块同步。同步是使用monitorenter和monitorexit指令实现的。monitorenter指令在编译后出入到同步代码块的开始位置，而monitorexit是插入到方法结束处或者异常处，任何一个对象都有一个monitor与之关联，当一个monitor被持有后，它将处于锁定">
 <meta property="og:locale" content="zh-CN">
@@ -91,16 +91,16 @@
     <br/>
     <div id="share" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://jia-shun.cn/2019/12/15/Synchronized/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://jia-shun.cn/2019/12/15/Synchronized/&text=Synchronized关键字"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://jia-shun.cn/2019/12/15/Synchronized/&is_video=false&description=Synchronized关键字"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Synchronized关键字&body=Check out this article: http://jia-shun.cn/2019/12/15/Synchronized/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://jia-shun.cn/2019/12/15/Synchronized/&name=Synchronized关键字&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://jiashun.tech/2019/12/15/Synchronized/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://jiashun.tech/2019/12/15/Synchronized/&text=Synchronized关键字"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://jiashun.tech/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://jiashun.tech/2019/12/15/Synchronized/&is_video=false&description=Synchronized关键字"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Synchronized关键字&body=Check out this article: http://jiashun.tech/2019/12/15/Synchronized/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://jiashun.tech/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://jiashun.tech/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://jiashun.tech/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://jiashun.tech/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://jiashun.tech/2019/12/15/Synchronized/&name=Synchronized关键字&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
@@ -208,16 +208,16 @@
 
     <div id="share-footer" style="display: none">
       <ul>
-  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://jia-shun.cn/2019/12/15/Synchronized/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://twitter.com/share?url=http://jia-shun.cn/2019/12/15/Synchronized/&text=Synchronized关键字"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://jia-shun.cn/2019/12/15/Synchronized/&is_video=false&description=Synchronized关键字"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=Synchronized关键字&body=Check out this article: http://jia-shun.cn/2019/12/15/Synchronized/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="https://getpocket.com/save?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://reddit.com/submit?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://digg.com/submit?url=http://jia-shun.cn/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://jia-shun.cn/2019/12/15/Synchronized/&name=Synchronized关键字&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.facebook.com/sharer.php?u=http://jiashun.tech/2019/12/15/Synchronized/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://twitter.com/share?url=http://jiashun.tech/2019/12/15/Synchronized/&text=Synchronized关键字"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.linkedin.com/shareArticle?url=http://jiashun.tech/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://pinterest.com/pin/create/bookmarklet/?url=http://jiashun.tech/2019/12/15/Synchronized/&is_video=false&description=Synchronized关键字"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Synchronized关键字&body=Check out this article: http://jiashun.tech/2019/12/15/Synchronized/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="https://getpocket.com/save?url=http://jiashun.tech/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://reddit.com/submit?url=http://jiashun.tech/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.stumbleupon.com/submit?url=http://jiashun.tech/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://digg.com/submit?url=http://jiashun.tech/2019/12/15/Synchronized/&title=Synchronized关键字"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="http://www.tumblr.com/share/link?url=http://jiashun.tech/2019/12/15/Synchronized/&name=Synchronized关键字&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
 </ul>
 
     </div>
