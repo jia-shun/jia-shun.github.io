@@ -1,0 +1,333 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta name="generator" content="Hexo 3.9.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Spring Data JPA | Freedom</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/normalize.css/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/pure-min.min.css"><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/purecss/build/grids-responsive-min.css"><link rel="stylesheet" href="//cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/jquery/dist/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"><script type="text/javascript" src="//cdn.jsdelivr.net/npm/clipboard/dist/clipboard.min.js"></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.js"></script><link rel="stylesheet" href="//cdn.jsdelivr.net/gh/codeseven/toastr/build/toastr.min.css"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Spring Data JPA</h1><a id="logo" href="/.">Freedom</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Spring Data JPA</h1><div class="post-meta">2021-08-20<span> | </span><span class="category"><a href="/categories/技术/">技术</a></span></div><div class="post-content"><p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/spring-data-jpa.jpeg" alt="JPA"></p>
+<h2 id="认识-Spring-Data-JPA"><a href="#认识-Spring-Data-JPA" class="headerlink" title="认识 Spring Data JPA"></a>认识 Spring Data JPA</h2><p><strong>一. ORM</strong></p>
+<blockquote>
+<p><strong>概述：</strong></p>
+<p>面向对象编程讲究万物皆对象(object)，关系型数据库则是采用实体之间的关系(relation)连接数据。那么关系也可以用对象表达，这样就能用面向对象编程，来操作关系型数据库了。</p>
+<p><strong>简单说，ORM就是通过实例对象的语法，完成关系型数据库的操作。是“对象-关系映射”(Object/Relational Mapping)的缩写。</strong></p>
+</blockquote>
+<p>首先先看一段Java JDBC的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;Connection&gt; THREAD_LOCAL = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 取得数据库的连接对象，如果没有则自动创建新的连接。</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Connection</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> ClassNotFoundException, SQLException </span>&#123;</span><br><span class="line">     Connection conn = THREAD_LOCAL.get();</span><br><span class="line">     <span class="keyword">if</span> (conn == <span class="keyword">null</span>) &#123;</span><br><span class="line">         Class.forName(<span class="string">"$&#123;driver&#125;"</span>);</span><br><span class="line">         conn = DriverManager.getConnection(<span class="string">"$&#123;url&#125;"</span>, <span class="string">"#&#123;username&#125;"</span>, <span class="string">"$&#123;password&#125;"</span>);</span><br><span class="line">         THREAD_LOCAL.set(conn);</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> conn;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 添加用户</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> user</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addUser</span><span class="params">(User user)</span> <span class="keyword">throws</span> ClassNotFoundException, SQLException </span>&#123;</span><br><span class="line">     <span class="comment">//拿到数据库连接</span></span><br><span class="line">     Connection con = getConnection();</span><br><span class="line">     <span class="comment">//参数用占位符 ? 表示</span></span><br><span class="line">     String sql = <span class="string">"INSERT INTO user (id, first_name, last_name, age) VALUES (?, ?, ?, ?)"</span>;</span><br><span class="line">     <span class="comment">//预编译sql预计</span></span><br><span class="line">     PreparedStatement psmt = con.prepareStatement(sql);</span><br><span class="line">     <span class="comment">//给sql语句传递参数</span></span><br><span class="line">     psmt.setLong(<span class="number">1</span>, user.getId());</span><br><span class="line">     psmt.setString(<span class="number">2</span>, user.getFirstName());</span><br><span class="line">     psmt.setString(<span class="number">3</span>, user.getLastName());</span><br><span class="line">     psmt.setInt(<span class="number">4</span>, user.getAge());</span><br><span class="line">     <span class="comment">//执行sql语句</span></span><br><span class="line">     psmt.execute();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>以上是基于<code>mysql-connector-java</code>包中的原生方法操作<code>MySQL</code>数据库。</p>
+<p>虽然基本实现了实体和数据库对象的映射，但如果完全这么写的话，项目中会有大量的拼接<code>SQL</code>、参数传递等看起来既冗余不优雅又容易出错的代码。</p>
+<p>在此基础上，我们的<strong>需求</strong>就变成了需要功能更完善的ORM框架：</p>
+<p><strong>开发者尽量可以不碰<code>SQL</code>语言，只面向对象编程，与数据对象直接交互，不用关心数据库操作。</strong></p>
+<p><strong>二：MyBatis &amp;&amp; Hibernate</strong></p>
+<blockquote>
+<p>针对Java，使用最多的两个主流ORM框架就是<code>MyBatis</code> 和 <code>Hibernate</code>。</p>
+<p>先看一个简单的对比：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><a href="https://mybatis.org/mybatis-3/" target="_blank" rel="noopener">MyBatis</a></th>
+<th><a href="https://hibernate.org/" target="_blank" rel="noopener">Hibernate</a></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>量级</td>
+<td>轻，上手简单，插件多</td>
+<td>重，功能齐全，精通较难</td>
+</tr>
+<tr>
+<td>SQL自由度</td>
+<td>高，提供更灵活的SQL编写方式</td>
+<td>低。仅对基本的SQL语法有较好的支持。也支持自己手动写SQL</td>
+</tr>
+<tr>
+<td>开发效率</td>
+<td>低，需要维护SQL</td>
+<td>高，DAO层开发简单，支持JPA</td>
+</tr>
+<tr>
+<td>数据库无关性</td>
+<td>差，所有SQL都是依赖数据库，需要针对特定的数据库维护SQL</td>
+<td>高。高度解耦，封装了JDBC的实现，只需要在配置中指定数据库</td>
+</tr>
+<tr>
+<td>缓存</td>
+<td>机制相对较差</td>
+<td>机制相对较好，可避免脏读</td>
+</tr>
+<tr>
+<td>映射</td>
+<td>实体与SQL的映射，将SQL所需的参数、返回的结果字段映射到指定的实体，属于半ORM，实际是SQL mapping</td>
+<td>实体与数据库的映射，自动生成和执行SQL，完整的ORM</td>
+</tr>
+<tr>
+<td>性能</td>
+<td>高</td>
+<td>用封装的性能会稍低一些，用Native查询方法性能与MyBatis差不多</td>
+</tr>
+<tr>
+<td>使用场景</td>
+<td>擅长复杂的查询，适用于分析型系统，计算机集群需要跨数据库事务时，MyBatis更灵活</td>
+<td>面向对象的思维方式更有利于业务系统建模分析，适合单数据库，数据量小</td>
+</tr>
+</tbody></table>
+<p>关于这两个框架如何选型的讨论一直没有停止过。</p>
+<p>如果你两个框架都使用过会明显发现在开发方式上的不同点。</p>
+<p><strong>MyBatis</strong>着力点在于实体与SQL之间的映射关系，在配置文件中基于xml的表达能力写SQL并将SQL所需的参数、返回的结果字段映射到指定的实体。</p>
+<p><strong>Hibernate</strong>对数据库结构提供了较为完整的封装，开发时只需要定义好和数据库表映射的实体对象，即可通过Hibernate提供的方法完成持久层操作，开发者甚至不需要对SQL熟练掌握(虽然SQL已经是程序员的基本技能)。</p>
+<p>通过使用方式上的不同，可以看出MyBatis基于配置还是要手写SQL语句，属于半ORM。再返回我们最初的需求：开发者只面向对象编程，不用关心数据库操作。很显然，Hibernate貌似做的比较完善。</p>
+<p><strong>那是不是我们就用Hibernate就好了呢？</strong></p>
+<p>很遗憾，在国内，<strong><code>MyBatis</code>的使用率远超<code>Hibernate</code></strong>。我们聊聊原因。</p>
+<p>在使用Hibernate的时候，我们查询的是实体类，而不再是数据库表。例如HQL：<code>SELECT id, name FROM User</code>。这里面的User是Java类，而不是数据库表user。ORM认为程序员使用OO的思维方式和关系数据库的思维方式不一样，所以在程序员使用纯对象的思维方式，查询的是实体对象，不再需要表、字段等关系的概念。一切看起来很美好。</p>
+<p>但事实是，大多数情况下，使用HQL并没有比SQL简单。首先是HQL还是基于SQL，只不过偷换概念而已，反而使语言更加复杂和难以理解，其次是灵活性相对于SQL反而变得很差，表达能力也比SQL弱。尤其牵扯到多表关联查询之类的。</p>
+<p>而MyBatis直接使用SQL语句查询，只不过将语句从最初的字符串拼接变成了写配置文件，将实体对象填入即可。简单理解为MyBatis是对JDBC的简单封装，从SQL的封装角度上看，MyBatis比Hibernate成功，SQL本不应该被封装和隐藏，而本身SQL又是程序员的基本技能，直接写就行了，还要去学着使用什么HQL，熟悉各种封装的ORM概念，多麻烦。</p>
+<p><strong>那是不是我们就用MyBatis就好了呢？</strong></p>
+<p>别着急，我们往下聊。</p>
+<p><strong>三： Spring-Data-JPA</strong></p>
+<p><strong>1. JPA</strong></p>
+<p>JDK5.0新增了<a href="https://docs.oracle.com/javaee/6/tutorial/doc/bnbpz.html" target="_blank" rel="noopener">JPA</a> (Java Persistence API) 协议：通过相关持久层注解来实现对象和关系型数据库表映射关系，并将Java项目运行期的实体对象，通过一种Session持久化到数据库中。</p>
+<p>有了协议就有了标准规范，有了规范按照API去实现就可以了。</p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa.png" alt="jpa"></p>
+<p>通过上图可以看出来Hibernate就是基于JPA的标准实现。</p>
+<p>你是想做一个挑战者用JPA还是只做“搬砖者”用MyBatis？</p>
+<p><strong>2. Spring Data</strong></p>
+<p><a href="https://spring.io/projects/spring-data" target="_blank" rel="noopener">Spring Data</a> 作为Spring旗下的一个父项目，旨在统一和简化对各种类型持久化存储，而不拘泥于关系型数据库还是NoSQL存储。</p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_spring_data.jpg" alt="spring_data_jpa"></p>
+<p>无论是哪种存储，数据访问对象通常都会提供单一域对象的CRUD、排序、分页等操作。Spring Data则提供了基于这些层面的统一接口(CrudRepository，PagingAndSortingRepository)以及对持久存储的实现。</p>
+<p>通过上图发现Spring Data JPA就是其中的一个子项目，是Spring针对JPA协议的实现。</p>
+<p><strong>3. Spring Data JPA</strong></p>
+<p>Spring Data JPA可以理解为JPA规范的再次封装抽象。而这方面Spring可以说是偷了一个懒，底层直接使用了Hibernate的JPA技术(其实就是Hibernate团队实现的)，引入JPQL查询语言。</p>
+<p>由于Spring在Java中的地位，使用Spring Data JPA处理ORM相关的工作更加得心应手，再加上Spring本身又对Hibernate做了更完善的封装，使得整个项目更像一个整体，使用起来也比较方便，加快了开发效率。</p>
+<p><strong>总结一下：</strong></p>
+<ol>
+<li>MyBatis会在项目中建立大量的xml配置文件，如果你是有代码洁癖的人会有些不能忍。</li>
+<li>Spring Data JPA基于Hibernate实现了JPA协议，基于Spring家族的体系使整个项目更整洁。</li>
+<li>Spring Data JPA封装了基础的ORM相关工作，对于不是特别复杂的数据库操作都有对应的接口实现，完全屏蔽了SQL。</li>
+<li>MyBatis的优势在于灵活性，尤其对于分库分表的大型项目，可以自由的写SQL比较方便，易于扩展。</li>
+<li>Spring Data JPA本身也支持基于@Native注解实现手写SQL，一些复杂的查询也提供了很多的封装都可以实现，只不过学习成本相对较高。</li>
+</ol>
+<p>在可预见的时间内，我们的项目Spring Data JPA基本可以满足，基于此，我们选择Spring Data JPA。下面我们用一个简单的Quick Start感受一下使用Spring Data JPA开发的便捷性。</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p><strong>1. 引入依赖</strong></p>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">'org.springframework.boot:spring-boot-starter-data-jpa:2.5.2'</span></span><br><span class="line">    runtimeOnly <span class="string">'com.h2database:h2:1.4.200'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们使用了内存数据库<code>H2</code></p>
+<p><strong>2. 实现用户CRUD的功能</strong></p>
+<p>2.1 实体类：User</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">User</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">134679228697801572L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 主键</span></span><br><span class="line"><span class="comment">     * 用户id</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue</span>(strategy = GenerationType.IDENTITY)</span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String firstName;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户姓</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String lastName;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户年龄</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Instant createTime;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 更新时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Instant updateTime;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//setter、getter、toString 略</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2.2 数据访问层：UserRepository</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. 测试</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">GvApplicationTests</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserRepository userRepository;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ObjectMapper objectMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">void</span> <span class="title">userTest</span><span class="params">()</span> <span class="keyword">throws</span> JsonProcessingException </span>&#123;</span><br><span class="line">        User user = <span class="keyword">new</span> User();</span><br><span class="line">        user.setFirstName(<span class="string">"Michael"</span>);</span><br><span class="line">        user.setLastName(<span class="string">"Jackson"</span>);</span><br><span class="line">        user.setAge(<span class="number">18</span>);</span><br><span class="line">        Long id = userRepository.save(user).getId();</span><br><span class="line">        System.out.println(<span class="string">"saved user id: "</span> + id);</span><br><span class="line">        Optional&lt;User&gt; userOptional = userRepository.findById(id);</span><br><span class="line">        <span class="keyword">if</span> (userOptional.isPresent()) &#123;</span><br><span class="line">            User vo = userOptional.get();</span><br><span class="line">            System.out.println(<span class="string">"saved user info: "</span> + objectMapper.writeValueAsString(vo));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_test.jpeg" alt="spring_data_jpa_test"></p>
+<p>可以看到，我们基本没写什么代码，没有关注数据层，只是定义了实体类和一个UserRepository接口却完整的实现了针对User的CRUD。</p>
+<p>下面让我们一点点揭开Spring Data JPA的面纱。</p>
+<h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><p><strong>1. Repository</strong></p>
+<p>我们先来看一下UserRepository的继承关系图：</p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_user_diagram.jpg" alt="user_diagram"></p>
+<p><strong>四大Repository接口</strong></p>
+<p>前三个类都是Spring Data的基本接口。JpaRepository是基于JPA的扩展和实现。</p>
+<ul>
+<li><p><strong>Repository：</strong> 顶层接口，没有任何方法。</p>
+</li>
+<li><p><strong>CrudRepository：</strong> Repository的直接子类，提供基础的CRUD方法。</p>
+</li>
+</ul>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_crud_repository.jpg" alt="crud_repository"></p>
+<p>通过IDEA工具我们可以看到CrudRepository中的所有方法，基本涵盖了所有CRUD相关的方法实现。</p>
+<p><strong>注：</strong></p>
+<p>是不是发现没有update相关的方法。通过查看源码发现，save方法接收的参数是一个entity实体，而当传递的参数中没有ID，Spring Data会直接insert，当有ID的时候，会触发select查询，此方法会查看这条ID对应的数据是否存在，若存在则update，否则insert。 </p>
+<ul>
+<li><strong>PagingAndSortingRepository：</strong></li>
+</ul>
+<p>是不是发现CrudRepository没有排序和分页相关的基础操作。其实实现交给了它的子类PagingAndSortingRepository。</p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_paging_and_sorting_repository.jpeg" alt="paging_and_sorting_repository"></p>
+<ul>
+<li><strong>JpaRepository：</strong></li>
+</ul>
+<p>到这里才是我们Spring Data JPA的核心。同样看他的源码：</p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_repository.jpeg" alt="jpa_repository"></p>
+<p>很明显，JpaRepository继承了PagingAndSortingRepository，间接继承了CrudRepository。</p>
+<p>JpaRepository基于以上的方法之后又扩充了批量删除等batch相关操作。</p>
+<p><strong>回到最初的问题：</strong></p>
+<p>很明显，我们的UserRepository虽然没有任何方法，但它的父类基于动态代理却帮我们封装了几乎所有的相关操作。</p>
+<p>Spring发现UserRepository是Repository的子类，就基于动态代理，利用T类和T类的主键ID作为泛型的类型参数就可以标记出来，并捕获到要使用的具体实体类型，就能帮助我们进行数据库层面的操作了。</p>
+<p><strong>2. Defining Query Methods</strong></p>
+<p>Spring Data Jpa的最大特色是利用DQM：方法名定义查询方法(Defining Query Methods)来做Crud操作。</p>
+<p>具体我们看一个例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">UserRepository</span> <span class="keyword">extends</span> <span class="title">JpaRepository</span>&lt;<span class="title">User</span>, <span class="title">Long</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * find by name</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> firstName first name</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Optional</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Optional&lt;List&lt;User&gt;&gt; findByFirstName(String firstName);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在UserRepository中我们增加了一个findByFirstName()的方法，而此方法我们并没有手动做任何的实现。</p>
+<p>测试：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;List&lt;User&gt;&gt; optional = userRepository.findByFirstName(user.getFirstName());</span><br><span class="line"><span class="keyword">if</span> (optional.isPresent()) &#123;</span><br><span class="line">    User vo = optional.get().stream().findFirst().orElseThrow();</span><br><span class="line">    System.out.println(<span class="string">"saved user info: "</span> + objectMapper.writeValueAsString(vo));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试结果发现我们成功基于findByFirstName()获取了数据库数据。是不是很简单。</p>
+<p>我们可以使用JPA标准创建一个查询，Spring Data JPA会帮我们转换成数据库操作。</p>
+<p>下表描述了 JPA 支持的关键字以及包含该关键字的方法转换：</p>
+<table>
+<thead>
+<tr>
+<th align="left">Keyword</th>
+<th align="left">Sample</th>
+<th align="left">JPQL snippet</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>Distinct</code></td>
+<td align="left"><code>findDistinctByLastnameAndFirstname</code></td>
+<td align="left"><code>select distinct … where x.lastname = ?1 and x.firstname = ?2</code></td>
+</tr>
+<tr>
+<td align="left"><code>And</code></td>
+<td align="left"><code>findByLastnameAndFirstname</code></td>
+<td align="left"><code>… where x.lastname = ?1 and x.firstname = ?2</code></td>
+</tr>
+<tr>
+<td align="left"><code>Or</code></td>
+<td align="left"><code>findByLastnameOrFirstname</code></td>
+<td align="left"><code>… where x.lastname = ?1 or x.firstname = ?2</code></td>
+</tr>
+<tr>
+<td align="left"><code>Is</code>, <code>Equals</code></td>
+<td align="left"><code>findByFirstname</code>,<code>findByFirstnameIs</code>,<code>findByFirstnameEquals</code></td>
+<td align="left"><code>… where x.firstname = ?1</code></td>
+</tr>
+<tr>
+<td align="left"><code>Between</code></td>
+<td align="left"><code>findByStartDateBetween</code></td>
+<td align="left"><code>… where x.startDate between ?1 and ?2</code></td>
+</tr>
+<tr>
+<td align="left"><code>LessThan</code></td>
+<td align="left"><code>findByAgeLessThan</code></td>
+<td align="left"><code>… where x.age &lt; ?1</code></td>
+</tr>
+<tr>
+<td align="left"><code>LessThanEqual</code></td>
+<td align="left"><code>findByAgeLessThanEqual</code></td>
+<td align="left"><code>… where x.age &lt;= ?1</code></td>
+</tr>
+<tr>
+<td align="left"><code>GreaterThan</code></td>
+<td align="left"><code>findByAgeGreaterThan</code></td>
+<td align="left"><code>… where x.age &gt; ?1</code></td>
+</tr>
+<tr>
+<td align="left"><code>GreaterThanEqual</code></td>
+<td align="left"><code>findByAgeGreaterThanEqual</code></td>
+<td align="left"><code>… where x.age &gt;= ?1</code></td>
+</tr>
+<tr>
+<td align="left"><code>After</code></td>
+<td align="left"><code>findByStartDateAfter</code></td>
+<td align="left"><code>… where x.startDate &gt; ?1</code></td>
+</tr>
+<tr>
+<td align="left"><code>Before</code></td>
+<td align="left"><code>findByStartDateBefore</code></td>
+<td align="left"><code>… where x.startDate &lt; ?1</code></td>
+</tr>
+<tr>
+<td align="left"><code>IsNull</code>, <code>Null</code></td>
+<td align="left"><code>findByAge(Is)Null</code></td>
+<td align="left"><code>… where x.age is null</code></td>
+</tr>
+<tr>
+<td align="left"><code>IsNotNull</code>, <code>NotNull</code></td>
+<td align="left"><code>findByAge(Is)NotNull</code></td>
+<td align="left"><code>… where x.age not null</code></td>
+</tr>
+<tr>
+<td align="left"><code>Like</code></td>
+<td align="left"><code>findByFirstnameLike</code></td>
+<td align="left"><code>… where x.firstname like ?1</code></td>
+</tr>
+<tr>
+<td align="left"><code>NotLike</code></td>
+<td align="left"><code>findByFirstnameNotLike</code></td>
+<td align="left"><code>… where x.firstname not like ?1</code></td>
+</tr>
+<tr>
+<td align="left"><code>StartingWith</code></td>
+<td align="left"><code>findByFirstnameStartingWith</code></td>
+<td align="left"><code>… where x.firstname like ?1</code> (parameter bound with appended <code>%</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>EndingWith</code></td>
+<td align="left"><code>findByFirstnameEndingWith</code></td>
+<td align="left"><code>… where x.firstname like ?1</code> (parameter bound with prepended <code>%</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>Containing</code></td>
+<td align="left"><code>findByFirstnameContaining</code></td>
+<td align="left"><code>… where x.firstname like ?1</code> (parameter bound wrapped in <code>%</code>)</td>
+</tr>
+<tr>
+<td align="left"><code>OrderBy</code></td>
+<td align="left"><code>findByAgeOrderByLastnameDesc</code></td>
+<td align="left"><code>… where x.age = ?1 order by x.lastname desc</code></td>
+</tr>
+<tr>
+<td align="left"><code>Not</code></td>
+<td align="left"><code>findByLastnameNot</code></td>
+<td align="left"><code>… where x.lastname &lt;&gt; ?1</code></td>
+</tr>
+<tr>
+<td align="left"><code>In</code></td>
+<td align="left"><code>findByAgeIn(Collection&lt;Age&gt; ages)</code></td>
+<td align="left"><code>… where x.age in ?1</code></td>
+</tr>
+<tr>
+<td align="left"><code>NotIn</code></td>
+<td align="left"><code>findByAgeNotIn(Collection&lt;Age&gt; ages)</code></td>
+<td align="left"><code>… where x.age not in ?1</code></td>
+</tr>
+<tr>
+<td align="left"><code>True</code></td>
+<td align="left"><code>findByActiveTrue()</code></td>
+<td align="left"><code>… where x.active = true</code></td>
+</tr>
+<tr>
+<td align="left"><code>False</code></td>
+<td align="left"><code>findByActiveFalse()</code></td>
+<td align="left"><code>… where x.active = false</code></td>
+</tr>
+<tr>
+<td align="left"><code>IgnoreCase</code></td>
+<td align="left"><code>findByFirstnameIgnoreCase</code></td>
+<td align="left"><code>… where UPPER(x.firstname) = UPPER(?1)</code></td>
+</tr>
+</tbody></table>
+<p>Spring Data JPA基于Pageable和Sort，以及限制查询结果的First和Top关键字等还提供了一些更便捷的实现。很简单，看例子就可以明白：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 基于name查询user信息并基于Pageable进行分页返回</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">Page&lt;User&gt; <span class="title">findByName</span><span class="params">(String name, Pageable page)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查询结果以sort进行排序返回</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">List&lt;User&gt; <span class="title">findByName</span><span class="params">(String name, Sort sort)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 基于name查询并按照age排序返回第一个</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">User <span class="title">findFirstByNameOrderByAgeDesc</span><span class="params">(String name)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 基于name查询并返回前10条结果</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function">List&lt;User&gt; <span class="title">findTop10ByName</span><span class="params">(String name, Pageable pageable)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p><strong>3. Query注解</strong></p>
+<p>如果封装的这些方法都不能满足需求，或者我们就像写SQL语句进行数据库操作怎么办？Spring Data JPA也有相对应的支持，就是Query注解。</p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_query.png" alt="jpa_query"></p>
+<p>@Query是基于JPQL为实体创建声明式的查询方法。简单介绍下JPQL语法：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ... <span class="keyword">FROM</span> ...</span><br><span class="line"></span><br><span class="line">[<span class="keyword">WHERE</span> ...]</span><br><span class="line"></span><br><span class="line">[<span class="keyword">GROUP</span> <span class="keyword">BY</span> ... [<span class="keyword">HAVING</span> ...]]</span><br><span class="line"></span><br><span class="line">[<span class="keyword">ORDER</span> <span class="keyword">BY</span> ...]</span><br><span class="line"></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> ... [<span class="keyword">WHERE</span> ...]</span><br><span class="line"></span><br><span class="line"><span class="keyword">UPDATE</span> ... <span class="keyword">SET</span> ... [<span class="keyword">WHERE</span> ...]</span><br></pre></td></tr></table></figure>
+
+<p>其中 … 是实体对象的和对象字段名字。</p>
+<p>哎，这不就是SQL吗？</p>
+<p>其实可以简单的这么认为。只不过操作的对象由数据库表字段编程实体类字段。</p>
+<p>关于@Query的使用一个简单的例子就可以说明：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query</span>(<span class="string">"SELECT * FROM User u WHERE u.firstName = ?1"</span>)</span><br><span class="line"><span class="function">User <span class="title">findByFirstName</span><span class="params">(String firstName)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Query</span>(value = <span class="string">"SELECT * FROM user WHERE first_name = ?1"</span>, nativeQuery = <span class="keyword">true</span>)</span><br><span class="line"><span class="function">User <span class="title">findByFirstName</span><span class="params">(String firstName)</span></span>;</span><br></pre></td></tr></table></figure>
+
+<p>这两个方法都可以基于name查询出用户信息，区别在于第一个使用JPQL，第二个使用原生SQL(使用nativeQuery = true声明)。</p>
+<p>Spring发现方法名字上有@Query注解就会优先使用注解中的语句执行数据库操作，否则使用DQM。</p>
+<p>注：建议统一使用JPQL，风格保持统一。</p>
+<p><strong>4. 乐观锁</strong></p>
+<blockquote>
+<p>乐观锁基于CAS的思想，在实际开发过程中经常使用。它没有加锁、没有阻塞，在多线程环境下及高并发的情况下CPU的利用率是最高的，吞吐量也是最大的。</p>
+</blockquote>
+<p>而JPA协议也对乐观锁的操作做了规定：通过指定@Version字段对数据增加版本号，进而在更新的时候判断版本号是否有变化。如果没有变化则直接更新，否则就会抛出<code>OptimisticLockException</code>。我们用SQL表示一下乐观锁：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="keyword">id</span>, <span class="keyword">name</span>, <span class="keyword">version</span> <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">1</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">user</span> <span class="keyword">SET</span> <span class="keyword">name</span> = <span class="string">'jackson'</span>, <span class="keyword">version</span> = <span class="keyword">version</span> + <span class="number">1</span> <span class="keyword">WHERE</span> <span class="keyword">id</span> = <span class="number">1</span> <span class="keyword">AND</span> <span class="keyword">version</span> = <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
+<p>假设本次查询的version是1，在更新操作时会依据WHERE条件中的version值进行对比，如果version值没有变化则执行更新操作，如果更新失败代表version不再是1，中间过程应该是别的线程修改了version的值。多个线程之间并且不会相互覆盖，保证了数据的原子性。</p>
+<p>那么Spring Data JPA又是如何实现的呢？</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UserEntity</span> </span>&#123;</span><br><span class="line">   <span class="meta">@Id</span></span><br><span class="line">   <span class="meta">@GeneratedValue</span>(strategy= GenerationType.AUTO)</span><br><span class="line">   <span class="keyword">private</span> Long id;</span><br><span class="line">   <span class="meta">@Version</span></span><br><span class="line">   <span class="keyword">private</span> Long version;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>是的就这么简单，一个@Version注解搞定。</p>
+<p>同样的，Spring Data JPA发现有@Version注解会基于动态代理映射上面的乐观锁SQL。</p>
+<p><strong>注：</strong></p>
+<p>在实际项目尽量不要使用数据库的乐观锁，尤其是在分布式环境中，本身数据库基于硬盘性能就有限，加上频繁操作带有乐观锁的数据表会造成线程等待，导致大量数据库连接占用影响数据库性能，严重时甚至会导致系统崩溃。建议使用其他实现，比如基于Redis的分布式锁。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>以上我们介绍了Java体系中ORM框架的定义、选型，并针对Spring Data JPA的基础使用做了介绍。<br>其实Spring Data JPA还有很多高级的功能，欢迎你来补充。</p>
+</div><div class="tags"><a href="/tags/java/"><i class="fa fa-tag"></i>java</a><a href="/tags/JPA/"><i class="fa fa-tag"></i>JPA</a><a href="/tags/ORM/"><i class="fa fa-tag"></i>ORM</a></div><div class="post-nav"><a class="pre" href="/2021/08/20/Redisson/">Redisson</a><a class="next" href="/2021/05/05/架构笔记/">架构笔记</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jvm/" style="font-size: 15px;">jvm</a> <a href="/tags/jwt/" style="font-size: 15px;">jwt</a> <a href="/tags/music/" style="font-size: 15px;">music</a> <a href="/tags/lock/" style="font-size: 15px;">lock</a> <a href="/tags/thread/" style="font-size: 15px;">thread</a> <a href="/tags/tidb/" style="font-size: 15px;">tidb</a> <a href="/tags/gRPC/" style="font-size: 15px;">gRPC</a> <a href="/tags/u2/" style="font-size: 15px;">u2</a> <a href="/tags/rabbitmq/" style="font-size: 15px;">rabbitmq</a> <a href="/tags/websocket/" style="font-size: 15px;">websocket</a> <a href="/tags/陈无二/" style="font-size: 15px;">陈无二</a> <a href="/tags/蒸汽波/" style="font-size: 15px;">蒸汽波</a> <a href="/tags/布仁巴雅尔/" style="font-size: 15px;">布仁巴雅尔</a> <a href="/tags/架构/" style="font-size: 15px;">架构</a> <a href="/tags/分布式/" style="font-size: 15px;">分布式</a> <a href="/tags/tech/" style="font-size: 15px;">tech</a> <a href="/tags/management/" style="font-size: 15px;">management</a> <a href="/tags/unit-test/" style="font-size: 15px;">unit test</a> <a href="/tags/redis/" style="font-size: 15px;">redis</a> <a href="/tags/redisson/" style="font-size: 15px;">redisson</a> <a href="/tags/JPA/" style="font-size: 15px;">JPA</a> <a href="/tags/ORM/" style="font-size: 15px;">ORM</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最近文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2021/08/21/Java单元测试/">Java Unit Test</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/20/Redisson/">Redisson</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/08/20/Spring Data JPA/">Spring Data JPA</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/05/05/架构笔记/">架构笔记</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/04/03/女子日常/">酷顽音乐 30%女子日常</a></li><li class="post-list-item"><a class="post-list-link" href="/2021/03/22/管理小记/">管理小记</a></li><li class="post-list-item"><a class="post-list-link" href="/2020/08/19/蒙太奇旅行/">酷顽音乐 蒙太奇旅行</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/12/15/Synchronized/">Synchronized关键字</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/11/30/ThreadLocal/">ThreadLocal</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/10/15/JVM/">JVM</a></li></ul></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2021 <a href="/." rel="nofollow">Freedom.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox/dist/jquery.fancybox.min.css"><script type="text/javascript" src="/js/copycode.js" successtext="复制成功!"></script><link rel="stylesheet" type="text/css" href="/css/copycode.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
