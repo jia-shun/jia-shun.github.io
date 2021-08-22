@@ -43,7 +43,7 @@
             </li>
           </a>
         
-          <a href="/archives" class="nav-link">
+          <a href="/blog" class="nav-link">
             <li class="menu-li  animate__animated  animate__fadeInUp">
               BLOG
             </li>
@@ -89,7 +89,7 @@
       </div>
     </a>
   
-    <a href="/archives" class="mobile-nav-link">
+    <a href="/blog" class="mobile-nav-link">
       <div class="mobile-menu-child animate__animated  animate__fadeInUp">
         <span>BLOG</span>
       </div>
@@ -122,7 +122,11 @@
 <p>关于WebSocket，简单说两句：最初前端与后端交互都是基于Http协议，前端发送request，后端返回response。存在的问题就是：response永远是被动的，不能主动发起。如果要想保持与后端的长连接，最初的实现方式基本都是ajax轮询或者http long poll。这两种方式都需要占用很多的资源，并且Http还是一个无状态协议。而WebSocket是HTML5出的东西，通俗点就是可以实现前端只发送一次请求，后端就可以与前端保持长连接，并实时的传输数据。最直白的例子就是聊天系统的实现，点对点两个人聊天，你一句我一句。也可以群嗨，一大群人叽叽歪歪，这样每个人对于其他人来说可以理解为一个广播系统，其他人可以理解为自己的订阅者。</p>
 <p>项目中基于SpringBoot和STOMP，其中的逻辑相对复杂，这儿仅写一个简单的Demo：实现点对点聊天功能。话不多说，直接开搞。</p>
 <h3 id="代码中的具体解释看注释，都描述的很清楚。"><a href="#代码中的具体解释看注释，都描述的很清楚。" class="headerlink" title="代码中的具体解释看注释，都描述的很清楚。"></a>代码中的具体解释看注释，都描述的很清楚。</h3><p>首先了解下STOMP：<br>Stomp是一种简单（流）文本定向消息协议，提供了一个可互操作的链接格式。允许stomp客户端与任意stomp消息代理（Broker）进行交互。</p>
-<h2 id="一：新建一个SpringBoot项目，选择Security、Thymeleaf和WebSocket依赖。"><a href="#一：新建一个SpringBoot项目，选择Security、Thymeleaf和WebSocket依赖。" class="headerlink" title="一：新建一个SpringBoot项目，选择Security、Thymeleaf和WebSocket依赖。"></a>一：新建一个SpringBoot项目，选择Security、Thymeleaf和WebSocket依赖。</h2><p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/websocket/WechatIMG45.jpeg" alt="WechatIMG45"></p>
+<h2 id="一：新建一个SpringBoot项目，选择Security、Thymeleaf和WebSocket依赖。"><a href="#一：新建一个SpringBoot项目，选择Security、Thymeleaf和WebSocket依赖。" class="headerlink" title="一：新建一个SpringBoot项目，选择Security、Thymeleaf和WebSocket依赖。"></a>一：新建一个SpringBoot项目，选择Security、Thymeleaf和WebSocket依赖。</h2><p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/websocket/WechatIMG45.jpeg">
+        
+      </span></p>
 <h2 id="二：Spring-Security的简单配置"><a href="#二：Spring-Security的简单配置" class="headerlink" title="二：Spring Security的简单配置"></a>二：Spring Security的简单配置</h2><p>本例只是实现了一个简单的聊天室程序。例子中有两个用户，互相发送消息给彼此，所以我们在这里我们先对Spring Security做一些简单的配置。对于Spring Security这里不做特别多的解释，Spring Security是专门针对基于Spring的项目安全框架，和Shiro一样可以实现程序的认证和权限控制。</p>
 <p>这里主要是分配两个用户，名字为“Michael”和“Janet”，密码都是“freedom”。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.js.websocket.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.web.builders.HttpSecurity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.web.builders.WebSecurity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity httpSecurity)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        httpSecurity</span><br><span class="line">        .authorizeRequests()</span><br><span class="line">        .antMatchers(<span class="string">"/"</span>,<span class="string">"/login"</span>)<span class="comment">//设置Spring Security对/和/"login"路径不拦截</span></span><br><span class="line">        .permitAll()</span><br><span class="line">        .anyRequest()</span><br><span class="line">        .authenticated()</span><br><span class="line">        .and()</span><br><span class="line">        .formLogin()</span><br><span class="line">        .loginPage(<span class="string">"/login"</span>)<span class="comment">//设置SpringSecurity的登录页面为/login</span></span><br><span class="line">        .defaultSuccessUrl(<span class="string">"/chat"</span>)<span class="comment">//登录成功后转向/chat路径</span></span><br><span class="line">        .permitAll()</span><br><span class="line">        .and()</span><br><span class="line">        .logout()</span><br><span class="line">        .permitAll();</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">//在内存中分配两个用户Michael和Janet，密码都为freedom，角色都是USER</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder authenticationManagerBuilder)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        authenticationManagerBuilder</span><br><span class="line">        .inMemoryAuthentication()</span><br><span class="line">        .withUser(<span class="string">"Michael"</span>).password(<span class="string">"freedom"</span>).roles(<span class="string">"USER"</span>)</span><br><span class="line">        .and()</span><br><span class="line">        .withUser(<span class="string">"Janet"</span>).password(<span class="string">"freedom"</span>).roles(<span class="string">"USER"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">// /resources/static/目录下的静态资源，Spring Security不拦截</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(WebSecurity webSecurity)</span><span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    	webSecurity.ignoring().antMatchers(<span class="string">"/resources/static/**"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -141,12 +145,24 @@
 <h2 id="七：增加页面的viewController，指定页面的跳转"><a href="#七：增加页面的viewController，指定页面的跳转" class="headerlink" title="七：增加页面的viewController，指定页面的跳转"></a>七：增加页面的viewController，指定页面的跳转</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.js.websocket.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.ViewControllerRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebMvcConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addViewControllers</span><span class="params">(ViewControllerRegistry viewControllerRegistry)</span> </span>&#123;</span><br><span class="line">		viewControllerRegistry.addViewController(<span class="string">"/login"</span>).setViewName(<span class="string">"/login"</span>);</span><br><span class="line">		viewControllerRegistry.addViewController(<span class="string">"/chat"</span>).setViewName(<span class="string">"/chat"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="八：测试"><a href="#八：测试" class="headerlink" title="八：测试"></a>八：测试</h2><p>这样我们开两个浏览器窗口，地址为localhost:8080/login,分别用Michael和Janet两个用户登录，就可以互相发送消息聊天了。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/websocket/WechatIMG48.jpeg" alt="WechatIMG48"></p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/websocket/WechatIMG50.jpeg" alt="WechatIMG50"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/websocket/WechatIMG48.jpeg">
+        
+      </span></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/websocket/WechatIMG50.jpeg">
+        
+      </span></p>
 <p>项目Github地址：<a href="https://github.com/jia-shun/websocket" target="_blank" rel="noopener">https://github.com/jia-shun/websocket</a></p>
 <p>欢迎关注我的GitHub。</p>
 <p>参考资料：Java EE开发的颠覆者：SpringBoot 实战</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg" alt="快掏出你的大手机扫我"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg">
+        
+      </span></p>
 <center>快掏出你的大手机扫我</center>
 
         <!-- 分类文章 -->

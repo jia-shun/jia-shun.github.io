@@ -43,7 +43,7 @@
             </li>
           </a>
         
-          <a href="/archives" class="nav-link">
+          <a href="/blog" class="nav-link">
             <li class="menu-li  animate__animated  animate__fadeInUp">
               BLOG
             </li>
@@ -89,7 +89,7 @@
       </div>
     </a>
   
-    <a href="/archives" class="mobile-nav-link">
+    <a href="/blog" class="mobile-nav-link">
       <div class="mobile-menu-child animate__animated  animate__fadeInUp">
         <span>BLOG</span>
       </div>
@@ -124,14 +124,26 @@
 <p>那么如何使开发者写出可以兼容所有底层平台的程序？</p>
 <p>于是就产生了中间语言。</p>
 <p>此时一个人物出现了：James Gosling。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/James_Gosling.jpg" alt="James_Gosling"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/James_Gosling.jpg">
+        
+      </span></p>
 <p>James定义了一门中间语言的规范，也就是字节码规范，同时开发了虚拟机，由虚拟机将字节码转换成不同平台上的特定API调用。在字节码的基础上开发了一门高级语言。</p>
 <p>这门高级语言就是Java，虚拟机被称为Java Virtual Machine，简称JVM，而定义的一系列字节码规范就是JVM指令集。</p>
 <p>整个流程变成了：Java源代码通过Java编译器编译成与平台无关的字节码文件(.class)，虚拟机负责将字节码转换成系统调用的API。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/jvm_compile.png" alt="jvm_compile"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/jvm_compile.png">
+        
+      </span></p>
 <p>此时，James针对不同的操作系统发明了不同的虚拟机，我们只需安装好虚拟机，只需熟悉Java语言规范和API就可以快速开发程序。用一句话总结就是：</p>
 <p><strong>write once, run everywhere</strong></p>
-<h4 id="二：Runtime-Data-Area："><a href="#二：Runtime-Data-Area：" class="headerlink" title="二：Runtime Data Area："></a>二：Runtime Data Area：</h4><p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/Runtime_Data_Area.png" alt="jvm_structure"></p>
+<h4 id="二：Runtime-Data-Area："><a href="#二：Runtime-Data-Area：" class="headerlink" title="二：Runtime Data Area："></a>二：Runtime Data Area：</h4><p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/Runtime_Data_Area.png">
+        
+      </span></p>
 <p>根据JVM规范，JVM内存共分为<strong>程序计数器、虚拟机栈、本地方法栈、方法区、堆</strong>五个部分。</p>
 <p>内存空间按照线程数是否共享分为两块：线程私有和线程共享。而计算的本质可以理解为指令+数据。正常线程私有的为指令，线程共享的为数据。  </p>
 <p>具体到JVM的5部分内存结构：</p>
@@ -144,7 +156,11 @@
 <p>JVM是支持多线程的，多线程的执行最终依赖于内核的调度，在让出CPU时间片或者重新拥有CPU时间片的节点上我们都需要记住当前线程执行到的位置，而程序计数器就是做了这个事情。每个线程都有自己的程序计数器，当抢占到CPU时间片的时候就从这个位置开始继续执行。如果当前执行的是JVM方法，则该计数器记录的是当前执行指令的地址；若当前执行的是native方法，则为空。这个内存区域是唯一一个在JVM中没有规定任何OOM的区域。</p>
 </li>
 <li><p>虚拟机栈：</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/jvm_stack.png" alt="jvm_stack"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/jvm_stack.png">
+        
+      </span></p>
 <p>栈本身是一种先进后出(LIFO)的数据结构。每个线程都有一个私有的栈，随着线程的创建而创建。栈里面存放着一种叫做“栈帧”的东西。每个方法在执行的时候都会创建一个栈帧，栈帧中存储了：局部变量表(基本数据类型和对象引用)，操作数栈，动态链接，方法出口等信息。每个方法从调用到执行完毕，对应一个栈帧在虚拟机栈中的入栈和出栈。栈的大小可以固定也可以动态扩展，当扩展到无法申请足够的内存，则OOM，当栈调用深度(使用-Xss设置每个线程的Stack大小)大于JVM所允许的范围，会抛出StackOverflowError。</p>
 </li>
 <li><p>本地方法栈：</p>
@@ -191,7 +207,11 @@ result:
 <ul>
 <li><p>堆(Heap)：</p>
 <p>Java Heap是JVM所管理的内存中最大的一块。此内存区域唯一的作用就是存放对象实例。几乎所有的对象实例都需要在堆中分配内存。而堆空间还可以细分为：新生代和老年代。具体到新生代又分为Eden空间、From Survivor空间和To Survivor空间。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/Java%20Heap.PNG" alt="heap"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/Java%20Heap.PNG">
+        
+      </span></p>
 <p>无论哪个区域，存储的都是对象实例。那为什么还需要分代。唯一的目的就是为了更好的回收内存，或者更快的分配内存。也就是垃圾回收。</p>
 </li>
 </ul>
@@ -217,7 +237,11 @@ result:
 <h4 id="三：GC"><a href="#三：GC" class="headerlink" title="三：GC"></a>三：GC</h4><p>理论上，如果有一些数据已经不再使用了，我们要释放掉它所占用的内存空间。</p>
 <p>垃圾自动回收最早可以追溯到50年代的Lisp语言，后续大部分的高级语言都实现了自动回收。但相对来说Java的垃圾回收是比较复杂比较成熟的。</p>
 <p><strong>对象创建：</strong></p>
-<img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/jvm_create_obj.png" alt="jvm_create_obj" style="zoom:28%;">
+
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/jvm_create_obj.png">
+        
+      
 
 <p><strong>TLAB：</strong></p>
 <p>如果有大片连续的内存可用于分配给新对象，这种情况下分配空间时非常简单快速的，只需要一个简单的指针碰撞就可以，每次分配对象空间只要检测一下是否有足够的空间，如果有，指针往前移动N位就分配好空间了，然后就可以初始化这个对象了。</p>
@@ -233,7 +257,11 @@ result:
 </li>
 <li><p>可达性分析：</p>
 <p>JVM的主流垃圾回收器都采用可达性分析算法。这个算法的实质在于将一系列GC Roots作为初始的存活对象合集(live set)，然后从集合出发，探索所有能能够被集合引用的对象，并将其加入到该集合中，这个过程我们称之为标记，最终，未被探索到的对象便是可以被回收的。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/gc_roots.png" alt="gc_roots"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/gc_roots.png">
+        
+      </span></p>
 <p>那么什么可以作为GC Roots呢：</p>
 <ul>
 <li>Java方法栈中的局部变量。</li>
@@ -248,21 +276,33 @@ result:
 <h5 id="3：垃圾回收算法："><a href="#3：垃圾回收算法：" class="headerlink" title="3：垃圾回收算法："></a>3：垃圾回收算法：</h5><p>标记：从GC-Roots对象集合中探索到所有被集合引用的对象。</p>
 <ul>
 <li><p>标记–清除(Mark-Sweep)：</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/mark_clean.png" alt="mark_clean"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/mark_clean.png">
+        
+      </span></p>
 </li>
 </ul>
 <p>  将标记为可回收的对象拎出来清理掉。</p>
 <p>  缺陷：内存碎片。因为回收完之后，内存会被切成很多段，我们知道开辟内存空间时，需要连续的内存空间，一些小的内存块会变成碎片导致不能被再次使用。</p>
 <ul>
 <li><p>复制(Copying)：</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/mark_copying.png" alt="mark_copying"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/mark_copying.png">
+        
+      </span></p>
 </li>
 </ul>
 <p>  复制算法主要解决标记-清理的内存碎片问题，它将内存划分为大小相等的两块，每次都只使用其中的一块，当其中一块使用完了，就将还存活着的对象复制到另一块上面，然后再把已使用的内存空间一次清理掉，保证了内存的连续可用。</p>
 <p>  缺陷：每次只能使用一半的空间，代价实在太高。</p>
 <ul>
 <li><p>标记–压缩(Mark-Compact):</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/mark_compact.png" alt="mark_compact"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/mark_compact.png">
+        
+      </span></p>
 </li>
 </ul>
 <p>  标记压缩算法同样是在标记-清理的基础上做了升级：当所有的对象被标记完成之后，将所有的存活的对象都向一端移动，再清理掉端边界意外的内存区域。这样很好地解决了内存碎片的问题，也规避了复制算法只能利用一半内存区域的弊端。</p>
@@ -275,12 +315,20 @@ result:
 <p><strong>串行&amp;并行收集器</strong></p>
 <p>针对新生代的垃圾回收器共有三个：Serial,Paraller Scavenge和Parallel New。这三个采用的都是标记-复制算法。其中，Serial是一个单线程的，Parallel New可以看成是Serial的多线程版本。Paraller Scavenge和Parallel New类似，但更加注重吞吐量。<br>针对老年代的回收器也有三个：Serial Old和Parallel Old以及CMS。Serial Old和Parallel Old都是标记-压缩算法。</p>
 <p>别管新生代和老年代，对于Serial和Paraller收集器只不过是<strong>串行</strong>和<strong>并行</strong>的区别。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/parallel_collection.png" alt="parallel_collection"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/parallel_collection.png">
+        
+      </span></p>
 <p>串行非常简单，当串行收集器工作时，Stop The World，应用被完全挂起，挂起后堆内存空间不再发生变化，回收起来很简单。缺陷在于STW的时间有时是我们不能接受的。并行完全利用了现在大内存多核心的能力，多个GC线程同时进行，会大量降低STW的时间。</p>
 <p>那么还有没有优化的空间？</p>
 <p>有没有可能垃圾回收线程和程序线程同时工作，也就是垃圾回收的同时程序不需要挂起？或者说可不可以永远不STW，答案是NO！最起码目前是NO，但可以以获取最短回收停顿时间为目标。</p>
 <p><strong>CMS</strong></p>
-<p>而CMS收集器就是为此而生。<img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/cms_gc.png" alt="cms_gc"></p>
+<p>而CMS收集器就是为此而生。
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/cms_gc.png">
+        
+      </span></p>
 <p>CMS采用的是标记-清除算法，并且是并发的。</p>
 <p>整个工作流程主要分为以下四个步骤：</p>
 <ul>
@@ -305,17 +353,33 @@ result:
 </ul>
 <p>即使如此，扔不可否认CMS是一款优秀的垃圾回收器。不过CMS在Java9中被废弃。</p>
 <p><strong>G1</strong></p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/g1_gc.png" alt="g1_gc"><br>G1是一个横跨新生代和老年代的垃圾回收器。它已经打乱了前面所说的堆结构，直接将堆分成多个区域(Region)。虽然依旧保留了新生代和老年代的概念，但已经不是隔离的啦，而都是一部分Region的集合。</p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/g1_gc.png">
+        
+      <br>G1是一个横跨新生代和老年代的垃圾回收器。它已经打乱了前面所说的堆结构，直接将堆分成多个区域(Region)。虽然依旧保留了新生代和老年代的概念，但已经不是隔离的啦，而都是一部分Region的集合。</span></p>
 <p><strong>两个概念：</strong></p>
 <ul>
 <li>RememberSets：Rsets是每个region中都有的一份存储空间，用于存储本region的对象被其他region对象的引用记录。</li>
 <li>CollectionSets：Csets是一次GC中需要被清理的regions集合。</li>
 </ul>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/rset.jpg" alt="rset"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/rset.jpg">
+        
+      </span></p>
 <p><strong>YGC：</strong></p>
 <p>STW，复制算法，将E和S(from)区复制到S(to)，注意S(to)一开始是没有标识的，就是个free region。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/ygc_start.jpg" alt="ygc_start"></p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/ygc_end.jpg" alt="ygc_end"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/ygc_start.jpg">
+        
+      </span></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/ygc_end.jpg">
+        
+      </span></p>
 <p><strong>MixGC:</strong></p>
 <p>G1对于老年代的GC本质上不是只针对老年代，也有部分年轻代，所以叫MixGC。</p>
 <ul>
@@ -324,7 +388,11 @@ result:
 <li><p>RootRegion扫描：扫描O区region的rset，看有没有Y区的引用，如果有标记出来。</p>
 </li>
 <li><p>并发标记：标记O区，同CMS，只不过遍历范围缩小，只遍历RootRegion中标记的region就可以了。这期间如果发现某个region所有的对象都是“垃圾”的话则标记为X。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/ogc_concurrent_mark.jpg" alt="ogc_concurrent_mark"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/ogc_concurrent_mark.jpg">
+        
+      </span></p>
 </li>
 <li><p>重新标记(STW)：同CMS，只不过使用SATB，标记速度更快。</p>
 </li>
@@ -340,9 +408,13 @@ result:
 <p>R大：</p>
 <p>与标记对象的传统算法相比，ZGC在指针上做标记，在访问指针时加入Load Barrier（读屏障），比如当对象正被GC移动，指针上的颜色就会不对，这个屏障就会先把指针更新为有效地址再返回，也就是，永远只有单个对象读取时有概率被减速，而不存在为了保持应用与GC一致而粗暴整体的Stop The World。</p>
 </blockquote>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg" alt="快掏出你的大手机扫我"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg">
+        
+      </span></p>
 <center>快掏出你的大手机扫我</center>
-
+</span>
         <!-- 分类文章 -->
         
           <div class="post-categoris-bottom">

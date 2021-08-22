@@ -43,7 +43,7 @@
             </li>
           </a>
         
-          <a href="/archives" class="nav-link">
+          <a href="/blog" class="nav-link">
             <li class="menu-li  animate__animated  animate__fadeInUp">
               BLOG
             </li>
@@ -89,7 +89,7 @@
       </div>
     </a>
   
-    <a href="/archives" class="mobile-nav-link">
+    <a href="/blog" class="mobile-nav-link">
       <div class="mobile-menu-child animate__animated  animate__fadeInUp">
         <span>BLOG</span>
       </div>
@@ -118,7 +118,11 @@
       <div class="post-content-main animate__animated  animate__fadeInUp">
         <!-- top型目录 -->
         
-        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson.jpeg" alt></p>
+        <p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson.jpeg">
+        
+      </span></p>
 <h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><blockquote>
 <p><strong>简介：</strong></p>
 <ul>
@@ -191,10 +195,18 @@
 </blockquote>
 <h4 id="一：分布式对象"><a href="#一：分布式对象" class="headerlink" title="一：分布式对象"></a>一：分布式对象</h4><p>1.<code>RedissonClient</code> :</p>
 <p><code>RedissonClient</code>为顶层接口，通过<code>RedissonClient</code>接口对象操作Redis数据。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson_interface.jpeg" alt></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson_interface.jpeg">
+        
+      </span></p>
 <p>每个Redisson对象实例都有有一个与之对应的Redis数据实例。</p>
 <p>Redisson支持各种Redis集群模式，本次测试我们使用单机模式：</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson_init_client.jpg" alt></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson_init_client.jpg">
+        
+      </span></p>
 <p>初始化Redisson实例：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedissonConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedissonClient <span class="title">redissonClient</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Config config = <span class="keyword">new</span> Config();</span><br><span class="line">        config.useSingleServer()</span><br><span class="line">                .setAddress(<span class="string">"$&#123;address&#125;"</span>)</span><br><span class="line">                .setUsername(<span class="string">"$&#123;username&#125;"</span>)</span><br><span class="line">                .setPassword(<span class="string">"$&#123;password&#125;"</span>);</span><br><span class="line">        <span class="keyword">return</span> Redisson.create(config);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -208,7 +220,11 @@
 </ol>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">RBucket&lt;String&gt; bucket = redissonClient.getBucket(<span class="string">"bucket"</span>);</span><br><span class="line">bucket.set(<span class="string">"elem1"</span>);</span><br><span class="line">System.out.println(bucket.get());</span><br><span class="line">bucket.trySet(<span class="string">"elem2"</span>);</span><br><span class="line">bucket.compareAndSet(<span class="string">"elem3"</span>, <span class="string">"elem4"</span>);</span><br><span class="line">bucket.getAndSet(<span class="string">"elem5"</span>);</span><br><span class="line">System.out.println(bucket.get());</span><br></pre></td></tr></table></figure>
 
-<h4 id="二：分布式集合"><a href="#二：分布式集合" class="headerlink" title="二：分布式集合"></a>二：分布式集合</h4><p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson_java_collection.gif" alt></p>
+<h4 id="二：分布式集合"><a href="#二：分布式集合" class="headerlink" title="二：分布式集合"></a>二：分布式集合</h4><p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson_java_collection.gif">
+        
+      </span></p>
 <p><strong>Java丰富的集合框架，Redisson中基本都有与之对应的分布式集合对象，使用起来非常方便。</strong></p>
 <ul>
 <li><p><strong>Map:</strong></p>

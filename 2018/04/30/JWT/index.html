@@ -43,7 +43,7 @@
             </li>
           </a>
         
-          <a href="/archives" class="nav-link">
+          <a href="/blog" class="nav-link">
             <li class="menu-li  animate__animated  animate__fadeInUp">
               BLOG
             </li>
@@ -89,7 +89,7 @@
       </div>
     </a>
   
-    <a href="/archives" class="mobile-nav-link">
+    <a href="/blog" class="mobile-nav-link">
       <div class="mobile-menu-child animate__animated  animate__fadeInUp">
         <span>BLOG</span>
       </div>
@@ -120,7 +120,11 @@
         
         <h2 id="JWT："><a href="#JWT：" class="headerlink" title="JWT："></a>JWT：</h2><h3 id="什么是JWT？"><a href="#什么是JWT？" class="headerlink" title="什么是JWT？"></a>什么是JWT？</h3><p>JSON Web Token(JWT) 是一种开放式标准(RFC 7519)，它定义了一种紧凑且自包含的方式，用于在各方之间以JSON对象安全传输信息。这些信息可以通过数字签名进行验证和信任。可以使用加密(使用HMAC算法)或使用RSA的公钥/私钥对JWT进行签名。</p>
 <h3 id="以上是我百度的，看起来真累，到底什么是JWT？"><a href="#以上是我百度的，看起来真累，到底什么是JWT？" class="headerlink" title="以上是我百度的，看起来真累，到底什么是JWT？"></a>以上是我百度的，看起来真累，到底什么是JWT？</h3><h4 id="传统方式："><a href="#传统方式：" class="headerlink" title="传统方式："></a><strong>传统方式：</strong></h4><p>基本上所有的前后端登录验证交互这一块都会遵循这样一个流程：</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jwt/login-token.png" alt="客户端登录验证"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jwt/login-token.png">
+        
+      </span></p>
 <p>最早的时候，web端和服务端的交互，我们使用session。后来前后端分离后，通过restful进行数据交互，同样使用类似于上面流程图的交互方式：前端登录，后端根据用户信息生成一个token，并保存这个token和对应的用户信息到关系型数据库，或者缓存数据库redis，接着将token传递给客户端，客户端会存入浏览器cookie。后续http请求都会携带这个token，后端根据token来查询、验证用户的信息。</p>
 <p>单体应用或者用户量少的时候，一切都没有什么问题。随着互联网的高速发展，用户数量的暴增，就开始面临一系列的问题：</p>
 <p>1：后端每次都要根据token查出用户信息，这样就增加了数据层的查询和存储开销。把验证信息保存在session中，加大了服务器端的存储压力。</p>
@@ -131,7 +135,11 @@
 <h4 id="JWT"><a href="#JWT" class="headerlink" title="JWT:"></a>JWT:</h4><p>特点：</p>
 <p>简洁：可以通过url，post参数或者在HTTP header中发送。说白了，通过JWT生成的token就是一个JSON字符串，因为数据量小，传输速度快。</p>
 <p>自包含：Payload中包含了用户的信息，避免了多次查询数据库。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jwt/jwt.png" alt="JWT详情"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jwt/jwt.png">
+        
+      </span></p>
 <p>上面这个图片就是JWT的组成部分：</p>
 <p>Header：头部，包含了两部分：token类型(JWT)和采用的加密算法(HS256)。</p>
 <p>PayLoad：负载，这部分是我们存放信息的地方，你可以把用户的id，name等信息放在这里。JWT规范里有对这部分信息进行了比较详细的介绍，常用的有：iss(签发者)，exp(过期时间)，sub(面向的用户)等信息。</p>
@@ -160,7 +168,11 @@
 <p>打印出的信息为：</p>
 <p>{sub={“name”:”JiaShun”,”userId”:”1”}}</p>
 <p>这样我们就得到了用户的所有信息，而不用去数据层反复查询请求的真实性了。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg" alt="快掏出你的大手机扫我"></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg">
+        
+      </span></p>
 <center>快掏出你的大手机扫我</center>
 
         <!-- 分类文章 -->

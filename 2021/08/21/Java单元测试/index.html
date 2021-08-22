@@ -43,7 +43,7 @@
             </li>
           </a>
         
-          <a href="/archives" class="nav-link">
+          <a href="/blog" class="nav-link">
             <li class="menu-li  animate__animated  animate__fadeInUp">
               BLOG
             </li>
@@ -89,7 +89,7 @@
       </div>
     </a>
   
-    <a href="/archives" class="mobile-nav-link">
+    <a href="/blog" class="mobile-nav-link">
       <div class="mobile-menu-child animate__animated  animate__fadeInUp">
         <span>BLOG</span>
       </div>
@@ -118,7 +118,11 @@
       <div class="post-content-main animate__animated  animate__fadeInUp">
         <!-- top型目录 -->
         
-        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/unit-test/unit-test.jpeg" alt></p>
+        <p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/unit-test/unit-test.jpeg">
+        
+      </span></p>
 <h3 id="WHAT"><a href="#WHAT" class="headerlink" title="WHAT"></a>WHAT</h3><blockquote>
 <p>在计算机编程中，单元测试是一种软件测试方法，通过该方法对源代码的各个单元（一个或多个计算机程序模块的集合以及相关的控制数据、使用过程和操作过程）进行测试以确定它们是否符合使用要求。 —— 维基百科《Unit testing》</p>
 <p>一个单元测试是一段自动化的代码，这段代码调用被测试的工作单元，之后对这个单元的单个最终结果的某些假设进行检验。单元测试几乎都是用单元测试框架编写的。单元测试容易编写，能快速运行。单元测试可靠、可读，并且可维护。只要产品代码不发生变化，单元测试的结果是稳定的。 —— Roy Osherove《单元测试的艺术》</p>
@@ -133,9 +137,17 @@
 <li><strong>懒得写：</strong> 一般写单测的时间会超过开发的时间，并且收益不明显，何况有测试人员在后面保证呢！</li>
 <li><strong>不用写：</strong> 这点简单的代码逻辑还用写单元测试？</li>
 </ul>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/unit-test/system.jpg" alt></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/unit-test/system.jpg">
+        
+      </span></p>
 <p>图1是我亲身经历的一个系统，到最后写bug的速度已经超过了改bug的速度。当然造成这种情况的原因有很多，我们不讨论。但当我们准备重构的时候，发现没有任何保证，整个项目基本没有单元测试或者很少的单元测试。如果有单元测试我们重构起来会简单很多，或者说造成现在的局面没有单元测试是不是原因之一？</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/unit-test/tdd.jpeg" alt></p>
+<p>
+        <span class="lazyload-img-span">
+        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/unit-test/tdd.jpeg">
+        
+      </span></p>
 <p>以上摘自Bob大叔的《架构整洁之道》。</p>
 <p>采用了TDD方法编程后不仅仅是代码质量的提升，长远看我们的效率是成上升趋势的。而一个快速迭代的项目一般开发效率是下降趋势的，甚至是最后沦为图1的”乱麻系统“。</p>
 <p>而<code>懒得写</code>和<code>不用写</code>的情况都是短期现象，除了上面的两个例子，其实已经有大量的实践验证单元测试的必要性。我们应该看重长期效益。慢即是快这么简单的道理要坚信它是合理的。除非你的出发点就是做一个一锤子买卖的系统。</p>
