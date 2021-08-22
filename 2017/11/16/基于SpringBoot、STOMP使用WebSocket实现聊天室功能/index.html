@@ -133,21 +133,188 @@
       </span></p>
 <h2 id="二：Spring-Security的简单配置"><a href="#二：Spring-Security的简单配置" class="headerlink" title="二：Spring Security的简单配置"></a>二：Spring Security的简单配置</h2><p>本例只是实现了一个简单的聊天室程序。例子中有两个用户，互相发送消息给彼此，所以我们在这里我们先对Spring Security做一些简单的配置。对于Spring Security这里不做特别多的解释，Spring Security是专门针对基于Spring的项目安全框架，和Shiro一样可以实现程序的认证和权限控制。</p>
 <p>这里主要是分配两个用户，名字为“Michael”和“Janet”，密码都是“freedom”。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.js.websocket.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.web.builders.HttpSecurity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.web.builders.WebSecurity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;</span><br><span class="line"><span class="keyword">import</span> org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title">WebSecurityConfigurerAdapter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(HttpSecurity httpSecurity)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        httpSecurity</span><br><span class="line">        .authorizeRequests()</span><br><span class="line">        .antMatchers(<span class="string">"/"</span>,<span class="string">"/login"</span>)<span class="comment">//设置Spring Security对/和/"login"路径不拦截</span></span><br><span class="line">        .permitAll()</span><br><span class="line">        .anyRequest()</span><br><span class="line">        .authenticated()</span><br><span class="line">        .and()</span><br><span class="line">        .formLogin()</span><br><span class="line">        .loginPage(<span class="string">"/login"</span>)<span class="comment">//设置SpringSecurity的登录页面为/login</span></span><br><span class="line">        .defaultSuccessUrl(<span class="string">"/chat"</span>)<span class="comment">//登录成功后转向/chat路径</span></span><br><span class="line">        .permitAll()</span><br><span class="line">        .and()</span><br><span class="line">        .logout()</span><br><span class="line">        .permitAll();</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">//在内存中分配两个用户Michael和Janet，密码都为freedom，角色都是USER</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(AuthenticationManagerBuilder authenticationManagerBuilder)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        authenticationManagerBuilder</span><br><span class="line">        .inMemoryAuthentication()</span><br><span class="line">        .withUser(<span class="string">"Michael"</span>).password(<span class="string">"freedom"</span>).roles(<span class="string">"USER"</span>)</span><br><span class="line">        .and()</span><br><span class="line">        .withUser(<span class="string">"Janet"</span>).password(<span class="string">"freedom"</span>).roles(<span class="string">"USER"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="comment">// /resources/static/目录下的静态资源，Spring Security不拦截</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configure</span><span class="params">(WebSecurity webSecurity)</span><span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    	webSecurity.ignoring().antMatchers(<span class="string">"/resources/static/**"</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">package cn.js.websocket.config;
 
-<h2 id="三：配置WebSocket"><a href="#三：配置WebSocket" class="headerlink" title="三：配置WebSocket"></a>三：配置WebSocket</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> cn.js.websocket.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.messaging.simp.config.MessageBrokerRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.socket.config.annotation.StompEndpointRegistry;</span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="comment">//此注解表示开启WebSocket支持。通过此注解开启使用STOMP协议来传输基于代理（message broker）的消息。</span></span><br><span class="line"><span class="meta">@EnableWebSocketMessageBroker</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSocketConfig</span> <span class="keyword">extends</span> <span class="title">AbstractWebSocketMessageBrokerConfigurer</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">registerStompEndpoints</span><span class="params">(StompEndpointRegistry stompEndpointRegistry)</span> </span>&#123;</span><br><span class="line">    	<span class="comment">//注册一个名为/endpointChat的节点，并指定使用SockJS协议。</span></span><br><span class="line">    	stompEndpointRegistry.addEndpoint(<span class="string">"/endpointChat"</span>).withSockJS();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//配置消息代理（Message Broker），可以理解为信息传输的通道</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">configureMessageBroker</span><span class="params">(MessageBrokerRegistry messageBrokerRegistry)</span> </span>&#123;</span><br><span class="line">    	<span class="comment">//点对点式应增加一个/queue的消息代理。相应的如果是广播室模式可以设置为"/topic"</span></span><br><span class="line">   		messageBrokerRegistry.enableSimpleBroker(<span class="string">"/queue"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+@Configuration
+@EnableWebSecurity
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-<h2 id="四：编写控制器"><a href="#四：编写控制器" class="headerlink" title="四：编写控制器"></a>四：编写控制器</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.js.websocket.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.messaging.handler.annotation.MessageMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.messaging.simp.SimpMessagingTemplate;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Controller;</span><br><span class="line"><span class="keyword">import</span> java.security.Principal;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebSocketController</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="comment">//通过SimpMessagingTemplate模板向浏览器发送消息。如果是广播模式，可以直接使用注解@SendTo</span></span><br><span class="line">    <span class="keyword">private</span> SimpMessagingTemplate simpMessagingTemplate;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//开启STOMP协议来传输基于代理的消息，这时控制器支持使用@MessageController，就像使用@RequestMapping	   是一样的</span></span><br><span class="line">    <span class="comment">//当浏览器向服务端发送请求时，通过@MessageController映射/chat这个路径</span></span><br><span class="line">    <span class="meta">@MessageMapping</span>(<span class="string">"/chat"</span>)</span><br><span class="line">    <span class="comment">//在SpringMVC中，可以直接在参数中获得principal,其中包含当前用户的信息</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleChat</span><span class="params">(Principal principal,String msg)</span> </span>&#123;</span><br><span class="line">		<span class="comment">//下面的代码就是如果发送人是Michael，接收人就是Janet，发送的信息是message，反之亦然。</span></span><br><span class="line">		<span class="keyword">if</span>(principal.getName().equals(<span class="string">"Michael"</span>))&#123;</span><br><span class="line">    	<span class="comment">//通过SimpMessagingTemplate的convertAndSendToUser向用户发送消息。</span></span><br><span class="line">    	<span class="comment">//第一参数表示接收信息的用户，第二个是浏览器订阅的地址，第三个是消息本身</span></span><br><span class="line">        simpMessagingTemplate.convertAndSendToUser(<span class="string">"Janet"</span>,<span class="string">"/queue/notifications"</span>,</span><br><span class="line">        principal.getName() + <span class="string">"-发送:"</span> + msg);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        simpMessagingTemplate.convertAndSendToUser(<span class="string">"Michael"</span>,<span class="string">"/queue/notifications"</span>,</span><br><span class="line">        principal.getName() + <span class="string">"-发送:"</span> + msg);</span><br><span class="line">        &#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+        .authorizeRequests()
+        .antMatchers(&quot;/&quot;,&quot;/login&quot;)//设置Spring Security对/和/&quot;login&quot;路径不拦截
+        .permitAll()
+        .anyRequest()
+        .authenticated()
+        .and()
+        .formLogin()
+        .loginPage(&quot;/login&quot;)//设置SpringSecurity的登录页面为/login
+        .defaultSuccessUrl(&quot;/chat&quot;)//登录成功后转向/chat路径
+        .permitAll()
+        .and()
+        .logout()
+        .permitAll();
+        }
+    //在内存中分配两个用户Michael和Janet，密码都为freedom，角色都是USER
+    protected void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
+        authenticationManagerBuilder
+        .inMemoryAuthentication()
+        .withUser(&quot;Michael&quot;).password(&quot;freedom&quot;).roles(&quot;USER&quot;)
+        .and()
+        .withUser(&quot;Janet&quot;).password(&quot;freedom&quot;).roles(&quot;USER&quot;);
+        }
+    // /resources/static/目录下的静态资源，Spring Security不拦截
+    public void configure(WebSecurity webSecurity)throws Exception{
+        webSecurity.ignoring().antMatchers(&quot;/resources/static/**&quot;);
+    }
 
+}
+</code></pre>
+<h2 id="三：配置WebSocket"><a href="#三：配置WebSocket" class="headerlink" title="三：配置WebSocket"></a>三：配置WebSocket</h2><pre><code class="java">
+package cn.js.websocket.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.messaging.simp.config.MessageBrokerRegistry;
+import org.springframework.web.socket.config.annotation.AbstractWebSocketMessageBrokerConfigurer;
+import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
+import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
+@Configuration
+//此注解表示开启WebSocket支持。通过此注解开启使用STOMP协议来传输基于代理（message broker）的消息。
+@EnableWebSocketMessageBroker
+public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
+    @Override
+    public void registerStompEndpoints(StompEndpointRegistry stompEndpointRegistry) {
+        //注册一个名为/endpointChat的节点，并指定使用SockJS协议。
+        stompEndpointRegistry.addEndpoint(&quot;/endpointChat&quot;).withSockJS();
+    }
+    //配置消息代理（Message Broker），可以理解为信息传输的通道
+    public void configureMessageBroker(MessageBrokerRegistry messageBrokerRegistry) {
+        //点对点式应增加一个/queue的消息代理。相应的如果是广播室模式可以设置为&quot;/topic&quot;
+           messageBrokerRegistry.enableSimpleBroker(&quot;/queue&quot;);
+    }
+}
+</code></pre>
+<h2 id="四：编写控制器"><a href="#四：编写控制器" class="headerlink" title="四：编写控制器"></a>四：编写控制器</h2><pre><code class="java">package cn.js.websocket.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.stereotype.Controller;
+import java.security.Principal;
+
+@Controller
+public class WebSocketController {
+    @Autowired
+    //通过SimpMessagingTemplate模板向浏览器发送消息。如果是广播模式，可以直接使用注解@SendTo
+    private SimpMessagingTemplate simpMessagingTemplate;
+
+    //开启STOMP协议来传输基于代理的消息，这时控制器支持使用@MessageController，就像使用@RequestMapping       是一样的
+    //当浏览器向服务端发送请求时，通过@MessageController映射/chat这个路径
+    @MessageMapping(&quot;/chat&quot;)
+    //在SpringMVC中，可以直接在参数中获得principal,其中包含当前用户的信息
+    public void handleChat(Principal principal,String msg) {
+        //下面的代码就是如果发送人是Michael，接收人就是Janet，发送的信息是message，反之亦然。
+        if(principal.getName().equals(&quot;Michael&quot;)){
+        //通过SimpMessagingTemplate的convertAndSendToUser向用户发送消息。
+        //第一参数表示接收信息的用户，第二个是浏览器订阅的地址，第三个是消息本身
+        simpMessagingTemplate.convertAndSendToUser(&quot;Janet&quot;,&quot;/queue/notifications&quot;,
+        principal.getName() + &quot;-发送:&quot; + msg);
+        } else {
+        simpMessagingTemplate.convertAndSendToUser(&quot;Michael&quot;,&quot;/queue/notifications&quot;,
+        principal.getName() + &quot;-发送:&quot; + msg);
+        }
+    }
+}</code></pre>
 <h2 id="五：添加脚本"><a href="#五：添加脚本" class="headerlink" title="五：添加脚本"></a>五：添加脚本</h2><p>将sockjs.min.js（SockJS的客户端脚本）、stomp.js（STOMP协议的客户端脚本）、jquery-3.1.1.js（jQuery）放置在src/main/resources/static下，（可在文末GitHub中Clone项目得到三个文件）</p>
 <h2 id="六：编写登录和聊天室页面"><a href="#六：编写登录和聊天室页面" class="headerlink" title="六：编写登录和聊天室页面"></a>六：编写登录和聊天室页面</h2><p>因为此Demo基于Thymeleaf，所以在src/main/resources/templates下新建一个最简单的login.html页面，代码如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span> <span class="attr">xmlns:th</span>=<span class="string">"http://www.w3.org/1999/xhtml"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>聊天室登录页面<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:if</span>=<span class="string">"$&#123;param.error&#125;"</span>&gt;</span></span><br><span class="line">无效的账号和密码</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">th:if</span>=<span class="string">"$&#123;param.logout&#125;"</span>&gt;</span></span><br><span class="line">您已注销</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">th:action</span>=<span class="string">"@&#123;/login&#125;"</span> <span class="attr">method</span>=<span class="string">"post"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>账号：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>/&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">label</span>&gt;</span>密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"password"</span>/&gt;</span><span class="tag">&lt;/<span class="name">label</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"登录"</span>/&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot; xmlns:th=&quot;http://www.w3.org/1999/xhtml&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot;&gt;
+&lt;title&gt;聊天室登录页面&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;div th:if=&quot;${param.error}&quot;&gt;
+无效的账号和密码
+&lt;/div&gt;
+&lt;div th:if=&quot;${param.logout}&quot;&gt;
+您已注销
+&lt;/div&gt;
+&lt;form th:action=&quot;@{/login}&quot; method=&quot;post&quot;&gt;
+&lt;div&gt;&lt;label&gt;账号：&lt;input type=&quot;text&quot; name=&quot;username&quot;/&gt;&lt;/label&gt;&lt;/div&gt;
+&lt;div&gt;&lt;label&gt;密码：&lt;input type=&quot;password&quot; name=&quot;password&quot;/&gt;&lt;/label&gt;&lt;/div&gt;
+&lt;div&gt;&lt;input type=&quot;submit&quot; value=&quot;登录&quot;/&gt;&lt;/div&gt;
+&lt;/form&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <p>在src/main/resources/templates下新建chat.html页面，代码如下：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">xmlns:th</span>=<span class="string">"http://www.thymeleaf.org"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>聊天页面<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">th:src</span>=<span class="string">"@&#123;sockjs.min.js&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">th:src</span>=<span class="string">"@&#123;stomp.js&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">th:src</span>=<span class="string">"@&#123;jquery-3.1.1.js&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line">聊天室</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">id</span>=<span class="string">"JanetForm"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">rows</span>=<span class="string">"4"</span> <span class="attr">cols</span>=<span class="string">"60"</span> <span class="attr">name</span>=<span class="string">"text"</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">th:inline</span>=<span class="string">"javascript"</span>&gt;</span></span><br><span class="line">$('#JanetForm').submit(function (e) &#123;</span><br><span class="line">e.preventDefault();</span><br><span class="line">var text = $('#JanetForm').find('textarea[name="text"]').val();</span><br><span class="line">sendSpittle(text);</span><br><span class="line">&#125;);</span><br><span class="line">//    连接endpoint为"/endpointChat"的节点</span><br><span class="line">var sock = new SockJS("/endpointChat");</span><br><span class="line">var stomp = Stomp.over(sock);</span><br><span class="line">//    连接WebSocket服务端</span><br><span class="line">stomp.connect('guest','guest',function (frame) &#123;</span><br><span class="line">//        订阅/user/queue/notifications发送的消息，这里与在控制器的messagingTemplate.convertAndSendToUser中定义的订阅地址保持一致。</span><br><span class="line">//        这里多了一个/user，并且这个user是必须的，使用了/user才会发送消息到指定的用户</span><br><span class="line">stomp.subscribe("/user/queue/notifications",handleNotification);</span><br><span class="line">&#125;);</span><br><span class="line">function handleNotification(message) &#123;</span><br><span class="line"><span class="xml">$('#output').append("<span class="tag">&lt;<span class="name">b</span>&gt;</span>收到了:" + message.body + "<span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>/&gt;</span>")</span></span><br><span class="line">&#125;</span><br><span class="line">function sendSpittle(text) &#123;</span><br><span class="line">//        表示向后端路径/chat发送消息请求，这个是在控制器中@MessageMapping中定义的。</span><br><span class="line">stomp.send("/chat",&#123;&#125;,text);</span><br><span class="line">&#125;</span><br><span class="line">$('#stop').click(function () &#123;</span><br><span class="line">&#123;sock.close()&#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"output"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;
+&lt;head&gt;
+&lt;meta charset=&quot;UTF-8&quot; /&gt;
+&lt;title&gt;聊天页面&lt;/title&gt;
+&lt;script th:src=&quot;@{sockjs.min.js}&quot;&gt;&lt;/script&gt;
+&lt;script th:src=&quot;@{stomp.js}&quot;&gt;&lt;/script&gt;
+&lt;script th:src=&quot;@{jquery-3.1.1.js}&quot;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;p&gt;
+聊天室
+&lt;/p&gt;
 
-<h2 id="七：增加页面的viewController，指定页面的跳转"><a href="#七：增加页面的viewController，指定页面的跳转" class="headerlink" title="七：增加页面的viewController，指定页面的跳转"></a>七：增加页面的viewController，指定页面的跳转</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.js.websocket.config;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.context.annotation.Configuration;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.ViewControllerRegistry;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">WebMvcConfig</span> <span class="keyword">extends</span> <span class="title">WebMvcConfigurerAdapter</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addViewControllers</span><span class="params">(ViewControllerRegistry viewControllerRegistry)</span> </span>&#123;</span><br><span class="line">		viewControllerRegistry.addViewController(<span class="string">"/login"</span>).setViewName(<span class="string">"/login"</span>);</span><br><span class="line">		viewControllerRegistry.addViewController(<span class="string">"/chat"</span>).setViewName(<span class="string">"/chat"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+&lt;form id=&quot;JanetForm&quot;&gt;
+&lt;textarea rows=&quot;4&quot; cols=&quot;60&quot; name=&quot;text&quot;&gt;&lt;/textarea&gt;
+&lt;input type=&quot;submit&quot;/&gt;
+&lt;/form&gt;
 
+&lt;script th:inline=&quot;javascript&quot;&gt;
+$(&#39;#JanetForm&#39;).submit(function (e) {
+e.preventDefault();
+var text = $(&#39;#JanetForm&#39;).find(&#39;textarea[name=&quot;text&quot;]&#39;).val();
+sendSpittle(text);
+});
+//    连接endpoint为&quot;/endpointChat&quot;的节点
+var sock = new SockJS(&quot;/endpointChat&quot;);
+var stomp = Stomp.over(sock);
+//    连接WebSocket服务端
+stomp.connect(&#39;guest&#39;,&#39;guest&#39;,function (frame) {
+//        订阅/user/queue/notifications发送的消息，这里与在控制器的messagingTemplate.convertAndSendToUser中定义的订阅地址保持一致。
+//        这里多了一个/user，并且这个user是必须的，使用了/user才会发送消息到指定的用户
+stomp.subscribe(&quot;/user/queue/notifications&quot;,handleNotification);
+});
+function handleNotification(message) {
+$(&#39;#output&#39;).append(&quot;&lt;b&gt;收到了:&quot; + message.body + &quot;&lt;/b&gt;&lt;br/&gt;&quot;)
+}
+function sendSpittle(text) {
+//        表示向后端路径/chat发送消息请求，这个是在控制器中@MessageMapping中定义的。
+stomp.send(&quot;/chat&quot;,{},text);
+}
+$(&#39;#stop&#39;).click(function () {
+{sock.close()}
+});
+&lt;/script&gt;
+&lt;div id=&quot;output&quot;&gt;&lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<h2 id="七：增加页面的viewController，指定页面的跳转"><a href="#七：增加页面的viewController，指定页面的跳转" class="headerlink" title="七：增加页面的viewController，指定页面的跳转"></a>七：增加页面的viewController，指定页面的跳转</h2><pre><code class="java">package cn.js.websocket.config;
+
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+@Configuration
+public class WebMvcConfig extends WebMvcConfigurerAdapter{
+    public void addViewControllers(ViewControllerRegistry viewControllerRegistry) {
+        viewControllerRegistry.addViewController(&quot;/login&quot;).setViewName(&quot;/login&quot;);
+        viewControllerRegistry.addViewController(&quot;/chat&quot;).setViewName(&quot;/chat&quot;);
+    }
+}</code></pre>
 <h2 id="八：测试"><a href="#八：测试" class="headerlink" title="八：测试"></a>八：测试</h2><p>这样我们开两个浏览器窗口，地址为localhost:8080/login,分别用Michael和Janet两个用户登录，就可以互相发送消息聊天了。</p>
 <p>
         <span class="lazyload-img-span">

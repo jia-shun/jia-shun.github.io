@@ -212,18 +212,35 @@
         
       </span></p>
 <p>初始化Redisson实例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedissonConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedissonClient <span class="title">redissonClient</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Config config = <span class="keyword">new</span> Config();</span><br><span class="line">        config.useSingleServer()</span><br><span class="line">                .setAddress(<span class="string">"$&#123;address&#125;"</span>)</span><br><span class="line">                .setUsername(<span class="string">"$&#123;username&#125;"</span>)</span><br><span class="line">                .setPassword(<span class="string">"$&#123;password&#125;"</span>);</span><br><span class="line">        <span class="keyword">return</span> Redisson.create(config);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">@Configuration
+public class RedissonConfig {
 
+    @Bean
+    public RedissonClient redissonClient() {
+        Config config = new Config();
+        config.useSingleServer()
+                .setAddress(&quot;${address}&quot;)
+                .setUsername(&quot;${username}&quot;)
+                .setPassword(&quot;${password}&quot;);
+        return Redisson.create(config);
+    }
+
+}</code></pre>
 <ol start="2">
 <li><code>RKeys</code> : 所有与Redis key相关的操作都归纳在<code>RKeys</code>这个接口里(请谨慎使用，getKeys()可能会造成redis阻塞)</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">RKeys keys = redissonClient.getKeys();</span><br><span class="line">keys.getKeys().forEach(System.out::println);</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">RKeys keys = redissonClient.getKeys();
+keys.getKeys().forEach(System.out::println);</code></pre>
 <ol start="3">
 <li><code>RBucket</code> : 通用对象桶</li>
 </ol>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">RBucket&lt;String&gt; bucket = redissonClient.getBucket(<span class="string">"bucket"</span>);</span><br><span class="line">bucket.set(<span class="string">"elem1"</span>);</span><br><span class="line">System.out.println(bucket.get());</span><br><span class="line">bucket.trySet(<span class="string">"elem2"</span>);</span><br><span class="line">bucket.compareAndSet(<span class="string">"elem3"</span>, <span class="string">"elem4"</span>);</span><br><span class="line">bucket.getAndSet(<span class="string">"elem5"</span>);</span><br><span class="line">System.out.println(bucket.get());</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">RBucket&lt;String&gt; bucket = redissonClient.getBucket(&quot;bucket&quot;);
+bucket.set(&quot;elem1&quot;);
+System.out.println(bucket.get());
+bucket.trySet(&quot;elem2&quot;);
+bucket.compareAndSet(&quot;elem3&quot;, &quot;elem4&quot;);
+bucket.getAndSet(&quot;elem5&quot;);
+System.out.println(bucket.get());</code></pre>
 <h4 id="二：分布式集合"><a href="#二：分布式集合" class="headerlink" title="二：分布式集合"></a>二：分布式集合</h4><p>
         <span class="lazyload-img-span">
         <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson_java_collection.gif">
@@ -234,32 +251,70 @@
 <li><p><strong>Map:</strong></p>
 <ol>
 <li><p>Redisson的分布式Map结构<code>RMap</code> 对象实现了<code>java.util.concurrent.ConcurrentMap</code>和<code>java.util.Map</code>接口，同时还保持了元素的插入顺序。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">RMap&lt;String, String&gt; map = redissonClient.getMap(<span class="string">"map"</span>);</span><br><span class="line"><span class="comment">//设置value，并返回先前的关联value，新key就返回null</span></span><br><span class="line">String prevValue = map.put(<span class="string">"1"</span>, <span class="string">"elem1"</span>);</span><br><span class="line"><span class="comment">//判断hash是否存在，存在就不插入返回先前value，不存在就插入并返回null</span></span><br><span class="line">String currValue = map.putIfAbsent(<span class="string">"2"</span>, <span class="string">"elem2"</span>);</span><br><span class="line"><span class="comment">//移除Key。返回先前value</span></span><br><span class="line">String removedValue = map.remove(<span class="string">"1"</span>);</span><br><span class="line"><span class="comment">//比put快，不返回以前的值，返回boolean。 true代表key是哈希中的新密钥，并且已设置值。false代表密钥已经存在于哈希中并且值已更新</span></span><br><span class="line"><span class="keyword">boolean</span> putResult = map.fastPut(<span class="string">"3"</span>, <span class="string">"elem3"</span>);</span><br><span class="line"><span class="comment">//异步 设置值,并返回先前的关联值，新key就返回null</span></span><br><span class="line">RFuture&lt;String&gt; putAsyncFuture = map.putAsync(<span class="string">"4"</span>, <span class="string">"elem4"</span>);</span><br><span class="line"><span class="comment">//异步 true如果key是哈希中的新密钥，并且已设置值。 false如果密钥已经存在于哈希中并且值已更新</span></span><br><span class="line">RFuture&lt;Boolean&gt; fastPutAsyncFuture = map.fastPutAsync(<span class="string">"5"</span>, <span class="string">"elem5"</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="java">RMap&lt;String, String&gt; map = redissonClient.getMap(&quot;map&quot;);
+//设置value，并返回先前的关联value，新key就返回null
+String prevValue = map.put(&quot;1&quot;, &quot;elem1&quot;);
+//判断hash是否存在，存在就不插入返回先前value，不存在就插入并返回null
+String currValue = map.putIfAbsent(&quot;2&quot;, &quot;elem2&quot;);
+//移除Key。返回先前value
+String removedValue = map.remove(&quot;1&quot;);
+//比put快，不返回以前的值，返回boolean。 true代表key是哈希中的新密钥，并且已设置值。false代表密钥已经存在于哈希中并且值已更新
+boolean putResult = map.fastPut(&quot;3&quot;, &quot;elem3&quot;);
+//异步 设置值,并返回先前的关联值，新key就返回null
+RFuture&lt;String&gt; putAsyncFuture = map.putAsync(&quot;4&quot;, &quot;elem4&quot;);
+//异步 true如果key是哈希中的新密钥，并且已设置值。 false如果密钥已经存在于哈希中并且值已更新
+RFuture&lt;Boolean&gt; fastPutAsyncFuture = map.fastPutAsync(&quot;5&quot;, &quot;elem5&quot;);</code></pre>
 </li>
 <li><p>淘汰机制：</p>
 <p>目前的Redis自身并不支持哈希（Hash）当中的元素淘汰，因此所有过期元素都是通过org.redisson.EvictionScheduler实例来实现定期清理的。为了保证资源的有效利用，每次运行最多清理100个过期元素。任务的启动时间将根据上次实际清理数量自动调整，间隔时间趋于1秒到2小时之间。比如该次清理时删除了100条元素，那么下次执行清理的时间将在1秒以后（最小间隔时间）。一旦该次清理数量少于上次清理数量，时间间隔将增加1.5倍。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">RMapCache&lt;String, String&gt; cacheMap = redissonClient.getMapCache(<span class="string">"anyMap"</span>);</span><br><span class="line"><span class="comment">//有效时间 ttl = 10分钟</span></span><br><span class="line">cacheMap.put(<span class="string">"key1"</span>, <span class="string">"key1"</span>, <span class="number">10</span>, TimeUnit.MINUTES);</span><br><span class="line"><span class="comment">//有效时间 ttl = 10分钟, 最长闲置时间 maxIdleTime = 10秒钟</span></span><br><span class="line">cacheMap.put(<span class="string">"key1"</span>, <span class="string">"key1"</span>, <span class="number">10</span>, TimeUnit.MINUTES, <span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line"><span class="comment">//有效时间 = 3 秒钟</span></span><br><span class="line">cacheMap.putIfAbsent(<span class="string">"key2"</span>, <span class="string">"key2"</span>, <span class="number">3</span>, TimeUnit.SECONDS);</span><br><span class="line"><span class="comment">//有效时间 ttl = 40秒钟, 最长闲置时间 maxIdleTime = 10秒钟</span></span><br><span class="line">cacheMap.putIfAbsent(<span class="string">"key2"</span>, <span class="string">"key2"</span>, <span class="number">40</span>, TimeUnit.SECONDS, <span class="number">10</span>, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
+<pre><code class="java">RMapCache&lt;String, String&gt; cacheMap = redissonClient.getMapCache(&quot;anyMap&quot;);
+//有效时间 ttl = 10分钟
+cacheMap.put(&quot;key1&quot;, &quot;key1&quot;, 10, TimeUnit.MINUTES);
+//有效时间 ttl = 10分钟, 最长闲置时间 maxIdleTime = 10秒钟
+cacheMap.put(&quot;key1&quot;, &quot;key1&quot;, 10, TimeUnit.MINUTES, 10, TimeUnit.SECONDS);
+//有效时间 = 3 秒钟
+cacheMap.putIfAbsent(&quot;key2&quot;, &quot;key2&quot;, 3, TimeUnit.SECONDS);
+//有效时间 ttl = 40秒钟, 最长闲置时间 maxIdleTime = 10秒钟
+cacheMap.putIfAbsent(&quot;key2&quot;, &quot;key2&quot;, 40, TimeUnit.SECONDS, 10, TimeUnit.SECONDS);</code></pre>
 </li>
 </ol>
 </li>
 <li><p><strong>Set:</strong></p>
 <ol>
 <li><p>Redisson的分布式Set结构的<code>RSet</code>对象实现了<code>java.util.Set</code>接口。通过元素的相互状态比较保证了每个元素的唯一性。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RSet&lt;String&gt; set = redissonClient.getSet(<span class="string">"set"</span>);</span><br><span class="line">set.add(<span class="string">"elem1"</span>);</span><br><span class="line">set.add(<span class="string">"elem1"</span>);</span><br><span class="line">set.remove(<span class="string">"elem1"</span>);</span><br><span class="line">Assert.isTrue(set.size() == <span class="number">0</span>, <span class="string">"uniqueness test failed"</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="java">RSet&lt;String&gt; set = redissonClient.getSet(&quot;set&quot;);
+set.add(&quot;elem1&quot;);
+set.add(&quot;elem1&quot;);
+set.remove(&quot;elem1&quot;);
+Assert.isTrue(set.size() == 0, &quot;uniqueness test failed&quot;);</code></pre>
 </li>
 <li><p>淘汰机制：</p>
 <p>同<code>RMap</code>的淘汰机制。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RSetCache&lt;String&gt; cacheSet = redissonClient.getSetCache(<span class="string">"cacheSet"</span>);</span><br><span class="line"><span class="comment">// ttl = 10 seconds</span></span><br><span class="line">cacheSet.add(<span class="string">"elem1"</span>, <span class="number">10</span>, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
+<pre><code class="java">RSetCache&lt;String&gt; cacheSet = redissonClient.getSetCache(&quot;cacheSet&quot;);
+// ttl = 10 seconds
+cacheSet.add(&quot;elem1&quot;, 10, TimeUnit.SECONDS);</code></pre>
 </li>
 </ol>
 </li>
 <li><p><strong>SortedSet:</strong></p>
 <p>Redisson的分布式<code>RSortedSet</code>对象实现了<code>java.util.SortedSet</code>接口，在保证元素唯一性的前提下，通过比较器(<code>Compaarator</code>)接口实现了对元素的排序。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">RSortedSet&lt;Integer&gt; sortedSet = redissonClient.getSortedSet(<span class="string">"sortedSet"</span>);</span><br><span class="line"><span class="comment">// 配置元素比较器</span></span><br><span class="line">sortedSet.trySetComparator(<span class="keyword">new</span> MyComparator()); </span><br><span class="line">sortedSet.add(<span class="number">3</span>);</span><br><span class="line">sortedSet.add(<span class="number">1</span>);</span><br><span class="line">sortedSet.add(<span class="number">2</span>);</span><br><span class="line">sortedSet.removeAsync(<span class="number">0</span>);</span><br><span class="line">sortedSet.addAsync(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="java">RSortedSet&lt;Integer&gt; sortedSet = redissonClient.getSortedSet(&quot;sortedSet&quot;);
+// 配置元素比较器
+sortedSet.trySetComparator(new MyComparator()); 
+sortedSet.add(3);
+sortedSet.add(1);
+sortedSet.add(2);
+sortedSet.removeAsync(0);
+sortedSet.addAsync(5);</code></pre>
 </li>
 <li><p><strong>List:</strong></p>
 <p>Redisson分布式列表<code>RList</code> 对象在实现了<code>java.util.List</code>接口的同时，确保了元素插入时的顺序。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RList&lt;String&gt; list = redissonClient.getList(<span class="string">"list"</span>);</span><br><span class="line">list.add(<span class="string">"elem"</span>);</span><br><span class="line">String result = list.get(<span class="number">0</span>);</span><br><span class="line">Assert.isTrue(result.equals(<span class="string">"elem"</span>), <span class="string">"RList add failed"</span>);</span><br><span class="line">list.remove(<span class="string">"elem"</span>);</span><br><span class="line">Assert.isTrue(list.size() == <span class="number">0</span>, <span class="string">"RList remove test failed"</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="java">RList&lt;String&gt; list = redissonClient.getList(&quot;list&quot;);
+list.add(&quot;elem&quot;);
+String result = list.get(0);
+Assert.isTrue(result.equals(&quot;elem&quot;), &quot;RList add failed&quot;);
+list.remove(&quot;elem&quot;);
+Assert.isTrue(list.size() == 0, &quot;RList remove test failed&quot;);</code></pre>
 </li>
 <li><p><strong>More:</strong></p>
 <p>更多 (<code>ScoredSortedSet</code>、<code>LexSortedSet</code> 、<code>Queue</code>、<code>Deque</code>、<code>Blocking Queue</code> 、<code>Bounded Blocking Queue</code> 、<code>Blocking Deque</code> 、<code>Blocking Fair Queue</code> 、<code>Delyed Queue</code> 、<code>Priority Queue</code>) 请参考：</p>
@@ -269,37 +324,76 @@
 <h4 id="三：分布式锁"><a href="#三：分布式锁" class="headerlink" title="三：分布式锁"></a>三：分布式锁</h4><p><code>Jedis</code>和<code>Lettuce</code>关于分布式锁都要自己手动去实现，而<code>Redisson</code>对此有完整的封装。</p>
 <p>Redisson的分布式可重入锁<code>RLock</code>对象实现了<code>java.util.concurrent.locks.Lock</code>接口，并且还支持自动过期解锁。</p>
 <p>简单实现分布式锁：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">RLock lock = redissonClient.getLock(<span class="string">"lockKey"</span>);</span><br><span class="line"><span class="comment">// 最常见的使用方法</span></span><br><span class="line">lock.lock();</span><br><span class="line"><span class="comment">// 支持过期解锁功能</span></span><br><span class="line"><span class="comment">// 10秒钟以后自动解锁</span></span><br><span class="line"><span class="comment">// 无需调用unlock方法手动解锁</span></span><br><span class="line">lock.lock(<span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line"><span class="comment">// 尝试加锁，最多等待100秒，上锁以后10秒自动解锁</span></span><br><span class="line"><span class="keyword">boolean</span> res = lock.tryLock(<span class="number">100</span>, <span class="number">10</span>, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">RLock lock = redissonClient.getLock(&quot;lockKey&quot;);
+// 最常见的使用方法
+lock.lock();
+// 支持过期解锁功能
+// 10秒钟以后自动解锁
+// 无需调用unlock方法手动解锁
+lock.lock(10, TimeUnit.SECONDS);
+// 尝试加锁，最多等待100秒，上锁以后10秒自动解锁
+boolean res = lock.tryLock(100, 10, TimeUnit.SECONDS);</code></pre>
 <p>同时Redisson可以完美实现<code>fairLock</code>、<code>RedLock</code>、<code>ReadWriteLock</code>等</p>
 <h4 id="四：高级特性"><a href="#四：高级特性" class="headerlink" title="四：高级特性"></a>四：高级特性</h4><ol>
 <li><p><code>Geospatial Bucket</code></p>
 <p>Redisson的分布式<code>RGeo</code>对象是一种专门用来储存与地理位置有关的对象桶。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">RGeo&lt;String&gt; geo = redissonClient.getGeo(<span class="string">"test"</span>);</span><br><span class="line">geo.add(<span class="keyword">new</span> GeoEntry(<span class="number">13.361389</span>, <span class="number">38.115556</span>, <span class="string">"Palermo"</span>),</span><br><span class="line">        <span class="keyword">new</span> GeoEntry(<span class="number">15.087269</span>, <span class="number">37.502669</span>, <span class="string">"Catania"</span>));</span><br><span class="line">geo.addAsync(<span class="number">37.618423</span>, <span class="number">55.751244</span>, <span class="string">"Moscow"</span>);</span><br><span class="line"></span><br><span class="line">Double distance = geo.dist(<span class="string">"Palermo"</span>, <span class="string">"Catania"</span>, GeoUnit.METERS);</span><br><span class="line">geo.hashAsync(<span class="string">"Palermo"</span>, <span class="string">"Catania"</span>);</span><br><span class="line">Map&lt;String, GeoPosition&gt; positions = geo.pos(<span class="string">"test2"</span>, <span class="string">"Palermo"</span>, <span class="string">"test3"</span>, <span class="string">"Catania"</span>, <span class="string">"test1"</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="java">RGeo&lt;String&gt; geo = redissonClient.getGeo(&quot;test&quot;);
+geo.add(new GeoEntry(13.361389, 38.115556, &quot;Palermo&quot;),
+        new GeoEntry(15.087269, 37.502669, &quot;Catania&quot;));
+geo.addAsync(37.618423, 55.751244, &quot;Moscow&quot;);
+
+Double distance = geo.dist(&quot;Palermo&quot;, &quot;Catania&quot;, GeoUnit.METERS);
+geo.hashAsync(&quot;Palermo&quot;, &quot;Catania&quot;);
+Map&lt;String, GeoPosition&gt; positions = geo.pos(&quot;test2&quot;, &quot;Palermo&quot;, &quot;test3&quot;, &quot;Catania&quot;, &quot;test1&quot;);</code></pre>
 </li>
 <li><p><code>Bloom Filter</code></p>
 <p>Redisson利用<code>RBloomFilter</code>实现了Java分布式布隆过滤器，这在分布式环境中大数据量去重有显著的效果。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RBloomFilter&lt;String&gt; bloomFilter = redissonClient.getBloomFilter(<span class="string">"sample"</span>);</span><br><span class="line"><span class="comment">// 初始化布隆过滤器，预计统计元素数量为55000000，期望误差率为0.03</span></span><br><span class="line">bloomFilter.tryInit(<span class="number">55000000L</span>, <span class="number">0.03</span>);</span><br><span class="line">bloomFilter.add(<span class="string">"field1Value"</span>);</span><br><span class="line">bloomFilter.add(<span class="string">"field2Value"</span>);</span><br><span class="line">bloomFilter.contains(<span class="string">"field3Value"</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="java">RBloomFilter&lt;String&gt; bloomFilter = redissonClient.getBloomFilter(&quot;sample&quot;);
+// 初始化布隆过滤器，预计统计元素数量为55000000，期望误差率为0.03
+bloomFilter.tryInit(55000000L, 0.03);
+bloomFilter.add(&quot;field1Value&quot;);
+bloomFilter.add(&quot;field2Value&quot;);
+bloomFilter.contains(&quot;field3Value&quot;);</code></pre>
 </li>
 <li><p><code>RRateLimiter</code></p>
 <p>Redisson利用<code>RRateLimiter</code>实现了分布式布限流器，这在分布式环境中在网关层对于<code>QPS</code>限制等方面特别易于使用。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">RRateLimiter rateLimiter = redissonClient.getRateLimiter(<span class="string">"myRateLimiter"</span>);</span><br><span class="line"><span class="comment">//最大流速 = 每1秒钟产生100个令牌</span></span><br><span class="line">rateLimiter.trySetRate(RateType.OVERALL, <span class="number">1</span>, <span class="number">100</span>, RateIntervalUnit.SECONDS);</span><br><span class="line"><span class="comment">//阻塞直到一个可用。</span></span><br><span class="line"><span class="comment">//获取给定数量的许可证，如果它们可用并立即返回，减少给定数量的可用许可证数量。</span></span><br><span class="line"><span class="comment">//返回是否获取成功</span></span><br><span class="line"><span class="keyword">boolean</span> succeed = rateLimiter.tryAcquire(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<pre><code class="java">RRateLimiter rateLimiter = redissonClient.getRateLimiter(&quot;myRateLimiter&quot;);
+//最大流速 = 每1秒钟产生100个令牌
+rateLimiter.trySetRate(RateType.OVERALL, 1, 100, RateIntervalUnit.SECONDS);
+//阻塞直到一个可用。
+//获取给定数量的许可证，如果它们可用并立即返回，减少给定数量的可用许可证数量。
+//返回是否获取成功
+boolean succeed = rateLimiter.tryAcquire(1);</code></pre>
 </li>
 <li><p>更多高级特性请参考<a href="https://github.com/redisson/redisson/wiki/Redisson%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D" target="_blank" rel="noopener"><code>wiki</code></a></p>
 </li>
 </ol>
 <h4 id="五：Quick-Start"><a href="#五：Quick-Start" class="headerlink" title="五：Quick Start"></a>五：Quick Start</h4><p><strong>1. 添加redisson-spring-boot-starter依赖</strong></p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">'org.redisson:redisson-spring-boot-starter:3.16.0'</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="groovy">dependencies {
+    implementation &#39;org.redisson:redisson-spring-boot-starter:3.16.0&#39;
+}</code></pre>
 <p><strong>2. 配置redis连接</strong></p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line"><span class="attr">  redis:</span></span><br><span class="line"><span class="attr">    host:</span> <span class="string">$&#123;host&#125;</span></span><br><span class="line"><span class="attr">    port:</span> <span class="number">6379</span></span><br><span class="line"><span class="attr">    username:</span> <span class="string">$&#123;usrname&#125;</span></span><br><span class="line"><span class="attr">    password:</span> <span class="string">$&#123;password&#125;</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="yaml">spring:
+  redis:
+    host: ${host}
+    port: 6379
+    username: ${usrname}
+    password: ${password}</code></pre>
 <blockquote>
 <p>更过配置参数参考 <code>org.redisson.config.Config</code></p>
 </blockquote>
 <p><strong>3. 使用</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> RedissonClient redissonClient;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">testRedis</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    RList&lt;String&gt; list = redissonClient.getList(<span class="string">"list"</span>);</span><br><span class="line">    list.add(<span class="string">"elem1"</span>);</span><br><span class="line">    list.add(<span class="string">"elem2"</span>);</span><br><span class="line">    list.forEach(System.out::println);</span><br><span class="line">    list.clear();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">@Autowired
+private RedissonClient redissonClient;
 
+@Test
+public void testRedis() {
+    RList&lt;String&gt; list = redissonClient.getList(&quot;list&quot;);
+    list.add(&quot;elem1&quot;);
+    list.add(&quot;elem2&quot;);
+    list.forEach(System.out::println);
+    list.clear();
+}</code></pre>
 
         <!-- 分类文章 -->
         

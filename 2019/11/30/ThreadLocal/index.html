@@ -129,13 +129,77 @@
 <h4 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h4><ul>
 <li>最常见数据库连接。<br>操作数据库使用连接池，连接池的链接使用ThreadLocal来管理，能够实现当前线程的操作都是使用同一个Connection.</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;Connection&gt; THREAD_LOCAL = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 取得数据库的连接对象，如果没有则自动创建新的连接。</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> Connection</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Connection conn = THREAD_LOCAL.get();</span><br><span class="line">    <span class="keyword">if</span> (conn == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class.forName(DRIVER);</span><br><span class="line">            conn = DriverManager.getConnection(URL, USER, PASSWORD);</span><br><span class="line">            THREAD_LOCAL.set(conn);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="comment">//</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> conn;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 关闭数据库连接</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">close</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    Connection conn = THREAD_LOCAL.get() ;</span><br><span class="line">    <span class="keyword">if</span> (conn != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            conn.close();</span><br><span class="line">            THREAD_LOCAL.remove();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">            <span class="comment">//</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">    private static final ThreadLocal&lt;Connection&gt; THREAD_LOCAL = new ThreadLocal&lt;&gt;();
 
+    /**
+     * 取得数据库的连接对象，如果没有则自动创建新的连接。
+     * @return Connection
+     */
+    public static Connection getConnection() {
+        Connection conn = THREAD_LOCAL.get();
+        if (conn == null) {
+            try {
+                Class.forName(DRIVER);
+                conn = DriverManager.getConnection(URL, USER, PASSWORD);
+                THREAD_LOCAL.set(conn);
+            } catch (Exception e) {
+                //
+            }
+        }
+        return conn;
+    }
+
+    /**
+     * 关闭数据库连接
+     */
+    public static void close() {
+        Connection conn = THREAD_LOCAL.get() ;
+        if (conn != null) {
+            try {
+                conn.close();
+                THREAD_LOCAL.remove();
+            } catch (SQLException e) {
+                //
+            }
+        }
+    }</code></pre>
 <ul>
 <li>维护session或token。<br>Http本身是无状态的，前端发来的请求中一般包含用户的标识信息(类session)，将信息使用ThreadLocal放入Thread中，这样在线程的调用链中随时可取出用户的标识信息。</li>
 </ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> CAPACITY = <span class="number">8</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;Map&lt;String, Object&gt;&gt; THREAD_LOCAL = <span class="keyword">new</span> ThreadLocal&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * setToken</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> key key</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> value value</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(String key, Object value)</span> </span>&#123;</span><br><span class="line">    Map&lt;String, Object&gt; map = THREAD_LOCAL.get();</span><br><span class="line">    <span class="keyword">if</span> (map == <span class="keyword">null</span>) &#123;</span><br><span class="line">        map = <span class="keyword">new</span> HashMap&lt;&gt;(CAPACITY);</span><br><span class="line">        THREAD_LOCAL.set(map);</span><br><span class="line">    &#125;</span><br><span class="line">    map.put(key, value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * getToken</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> key key</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> value</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title">get</span><span class="params">(String key)</span> </span>&#123;</span><br><span class="line">    Map&lt;String, Object&gt; map = THREAD_LOCAL.get();</span><br><span class="line">    <span class="keyword">if</span> (map == <span class="keyword">null</span>) &#123;</span><br><span class="line">        map = <span class="keyword">new</span> HashMap&lt;&gt;(CAPACITY);</span><br><span class="line">        THREAD_LOCAL.set(map);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> map.get(key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    THREAD_LOCAL.remove();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">    private static final int CAPACITY = 8;
+    private static final ThreadLocal&lt;Map&lt;String, Object&gt;&gt; THREAD_LOCAL = new ThreadLocal&lt;&gt;();
 
+    /**
+     * setToken
+     * @param key key
+     * @param value value
+     */
+    public static void set(String key, Object value) {
+        Map&lt;String, Object&gt; map = THREAD_LOCAL.get();
+        if (map == null) {
+            map = new HashMap&lt;&gt;(CAPACITY);
+            THREAD_LOCAL.set(map);
+        }
+        map.put(key, value);
+    }
+
+    /**
+     * getToken
+     * @param key key
+     * @return value
+     */
+    public static Object get(String key) {
+        Map&lt;String, Object&gt; map = THREAD_LOCAL.get();
+        if (map == null) {
+            map = new HashMap&lt;&gt;(CAPACITY);
+            THREAD_LOCAL.set(map);
+        }
+        return map.get(key);
+    }
+
+    public static void remove() {
+        THREAD_LOCAL.remove();
+    }</code></pre>
 <h4 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h4><p>ThreadLocal类的源码特别简单，加注释总共才700多行。</p>
 <p>
         <span class="lazyload-img-span">

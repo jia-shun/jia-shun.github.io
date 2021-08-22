@@ -169,28 +169,90 @@
 </ul>
 <p>依据需求我们先来写测试用例：</p>
 <h4 id="Junit"><a href="#Junit" class="headerlink" title="Junit"></a>Junit</h4><p><strong>一：判断URI是否有效</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">linkableTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    String linkableUri = <span class="string">"https://www.baidu.com/"</span>;</span><br><span class="line">    String unLinkableUri = <span class="string">"https://www.abcd123456789.com/"</span>;</span><br><span class="line">    Boolean linkable = UrlUtils.linkable(linkableUri);</span><br><span class="line">    Boolean unLinkable = UrlUtils.linkable(unLinkableUri);</span><br><span class="line">    assertEquals(linkable, Boolean.TRUE);</span><br><span class="line">    assertEquals(unLinkable, Boolean.FALSE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">    @Test
+    public void linkableTest() {
+        String linkableUri = &quot;https://www.baidu.com/&quot;;
+        String unLinkableUri = &quot;https://www.abcd123456789.com/&quot;;
+        Boolean linkable = UrlUtils.linkable(linkableUri);
+        Boolean unLinkable = UrlUtils.linkable(unLinkableUri);
+        assertEquals(linkable, Boolean.TRUE);
+        assertEquals(unLinkable, Boolean.FALSE);
+    }</code></pre>
 <p>以上我们基于<code>Junit</code>使用断言实现了一个非常简单的测试用例。</p>
 <p>根据测试用例我们建立UrlUtils类并实现一个linkable方法:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UrlUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Boolean <span class="title">linkable</span><span class="params">(String uri)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// TODO ...</span></span><br><span class="line">        <span class="keyword">return</span> Boolean.FALSE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">public class UrlUtils {
 
+    public static Boolean linkable(String uri) {
+        // TODO ...
+        return Boolean.FALSE;
+    }
+
+}</code></pre>
 <p><strong>二：实现一个add接口</strong></p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addTests</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    WebSiteDTO dto = WebSiteDTO.builder()</span><br><span class="line">            .name(<span class="string">"baidu"</span>)</span><br><span class="line">            .uri(<span class="string">"https://www.baidu.com/"</span>)</span><br><span class="line">            .build();</span><br><span class="line">    Long id = webSiteService.add(dto);</span><br><span class="line">    assertNotNull(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">    @Test
+    public void addTests() {
+        WebSiteDTO dto = WebSiteDTO.builder()
+                .name(&quot;baidu&quot;)
+                .uri(&quot;https://www.baidu.com/&quot;)
+                .build();
+        Long id = webSiteService.add(dto);
+        assertNotNull(id);
+    }</code></pre>
 <p>随后我们实现webSiteService的add方法即可。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> WebSiteRepository webSiteRepository;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">WebSiteServiceImpl</span><span class="params">(WebSiteRepository webSiteRepository)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.webSiteRepository = webSiteRepository;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> Long <span class="title">add</span><span class="params">(WebSiteDTO dto)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//TODO</span></span><br><span class="line">    <span class="keyword">return</span> webSiteRepository.add(dto);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">    private final WebSiteRepository webSiteRepository;
 
+    public WebSiteServiceImpl(WebSiteRepository webSiteRepository) {
+        this.webSiteRepository = webSiteRepository;
+    }
+
+    @Override
+    public Long add(WebSiteDTO dto) {
+        //TODO
+        return webSiteRepository.add(dto);
+    }</code></pre>
 <h4 id="Mockito"><a href="#Mockito" class="headerlink" title="Mockito"></a>Mockito</h4><p>以上的测试有一个问题在于执行add方法的时候会操作数据库，而在真实环境中我们不希望测试数据会写入数据库造成脏数据或者本身不想依赖数据库去跑测试用例。此时我们可以使用<code>Mockito</code>框架实现数据Mock。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@MockBean</span></span><br><span class="line"><span class="keyword">private</span> WebSiteRepository webSiteRepository;</span><br><span class="line">		</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addMockTest</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    WebSiteDTO dto = WebSiteDTO.builder()</span><br><span class="line">            .name(<span class="string">"baidu"</span>)</span><br><span class="line">            .uri(<span class="string">"https://www.baidu.com/"</span>)</span><br><span class="line">            .build();</span><br><span class="line">    Mockito.when(webSiteRepository.add(dto)).thenReturn(<span class="number">1L</span>);</span><br><span class="line">    Long id = webSiteService.add(dto);</span><br><span class="line">    assertNotNull(id);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">    @MockBean
+    private WebSiteRepository webSiteRepository;
 
+    @Test
+    public void addMockTest() {
+        WebSiteDTO dto = WebSiteDTO.builder()
+                .name(&quot;baidu&quot;)
+                .uri(&quot;https://www.baidu.com/&quot;)
+                .build();
+        Mockito.when(webSiteRepository.add(dto)).thenReturn(1L);
+        Long id = webSiteService.add(dto);
+        assertNotNull(id);
+    }</code></pre>
 <p>如上，我们基于<code>Mockito</code>的注解<code>@MockBean</code>和<code>when(….).thenReturn(….)</code>很简单的实现了webSiteRepository的打桩测试。</p>
 <h4 id="MockMvc"><a href="#MockMvc" class="headerlink" title="MockMvc"></a>MockMvc</h4><p>如果我们想做一个链路测试或者模拟真实用户的请求测试以上又满足不了需求，此时我们使用<code>MockMvc</code>可以很简单的做这个事情。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> WebApplicationContext wac;</span><br><span class="line"><span class="keyword">private</span> MockMvc mockMvc;</span><br><span class="line"></span><br><span class="line"><span class="meta">@BeforeEach</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setup</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.mockMvc = MockMvcBuilders.webAppContextSetup(<span class="keyword">this</span>.wac).build();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">addMockMvcTest</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    WebSiteDTO dto = WebSiteDTO.builder()</span><br><span class="line">            .name(<span class="string">"baidu"</span>)</span><br><span class="line">            .uri(<span class="string">"https://www.baidu.com/"</span>)</span><br><span class="line">            .build();</span><br><span class="line">    Mockito.when(webSiteRepository.add(dto)).thenReturn(<span class="number">1L</span>);</span><br><span class="line">    String url = <span class="string">"/web/add"</span>;</span><br><span class="line">    <span class="keyword">this</span>.mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON).content(JsonUtils.toJsonString(dto)))</span><br><span class="line">            .andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON))</span><br><span class="line">            .andExpect(content().json(<span class="string">"&#123;\n"</span> +</span><br><span class="line">                    <span class="string">"    \"code\": 200,\n"</span> +</span><br><span class="line">                    <span class="string">"    \"message\": \"OK\",\n"</span> +</span><br><span class="line">                    <span class="string">"    \"data\": 1\n"</span> +</span><br><span class="line">                    <span class="string">"&#125;"</span>, <span class="keyword">true</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="java">    @Autowired
+    private WebApplicationContext wac;
+    private MockMvc mockMvc;
 
+    @BeforeEach
+    public void setup() {
+        this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
+    }
+
+    @Test
+    public void addMockMvcTest() throws Exception {
+        WebSiteDTO dto = WebSiteDTO.builder()
+                .name(&quot;baidu&quot;)
+                .uri(&quot;https://www.baidu.com/&quot;)
+                .build();
+        Mockito.when(webSiteRepository.add(dto)).thenReturn(1L);
+        String url = &quot;/web/add&quot;;
+        this.mockMvc.perform(post(url).contentType(MediaType.APPLICATION_JSON).content(JsonUtils.toJsonString(dto)))
+                .andExpect(status().isOk()).andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(content().json(&quot;{\n&quot; +
+                        &quot;    \&quot;code\&quot;: 200,\n&quot; +
+                        &quot;    \&quot;message\&quot;: \&quot;OK\&quot;,\n&quot; +
+                        &quot;    \&quot;data\&quot;: 1\n&quot; +
+                        &quot;}&quot;, true));
+    }</code></pre>
 <h4 id="spring-boot-starter-test"><a href="#spring-boot-starter-test" class="headerlink" title="spring-boot-starter-test"></a>spring-boot-starter-test</h4><p>写一个单元测试要依赖几个框架是不是很麻烦，不用担心，Spring已经帮我们整合好了，只需要依赖：</p>
-<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">testImplementation <span class="string">'org.springframework.boot:spring-boot-starter-test:&#123;version&#125;'</span></span><br></pre></td></tr></table></figure>
-
+<pre><code class="groovy">testImplementation &#39;org.springframework.boot:spring-boot-starter-test:{version}&#39;</code></pre>
 <p><strong>你还在为写单元测试发愁吗？</strong></p>
 
         <!-- 分类文章 -->

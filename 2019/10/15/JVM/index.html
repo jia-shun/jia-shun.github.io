@@ -187,20 +187,35 @@
 <li><p>运行时常量池：用于存放编译期生成各种字面量和符号引用。Java语言并不要求常量一定只有编译期才能产生，运行期间也可能将新的常量放入池中，比如最常用的String的intern()方法。</p>
 </li>
 <li><p>基本数据类型的包装类和常量池：Java中基本类型的包装类大都实现了常量池技术，即Byte、Short、Integer、Long、Character、Boolean。这五种包装类默认创建了数值[-128， 127]的相应类型的缓存数据，但是超出此范围仍然会去创建新的对象。两种浮点数类型的包装类Float、Double并没有实现常量池技术。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">		</span><br><span class="line">String str1 = <span class="keyword">new</span> String(<span class="string">"hello"</span>);</span><br><span class="line">String str2 = str1.intern();</span><br><span class="line">String str3 = <span class="string">"hello"</span>;</span><br><span class="line">System.out.println(<span class="string">"str1=str2: "</span> + (str1 == str2));</span><br><span class="line">System.out.println(<span class="string">"str2=str3: "</span> + (str2 == str3));  	</span><br><span class="line"></span><br><span class="line">Integer i1 = <span class="number">40</span>;</span><br><span class="line">Integer i2 = <span class="number">40</span>;</span><br><span class="line">Integer i3 = <span class="number">200</span>;</span><br><span class="line">Integer i4 = <span class="keyword">new</span> Integer(<span class="number">40</span>);</span><br><span class="line">Integer i5 = <span class="keyword">new</span> Integer(<span class="number">40</span>);</span><br><span class="line">System.out.println(<span class="string">"i1地址："</span> + System.identityHashCode(i1));</span><br><span class="line">System.out.println(<span class="string">"i2地址："</span> + System.identityHashCode(i2));</span><br><span class="line">System.out.println(<span class="string">"i4地址："</span> + System.identityHashCode(i4));</span><br><span class="line">System.out.println(<span class="string">"i1=i2: "</span> + (i1 == i2));</span><br><span class="line">System.out.println(<span class="string">"i4=i5: "</span> + (i4 == i5));</span><br></pre></td></tr></table></figure>
+<pre><code class="java">
+  String str1 = new String(&quot;hello&quot;);
+  String str2 = str1.intern();
+  String str3 = &quot;hello&quot;;
+  System.out.println(&quot;str1=str2: &quot; + (str1 == str2));
+  System.out.println(&quot;str2=str3: &quot; + (str2 == str3));      
 
-
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<pre><code>思考：以上代码创建了几个新的对象？
-
-result:
-
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">str1=str2: <span class="keyword">false</span></span><br><span class="line">str2=str3: <span class="keyword">true</span></span><br><span class="line">i1地址：<span class="number">672320506</span></span><br><span class="line">i2地址：<span class="number">672320506</span></span><br><span class="line">i4地址：<span class="number">1349414238</span></span><br><span class="line">i1=i2: <span class="keyword">true</span></span><br><span class="line">i4=i5: <span class="keyword">false</span></span><br></pre></td></tr></table></figure></code></pre><blockquote>
+  Integer i1 = 40;
+  Integer i2 = 40;
+  Integer i3 = 200;
+  Integer i4 = new Integer(40);
+  Integer i5 = new Integer(40);
+  System.out.println(&quot;i1地址：&quot; + System.identityHashCode(i1));
+  System.out.println(&quot;i2地址：&quot; + System.identityHashCode(i2));
+  System.out.println(&quot;i4地址：&quot; + System.identityHashCode(i4));
+  System.out.println(&quot;i1=i2: &quot; + (i1 == i2));
+  System.out.println(&quot;i4=i5: &quot; + (i4 == i5));
+</code></pre>
+<p>思考：以上代码创建了几个新的对象？</p>
+<p>result:</p>
+<pre><code class="java">str1=str2: false
+str2=str3: true
+i1地址：672320506
+i2地址：672320506
+i4地址：1349414238
+i1=i2: true
+i4=i5: false
+</code></pre>
+<blockquote>
 <p> 注意：</p>
 <p> 方法区是JVM规范层面的东西，规定了这一个区域应该存放那些东西。而对于如何实现并没有强制规定。</p>
 <p> 我们最常用的是在HotSpot虚拟机上进行开发，在JDK1.7中我们称之为方法区为永久代，而在JDK8之后已经将方法区移动到元空间(直接内存)中。而永久代和元空间不过是针对方法区的不同实现。包括字符串常量池JDK1.6是存在于方法区中，而1.7之后就直接放入堆空间中。</p>
@@ -208,7 +223,11 @@ result:
 <p> 为什么将方法区移动到元空间(metaspace)？</p>
 <p> 元空间没有使用堆内存，而是使用与堆不相连的本地内存区域。所以理论上可以使用的内存有多大，元空间就有多大。这项改造的原因在于永久代的调优是很困难的，因为很难确定一个合适的大小，因为影响的因素很多，比如类数量的多小，常量的大小，常量的数量等。另外元数据的位置也会随着一次full GC发生移动，比较消耗虚拟机性能。</p>
 </blockquote>
-<ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
 <li><p>堆(Heap)：</p>
 <p>Java Heap是JVM所管理的内存中最大的一块。此内存区域唯一的作用就是存放对象实例。几乎所有的对象实例都需要在堆中分配内存。而堆空间还可以细分为：新生代和老年代。具体到新生代又分为Eden空间、From Survivor空间和To Survivor空间。</p>
 <p>
@@ -255,8 +274,22 @@ result:
 <li><p>引用计数法：</p>
 <p>实现：为每个对象添加一个引用计数器，用来统计该对象的引用个数。一旦某个对象的引用计数为0，则说明该对象已死亡，便可以回收。</p>
 <p>缺陷：除了需要额外的空间存储计数器，以及繁琐的更新操作。还有最大的漏洞，就是无法处理循环引用对象。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">A</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> B bb;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span>  <span class="title">B</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> A aa;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestGC</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span>  <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        A a = <span class="keyword">new</span> A();</span><br><span class="line">        B b = <span class="keyword">new</span> B();</span><br><span class="line">        a.bb = b;</span><br><span class="line">        b.aa = a;</span><br><span class="line">        a = <span class="keyword">null</span>;</span><br><span class="line">        b = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="java">              class  A {
+                  public B bb;
+              }
+              class  B {
+                  public A aa;
+              }
+              public class TestGC {
+                  public static  void main(String[] args) {
+                      A a = new A();
+                      B b = new B();
+                      a.bb = b;
+                      b.aa = a;
+                      a = null;
+                      b = null;
+                  }
+              }</code></pre>
 <p>以上程序中，b对象因为有a的引用，计数器+1，a对象因为有b的引用，计数器+1。但其实最终a和b对象都已经成为了垃圾却因为计数器不为0导致无法回收。</p>
 </li>
 <li><p>可达性分析：</p>
