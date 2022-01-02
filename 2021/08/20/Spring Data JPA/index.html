@@ -55,7 +55,7 @@
           <li class="menu-li " id="sort">
              CATEGORY
              <div class="categories-outer " id="sort-div">
-               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
+               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
              </div>
           </li>
         
@@ -120,11 +120,7 @@
       <div class="post-content-main animate__animated  animate__fadeInUp">
         <!-- top型目录 -->
         
-        <p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/spring-data-jpa.jpeg">
-        
-      </span></p>
+        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/spring-data-jpa.jpeg" alt></p>
 <h2 id="认识-Spring-Data-JPA"><a href="#认识-Spring-Data-JPA" class="headerlink" title="认识 Spring Data JPA"></a>认识 Spring Data JPA</h2><p><strong>一. ORM</strong></p>
 <blockquote>
 <p><strong>概述：</strong></p>
@@ -241,20 +237,12 @@
 <p><strong>1. JPA</strong></p>
 <p>JDK5.0新增了<a href="https://docs.oracle.com/javaee/6/tutorial/doc/bnbpz.html" target="_blank" rel="noopener">JPA</a> (Java Persistence API) 协议：通过相关持久层注解来实现对象和关系型数据库表映射关系，并将Java项目运行期的实体对象，通过一种Session持久化到数据库中。</p>
 <p>有了协议就有了标准规范，有了规范按照API去实现就可以了。</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa.png">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa.png" alt></p>
 <p>通过上图可以看出来Hibernate就是基于JPA的标准实现。</p>
 <p>你是想做一个挑战者用JPA还是只做“搬砖者”用MyBatis？</p>
 <p><strong>2. Spring Data</strong></p>
 <p><a href="https://spring.io/projects/spring-data" target="_blank" rel="noopener">Spring Data</a> 作为Spring旗下的一个父项目，旨在统一和简化对各种类型持久化存储，而不拘泥于关系型数据库还是NoSQL存储。</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_spring_data.jpg">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_spring_data.jpg" alt="spring_data_jpa"></p>
 <p>无论是哪种存储，数据访问对象通常都会提供单一域对象的CRUD、排序、分页等操作。Spring Data则提供了基于这些层面的统一接口(CrudRepository，PagingAndSortingRepository)以及对持久存储的实现。</p>
 <p>通过上图发现Spring Data JPA就是其中的一个子项目，是Spring针对JPA协议的实现。</p>
 <p><strong>3. Spring Data JPA</strong></p>
@@ -348,20 +336,12 @@ class GvApplicationTests {
 
 }</code></pre>
 <p>结果：</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_test.jpeg">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_test.jpeg" alt></p>
 <p>可以看到，我们基本没写什么代码，没有关注数据层，只是定义了实体类和一个UserRepository接口却完整的实现了针对User的CRUD。</p>
 <p>下面让我们一点点揭开Spring Data JPA的面纱。</p>
 <h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><p><strong>1. Repository</strong></p>
 <p>我们先来看一下UserRepository的继承关系图：</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_user_diagram.jpg">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_user_diagram.jpg" alt></p>
 <p><strong>四大Repository接口</strong></p>
 <p>前三个类都是Spring Data的基本接口。JpaRepository是基于JPA的扩展和实现。</p>
 <ul>
@@ -370,11 +350,7 @@ class GvApplicationTests {
 <li><p><strong>CrudRepository：</strong> Repository的直接子类，提供基础的CRUD方法。</p>
 </li>
 </ul>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_crud_repository.jpg">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_crud_repository.jpg" alt></p>
 <p>通过IDEA工具我们可以看到CrudRepository中的所有方法，基本涵盖了所有CRUD相关的方法实现。</p>
 <p><strong>注：</strong></p>
 <p>是不是发现没有update相关的方法。通过查看源码发现，save方法接收的参数是一个entity实体，而当传递的参数中没有ID，Spring Data会直接insert，当有ID的时候，会触发select查询，此方法会查看这条ID对应的数据是否存在，若存在则update，否则insert。 </p>
@@ -382,20 +358,12 @@ class GvApplicationTests {
 <li><strong>PagingAndSortingRepository：</strong></li>
 </ul>
 <p>是不是发现CrudRepository没有排序和分页相关的基础操作。其实实现交给了它的子类PagingAndSortingRepository。</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_paging_and_sorting_repository.jpeg">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_paging_and_sorting_repository.jpeg" alt></p>
 <ul>
 <li><strong>JpaRepository：</strong></li>
 </ul>
 <p>到这里才是我们Spring Data JPA的核心。同样看他的源码：</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_repository.jpeg">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_repository.jpeg" alt="jpa_repository"></p>
 <p>很明显，JpaRepository继承了PagingAndSortingRepository，间接继承了CrudRepository。</p>
 <p>JpaRepository基于以上的方法之后又扩充了批量删除等batch相关操作。</p>
 <p><strong>回到最初的问题：</strong></p>
@@ -581,11 +549,7 @@ if (optional.isPresent()) {
     List&lt;User&gt; findTop10ByName(String name, Pageable pageable);</code></pre>
 <p><strong>3. Query注解</strong></p>
 <p>如果封装的这些方法都不能满足需求，或者我们就像写SQL语句进行数据库操作怎么办？Spring Data JPA也有相对应的支持，就是Query注解。</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_query.png">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_query.png" alt></p>
 <p>@Query是基于JPQL为实体创建声明式的查询方法。简单介绍下JPQL语法：</p>
 <pre><code class="sql">SELECT ... FROM ...
 

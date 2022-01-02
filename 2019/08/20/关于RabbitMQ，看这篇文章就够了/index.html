@@ -55,7 +55,7 @@
           <li class="menu-li " id="sort">
              CATEGORY
              <div class="categories-outer " id="sort-div">
-               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
+               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
              </div>
           </li>
         
@@ -307,11 +307,7 @@ channel.queueDeclare(queueName, false, false, false, args);</code>惰性队列�
 <li><p>镜像队列：<br>解决Broker单点问题：引入镜像队列。<br>镜像队列机制，可以将队列镜像到集群中的其他Broker节点之上。如果集群中的一个节点失效了，队列能自动的切换到景象中的两一个节点上以保证服务的可用性。在通常的用法中，针对每一个配置镜像的队列都包含一个主节点(master)和若干个从节点(slave)。slave会准确的按照master执行命令的顺序进行动作，故slave和master上维护的状态应该是相同的。如果master由于某种原因失败，那么资历最老(根据slave加入的瞬间排序)的slave会被提升为master。发送到镜像队列的所有消息会被同时发往master和所有的slave上，如果此时master挂了，消息还会在slave上。这样slave提升为master的时候消息也不会丢失。<br>除发送消息(Basic.Publish)外的所有动作都只会向master发送，然后再由master将命令执行的结果广播给各个slave。</p>
 </li>
 </ul>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg" alt="快掏出你的大手机扫我"></p>
 <center>快掏出你的大手机扫我</center>
 
         <!-- 分类文章 -->

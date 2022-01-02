@@ -55,7 +55,7 @@
           <li class="menu-li " id="sort">
              CATEGORY
              <div class="categories-outer " id="sort-div">
-               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
+               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
              </div>
           </li>
         
@@ -125,11 +125,7 @@
 </li>
 <li><p><strong>原理：</strong><br>计算机的世界中不管使用哪种技术，核心都是对数据的操作。RPC不过是将数据的操作垮了一个维度而已。解决的问题本质上只是数据在不同进程间的传输。说的再多一些，就要了解网络模型的知识，七层也好，四层五层也罢。这个不是本文的重点。<br>我们所说的RPC一般是指在传输层使用TCP协议进行的数据交互，也有很多基于HTTP的成熟框架。</p>
 <p>盗用网络上一张图片说明：</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/rpc.jpg">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/rpc.jpg" alt></p>
 <blockquote>
 <p>上图描述了一个RPC的完整调用流程：</p>
 <p>1：client向client stub发起方法调用请求。</p>
@@ -188,11 +184,7 @@
 <p><strong>1：安装Protocol Buffers，定义.proto文件</strong></p>
 <p>登录Google的 <a href="https://github.com/google/protobuf/releases" target="_blank" rel="noopener">github</a>下载对应Protocol Buffers版本。</p>
 <p>安装完成后当我们执行protoc命令如果返回如下信息说明安装成功。</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/protoc.png">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/protoc.png" alt></p>
 <p>下面我们定义一个simple.proto文件，这也是后续我们实现gRPC的基础</p>
 <pre><code class="protobuf"> syntax = &quot;proto3&quot;; //定义了我们使用的Protocol Buffers版本。
 
@@ -274,11 +266,7 @@ func main(){
 }</code></pre>
 <p>以上的代码都是模板代码，main函数是socket使用Go的标准实现。作为开发者我们只关注远程服务提供的具体接口实现即可。</p>
 <p>最终我们的项目目录是这样的：</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-server.png">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-server.png" alt></p>
 <p>就这样一个使用Go语言实现的最简单server端就完成了。</p>
 <p><strong>3：使用Java实现client端</strong></p>
 <p>相对来说Java实现就简单一些，首先我们可以使用熟悉的Maven插件进行stub代码的生成。</p>
@@ -359,17 +347,9 @@ func main(){
 &lt;/project&gt;
 </code></pre>
 <p>将定义好的simple.proto文件拷贝项目proto的package下。随后右键：Run Maven——compile。</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-client-lib.png">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-client-lib.png" alt></p>
 <p>生成完成后将target下图中的两个文件拷贝到client项目目录中。</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-client-lib-target.png">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-client-lib-target.png" alt></p>
 <p>之后就是编写我们的业务代码进行gRPC的远程调用了。本次我们写一个简单的web程序模拟远程的调用。</p>
 <p>定义一个class：SimpleClient：</p>
 <pre><code class="java">package org.js.client.grpc;
@@ -470,28 +450,16 @@ public class HelloServiceImpl implements IHelloService {
 <p>就这么简单。</p>
 <p>随后我们测试一下：</p>
 <p>分别启动Go server端，Java client端。</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/gRPC-start.png">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/gRPC-start.png" alt></p>
 <p>访问：<a href="http://localhost:8080/jiashun" target="_blank" rel="noopener">http://localhost:8080/jiashun</a></p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-web-test.png">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-web-test.png" alt></p>
 <p><strong>可以发现server端打印出了client端的请求，client端也收到了server端的返回。</strong></p>
 <blockquote>
 <p>完整代码：</p>
 <p>server：<a href="https://github.com/jia-shun/grpc-server" target="_blank" rel="noopener">https://github.com/jia-shun/grpc-server</a></p>
 <p>client：<a href="https://github.com/jia-shun/grpc-client" target="_blank" rel="noopener">https://github.com/jia-shun/grpc-client</a></p>
 </blockquote>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg" alt="快掏出你的大手机扫我"></p>
 <center>快掏出你的大手机扫我</center>
 
         <!-- 分类文章 -->

@@ -55,7 +55,7 @@
           <li class="menu-li " id="sort">
              CATEGORY
              <div class="categories-outer " id="sort-div">
-               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
+               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
              </div>
           </li>
         
@@ -199,33 +199,17 @@
         THREAD_LOCAL.remove();
     }</code></pre>
 <h4 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h4><p>ThreadLocal类的源码特别简单，加注释总共才700多行。</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/thread-local/method.png">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/thread-local/method.png" alt="method"></p>
 <p>我们主要关注set() 和get()方法，看内部具体做了什么操作。</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/thread-local/set.png">
-        
-      </span></p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/thread-local/getMap.png">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/thread-local/set.png" alt="set"></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/thread-local/getMap.png" alt="getMap"></p>
 <p>set()方法也比较简单，主要做了以下事情：</p>
 <p>1：获取当前线程。</p>
 <p>2：获取当前线程Thread类中的属性threadLocals(ThreadLocalMap)。</p>
 <p>3：将value放入ThreadLocalMap中，而key就是ThreadLocal本身。如果ThreadLocalMap为null，则初始化。</p>
 <p>这里比较绕的一点在于ThreadLocalMap的处理。</p>
 <p>通过第一张图看到ThreadLocalMap是ThreadLocal的一个静态内部类，其实就是一个容器类Map，而其又是Thread类的一个属性。<br>总体流程就是：先找到当前线程Thread类，随后将value放入线程私有内存空间中的ThreadLocalMap中，key为ThreadLocal本身。</p>
-<p>
-        <span class="lazyload-img-span">
-        <img data-src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/thread-local/get.png">
-        
-      </span></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/thread-local/get.png" alt="get"></p>
 <p>理解了ThreadLocal和Thread以及ThreadLocalMap的关系之后，get()方法看起来就更简单了：</p>
 <p>1：获取当前线程类Thread。</p>
 <p>2：获取当前线程私有内存空间的ThreadLocalMap。</p>
