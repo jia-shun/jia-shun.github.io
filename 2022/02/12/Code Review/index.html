@@ -6,7 +6,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>  管理小记 |    freedom</title>
+  <title>  Code Review |    freedom</title>
   <meta name="description" content="free soul">
   <!-- 标签页图标 -->
   
@@ -109,8 +109,8 @@
 <article class="post-inner">
   <div class="post-content-outer">
     <div class="post-intro">
-      <div class="post-title animate__animated  animate__fadeInUp">管理小记</div>
-      <div class="meta-intro animate__animated  animate__fadeInUp">3月 22 2021</div>
+      <div class="post-title animate__animated  animate__fadeInUp">Code Review</div>
+      <div class="meta-intro animate__animated  animate__fadeInUp">2月 12 2022</div>
       
     </div>
     <div class="post-content-inner">
@@ -120,14 +120,101 @@
       <div class="post-content-main animate__animated  animate__fadeInUp">
         <!-- top型目录 -->
         
-        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tech-management/tech-hd.jpg" alt></p>
-<h3 id="经纬亿万学院"><a href="#经纬亿万学院" class="headerlink" title="经纬亿万学院"></a>经纬亿万学院</h3><ul>
-<li>定位: 在用户头脑里的定位会遮蔽掉所谓的更好的产品，这就是定位的原理，做产品的目标就是做在用户头脑里的定位。</li>
-<li>笃定性: 在创业规划里面最怕游离、摇摆、焦虑。。明确所选赛道是对的之后需要有笃定性。</li>
-<li>透明话: 网状组织的要求就是: 一是每个人必须自己去做决策，每个人都不能再是一个螺丝钉了。第二个是每个人都要有一个非常强的能力和周围的决策者进行连接。第三就是每个人在这个网上不停的成长。</li>
-<li>领导力的本质: 是如何去正确的用人，如何用正确的人。</li>
-<li>我们经常犯的一个错误就是：对不同的人采取同样的激励方式。绝大部分人他真的要的是钱吗？本质上他要的是证明自己的价值。</li>
-<li>绩效必须是CEO主导的，绩效不应该是HR设计的,HR不懂战略，他如何知道考核的重点，如何知道权重，如何知道每个部门的核心方向。</li>
+        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/apple-bucket.jpg" alt></p>
+<h1 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>时至今日，软件开发工作早已不是一个人的单打独斗，而是一个团队的相互协作。这儿有一个很重要的问题：协作。</p>
+<p>如果想要共同打造一件产品，除了我们要达成共同的认知，我们使用的方法和工艺也必须一致，这样最终产品才能完整并尽可能完美。</p>
+<p>对于软件工程来说，我们制作产品的流程就是写代码。将一个团队的代码整合在一起并能完美运行的一个重要手段就是进行Code Review。</p>
+<h2 id="原则-达成共识"><a href="#原则-达成共识" class="headerlink" title="原则(达成共识)"></a>原则(达成共识)</h2><ul>
+<li>计算机科学很庞大，没有人能精通所有知识点，Code Review是一个传递知识的手段，是互相学习共同提升的机会。</li>
+<li>通过review熟悉同事的思考方式，提倡互相review，交叉review。保持谦逊、客观，在磨合中达成共识，最终形成团队整体的凝聚力。</li>
+<li>Code Review不是找bug，这是专业QA的工作。</li>
+<li>代码规范应该交给IDE的自动化工具，规范性问题提交MR前应避免。</li>
+<li>Code Review要记入开发的工作量。不计入工作量的事情不会被重视，不被重视最终会流于形式。在需求排期阶段至少预留出半天的时间评审代码。</li>
+<li>Code Review不是浪费时间，不要让糟糕的代码合并入库，不要相信自己会返回去优化。慢即是快，追求长期收益。</li>
+<li>人是不可靠的，写单元测试很重要。</li>
+</ul>
+<h2 id="必要性"><a href="#必要性" class="headerlink" title="必要性"></a>必要性</h2><h4 id="不做Code-Review带来的问题"><a href="#不做Code-Review带来的问题" class="headerlink" title="不做Code Review带来的问题"></a>不做Code Review带来的问题</h4><ul>
+<li>代码的坏味道越来越浓，变得难以维护，可能过一段时间就需要大量的重构。</li>
+<li>从每天写功能慢慢变成每天写bug。</li>
+<li>新人的技能得不到快速提升。</li>
+</ul>
+<h4 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h4><ul>
+<li><strong>互相学习：</strong>Code Review是帮助提升技术水平的重要途径。通过Code Reivew学习和了解别人思考和解决问题的方式，取长补短，大家集思广益，共同成长。</li>
+<li><strong>统一风格：</strong>尽管有各种代码规范，但不同的人仍然有不同的编码风格和思考方式。通过多次的Code Reivew大家相互了解，最终代码风格一致。</li>
+<li><strong>提升代码质量，提前发现错误：</strong>人都会不可避免的出现错误且很容易陷入当局者迷的状态，而这些问题也许在另一个眼中显而易见。</li>
+</ul>
+<h2 id="如何做"><a href="#如何做" class="headerlink" title="如何做"></a>如何做</h2><h4 id="Git-Flow"><a href="#Git-Flow" class="headerlink" title="Git Flow"></a>Git Flow</h4><p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/git-flow.png" alt></p>
+<p><strong>注：</strong></p>
+<p>git-flow是思想，不是固定的流程，团队完全可以根据自己的喜好找到合适的方式。</p>
+<p><strong>流程：</strong></p>
+<blockquote>
+<p>NOTES：远程分支develop、master理论上均是受保护的分支。</p>
+<p>新功能用于在feature分支开发，向develop合并，发布release，向master合并。</p>
+<p>hotfix尽量避免，影响线上业务及时回滚，不影响整体业务采用小的hotfix补救。</p>
+<p>本地开发分支管理参照 git-flow 流程</p>
+</blockquote>
+<ul>
+<li>Git Flow 教程请参照： <a href="https://www.git-tower.com/learn/git/ebook/cn/command-line/advanced-topics/git-flow/" target="_blank" rel="noopener">git-flow</a></li>
+</ul>
+<ul>
+<li><p>远程主分支：develop分支 -&gt;开发测试环境、master分支 -&gt; production环境</p>
+</li>
+<li><p>新的 feature 功能开发（大部分是这种情况）:</p>
+<ul>
+<li>基于develop分支checkout feature/xxx 分支上开发</li>
+<li>创建从 feature/xxx 分支代码向 origin develop 提交 Merge Request</li>
+<li>由 Code Reviewer 合并代码</li>
+</ul>
+</li>
+<li><p>生产 hotfix 修复</p>
+<ul>
+<li><p>基于 origin master 分支 checkout hotfix/xxx 分支并 push 去远程</p>
+</li>
+<li><p>在 hotfix/xxx 分支上解决 bug</p>
+</li>
+<li><p>创建从hotfix/xxx 分支代码向 originmaster 提交 Merge Request</p>
+</li>
+<li><p>由 Code Reviewer 合并代码</p>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="GitLab-Merge-Request"><a href="#GitLab-Merge-Request" class="headerlink" title="GitLab Merge Request"></a>GitLab Merge Request</h4><blockquote>
+<p>基于GitLab的Merge Request进行Code Review</p>
+</blockquote>
+<p><strong>流程：</strong></p>
+<ol>
+<li><p>创建 Merge Request 并分配到指定人</p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/new-mr.jpeg" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/mr.jpeg" alt></p>
+</li>
+<li><p>MR 必须包含详细说明信息，必须包含详细说明信息，必须包含详细说明信息：包括功能列表，重点逻辑修改，风险点等</p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/mr-submit.jpeg" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/mr-content-submit.jpeg" alt></p>
+</li>
+<li><p>Reviewer 提的意见直接在 gitlab上编辑，工程师修复问题后，在 gitlab 上回复修改意见</p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/mr-discuss.jpeg" alt></p>
+</li>
+<li><p>Reviewer 确认修改意见后并点击确认解决，即可 Merge 代码</p>
+</li>
+</ol>
+<h2 id="一些经验"><a href="#一些经验" class="headerlink" title="一些经验"></a>一些经验</h2><ul>
+<li><p><strong>作为Reviewer：</strong></p>
+<ol>
+<li>你需要明确知道你在给谁review，这个人的能力和写代码的特点，基于此去着重观察他可能或者经常性出问题的点。</li>
+<li>要记住review的不仅是代码，review的还是代码的作者。应该学会换位思考，提出问题或建议时保持友善的态度，避免使对方感觉受到能力的质疑。</li>
+<li>除了关注代码设计层面，更应该结合上下文，关注业务逻辑。</li>
+<li>把整个review过程当成一个学习的过程，真正理解代码提交者的设计和思考方式，可能会有很多亮点是自己原来没注意或没想到的。</li>
+<li>不要让MR搁置，这样浪费的不仅仅是一个人的时间。收到review请求应及时快速开始，如果手头有更紧急的事情处理尽量移交他人。</li>
+</ol>
+</li>
+<li><p><strong>作为MR提交者：</strong></p>
+<ol>
+<li>应该大胆的分享自己的代码，保持谦逊的态度，对Reviewer提出的问题和意见都积极的思考和改进(即使提出的意见不合理也很正常)。</li>
+<li>分阶段提交MR，代码量越小越好，保持高频率，不要一次性提交大量的(一个功能模块)的代码。</li>
+<li>对自己提交出去的代码负责，针对自己写的功能模块有owner意识，提交前保证自己自测或持续优化完成，不出现基本规范性的错误。</li>
+</ol>
+</li>
 </ul>
 
         <!-- 分类文章 -->
@@ -246,7 +333,7 @@
             
             
               
-                <li class="me base">
+                <li class="base">
                   <a  href="/2021/03/22/管理小记/" class="post-categoris-bottom-link">
                   管理小记
                 </a>
@@ -305,7 +392,7 @@
             
             
               
-                <li class="base">
+                <li class="me base">
                   <a  href="/2022/02/12/Code Review/" class="post-categoris-bottom-link">
                   Code Review
                 </a>
