@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>  gRPC基于Golang和Java的简单实现 |    freedom</title>
@@ -16,15 +16,19 @@
   <!-- 动画库 -->
   
   <!-- css文件 -->
-  <link rel="stylesheet" href="/css/white.css">
+  
+<link rel="stylesheet" href="/css/white.css">
+
   <!-- 代码高亮 -->
   
     
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+
     
   
-</head>
-</html>
+<meta name="generator" content="Hexo 7.0.0-rc1"></head>
+
 
 <body>
 
@@ -55,7 +59,7 @@
           <li class="menu-li " id="sort">
              CATEGORY
              <div class="categories-outer " id="sort-div">
-               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
+               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E4%B9%90/">音乐</a></li></ul>
              </div>
           </li>
         
@@ -125,7 +129,7 @@
 </li>
 <li><p><strong>原理：</strong><br>计算机的世界中不管使用哪种技术，核心都是对数据的操作。RPC不过是将数据的操作垮了一个维度而已。解决的问题本质上只是数据在不同进程间的传输。说的再多一些，就要了解网络模型的知识，七层也好，四层五层也罢。这个不是本文的重点。<br>我们所说的RPC一般是指在传输层使用TCP协议进行的数据交互，也有很多基于HTTP的成熟框架。</p>
 <p>盗用网络上一张图片说明：</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/rpc.jpg" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/rpc.jpg" alt=""></p>
 <blockquote>
 <p>上图描述了一个RPC的完整调用流程：</p>
 <p>1：client向client stub发起方法调用请求。</p>
@@ -182,282 +186,71 @@
 <hr>
 <h3 id="四：代码的简单实现"><a href="#四：代码的简单实现" class="headerlink" title="四：代码的简单实现"></a>四：代码的简单实现</h3><p>概念永远都是枯燥的，只有实战才能真正理解问题。下面我们使用代码基于以上的步骤来实现一个简单gRPC。为了体现gRPC跨语言的特性，这次我们使用两种语言：Go实现server端，Java作为client端来实现。</p>
 <p><strong>1：安装Protocol Buffers，定义.proto文件</strong></p>
-<p>登录Google的 <a href="https://github.com/google/protobuf/releases" target="_blank" rel="noopener">github</a>下载对应Protocol Buffers版本。</p>
+<p>登录Google的 <a href="https://github.com/google/protobuf/releases">github</a>下载对应Protocol Buffers版本。</p>
 <p>安装完成后当我们执行protoc命令如果返回如下信息说明安装成功。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/protoc.png" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/protoc.png" alt=""></p>
 <p>下面我们定义一个simple.proto文件，这也是后续我们实现gRPC的基础</p>
-<pre><code class="protobuf"> syntax = &quot;proto3&quot;; //定义了我们使用的Protocol Buffers版本。
+<figure class="highlight protobuf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">syntax = <span class="string">&quot;proto3&quot;</span>; <span class="comment">//定义了我们使用的Protocol Buffers版本。</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//表明我们定义了一个命名为Simple的服务(接口)，内部有一个远程rpc方法，名字为SayHello。</span></span><br><span class="line"><span class="comment">//我们只要在server端实现这个接口，在实现类中书写我们的业务代码。在client端调用这个接口。</span></span><br><span class="line"><span class="keyword">service </span><span class="title class_">Simple</span> &#123;</span><br><span class="line">   <span class="function"><span class="keyword">rpc</span> SayHello(HelloRequest) <span class="keyword">returns</span> (HelloReplay) </span>&#123;&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//请求的结构体</span></span><br><span class="line"><span class="keyword">message </span><span class="title class_">HelloRequest</span> &#123;</span><br><span class="line">    <span class="type">string</span> name = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//返回的结构体</span></span><br><span class="line"><span class="keyword">message </span><span class="title class_">HelloReplay</span> &#123;</span><br><span class="line">    <span class="type">string</span> message = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
- //表明我们定义了一个命名为Simple的服务(接口)，内部有一个远程rpc方法，名字为SayHello。
- //我们只要在server端实现这个接口，在实现类中书写我们的业务代码。在client端调用这个接口。
- service Simple {
-    rpc SayHello(HelloRequest) returns (HelloReplay) {}
- }
-
- //请求的结构体
- message HelloRequest {
-     string name = 1;
- }
- //返回的结构体
- message HelloReplay {
-     string message = 1;
- }</code></pre>
 <p>通过上面的注释可以看出此文件是一个简单的RPC远程方法描述。</p>
 <p><strong>2：使用Golang实现sever端</strong></p>
 <p>根据官方文档使用如下命令安装针对Go的gRPC:</p>
-<pre><code class="bash">$ go get -u google.golang.org/grpc</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ go get -u google.golang.org/grpc</span><br></pre></td></tr></table></figure>
+
 <p>但是由于我们有伟大的长城，一般这条命令都不会下载成功。但Google的文件一般都会在github存有一份镜像。我们可以使用如下命令：</p>
-<pre><code class="bash">$ go get -u github.com/grpc/grpc-go</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ go get -u github.com/grpc/grpc-go</span><br></pre></td></tr></table></figure>
+
 <p>随后将下载的文件夹重命名为grpc，并放入一个新建的google.golang.org的文件夹中。🤷‍♀️</p>
 <p>当我们安装完gRPC并定义好了远程接口调用的具体信息后，我们要使用protocol编译器生成我们的stub程序。</p>
 <p>我们安装的Protocol Buffers是用来编译我们的.proto文件的，但是编译后的文件是不能被Java、C、Go等这些语言使用。Google针对不同的语言有不同的编译器。本次我们使用Golang语言，所以要安装针对Golang的编译器，根据官方提供的命令执行：</p>
-<pre><code class="bash">$ go get -u github.com/golang/protobuf/protoc-gen-go</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ go get -u github.com/golang/protobuf/protoc-gen-go</span><br></pre></td></tr></table></figure>
+
 <p>但有可能我们会下载不成功，因为这个会依赖很多Golang的类库，这些类库和上面安装gRPC一样，鉴于墙的原因，还要执行一系列繁琐的改文件夹的步骤。但这个不是我们的重点，就不细说了。</p>
 <p>安装成功之后我们就可以建立Go的project了。</p>
 <p>本次我们建立一个grpc-server的项目，然后将前面写的simple.proto放入项目proto的package中。</p>
 <p>随后在项目的目录下使用命令行执行如下命令：</p>
-<pre><code class="bash">protoc -I grpc-server/ proto/simple.proto --go_out=plugins=grpc:simple</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">protoc -I grpc-server/ proto/simple.proto --go_out=plugins=grpc:simple</span><br></pre></td></tr></table></figure>
+
 <p>这样就将simple.proto编译成了Go语言对应的stub程序了。</p>
 <p>随后我们就可以写我们server端的代码了：main.go。</p>
-<pre><code class="go">package main
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;context&quot;</span></span><br><span class="line">	<span class="string">&quot;grpc-server/proto&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;net&quot;</span></span><br><span class="line">	<span class="string">&quot;log&quot;</span></span><br><span class="line">	<span class="string">&quot;google.golang.org/grpc&quot;</span></span><br><span class="line">	<span class="string">&quot;google.golang.org/grpc/reflection&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义一个常量：gRPC的端口</span></span><br><span class="line"><span class="keyword">const</span>(</span><br><span class="line">	port = <span class="string">&quot;:50051&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> server <span class="keyword">struct</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//服务的具体实现函数</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(s *server)</span></span> SayHello(ctx context.Context,req *simple.HelloRequest) (*simple.HelloReplay, <span class="type">error</span>) &#123;</span><br><span class="line">    <span class="comment">//打印请求参数</span></span><br><span class="line">	fmt.Println(req.Name)</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> &amp;simple.HelloReplay&#123;Message:<span class="string">&quot;hello =======&gt; &quot;</span> + req.Name&#125;,<span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//main函数。</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	lis,err := net.Listen(<span class="string">&quot;tcp&quot;</span>,port)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(<span class="string">&quot;fail to listen&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	s := grpc.NewServer()</span><br><span class="line"></span><br><span class="line">	simple.RegisterSimpleServer(s, &amp;server&#123;&#125;)</span><br><span class="line"></span><br><span class="line">	reflection.Register(s)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> err:= s.Serve(lis);err != <span class="literal">nil</span> &#123;</span><br><span class="line">		log.Fatal(<span class="string">&quot;fail to server&quot;</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-import (
-    &quot;context&quot;
-    &quot;grpc-server/proto&quot;
-    &quot;fmt&quot;
-    &quot;net&quot;
-    &quot;log&quot;
-    &quot;google.golang.org/grpc&quot;
-    &quot;google.golang.org/grpc/reflection&quot;
-)
-
-//定义一个常量：gRPC的端口
-const(
-    port = &quot;:50051&quot;
-)
-
-type server struct {}
-
-//服务的具体实现函数
-func (s *server) SayHello(ctx context.Context,req *simple.HelloRequest) (*simple.HelloReplay, error) {
-    //打印请求参数
-    fmt.Println(req.Name)
-
-    return &amp;simple.HelloReplay{Message:&quot;hello =======&gt; &quot; + req.Name},nil
-}
-
-//main函数。
-func main(){
-    lis,err := net.Listen(&quot;tcp&quot;,port)
-
-    if err != nil {
-        log.Fatal(&quot;fail to listen&quot;)
-    }
-
-    s := grpc.NewServer()
-
-    simple.RegisterSimpleServer(s, &amp;server{})
-
-    reflection.Register(s)
-
-    if err:= s.Serve(lis);err != nil {
-        log.Fatal(&quot;fail to server&quot;)
-    }
-}</code></pre>
 <p>以上的代码都是模板代码，main函数是socket使用Go的标准实现。作为开发者我们只关注远程服务提供的具体接口实现即可。</p>
 <p>最终我们的项目目录是这样的：</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-server.png" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-server.png" alt=""></p>
 <p>就这样一个使用Go语言实现的最简单server端就完成了。</p>
 <p><strong>3：使用Java实现client端</strong></p>
 <p>相对来说Java实现就简单一些，首先我们可以使用熟悉的Maven插件进行stub代码的生成。</p>
 <p>新建一个grpc-client的父项目，两个子项目：client和lib。lib用于stub程序的代码生成。</p>
 <p>lib项目编辑pom.xml，添加gRPC针对Java的插件编译器：</p>
-<pre><code class="xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
-&lt;project xmlns=&quot;http://maven.apache.org/POM/4.0.0&quot; xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
-    xsi:schemaLocation=&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;&gt;
-    &lt;modelVersion&gt;4.0.0&lt;/modelVersion&gt;
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.js<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lib<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>lib<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span>gRPC lib<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">os-maven-plugin.version</span>&gt;</span>1.5.0.Final<span class="tag">&lt;/<span class="name">os-maven-plugin.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">protobuf-maven-plugin.version</span>&gt;</span>0.5.1<span class="tag">&lt;/<span class="name">protobuf-maven-plugin.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">protoc.version</span>&gt;</span>3.5.1-1<span class="tag">&lt;/<span class="name">protoc.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">protobuf.version</span>&gt;</span>3.6.0<span class="tag">&lt;/<span class="name">protobuf.version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">grpc.version</span>&gt;</span>1.13.1<span class="tag">&lt;/<span class="name">grpc.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.google.protobuf<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>protobuf-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;protobuf.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.grpc<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>grpc-netty<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;grpc.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.grpc<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>grpc-protobuf<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;grpc.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.grpc<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>grpc-stub<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;grpc.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">extensions</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">extension</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>kr.motd.maven<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>os-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;os-maven-plugin.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">extension</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">extensions</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.xolstice.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>protobuf-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;protobuf-maven-plugin.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">protocArtifact</span>&gt;</span>com.google.protobuf:protoc:$&#123;protoc.version&#125;:exe:$&#123;os.detected.classifier&#125;<span class="tag">&lt;/<span class="name">protocArtifact</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">pluginId</span>&gt;</span>grpc-java<span class="tag">&lt;/<span class="name">pluginId</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">pluginArtifact</span>&gt;</span>io.grpc:protoc-gen-grpc-java:$&#123;grpc.version&#125;:exe:$&#123;os.detected.classifier&#125;<span class="tag">&lt;/<span class="name">pluginArtifact</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">executions</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">execution</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;<span class="name">goals</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="name">goal</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">							<span class="tag">&lt;<span class="name">goal</span>&gt;</span>compile-custom<span class="tag">&lt;/<span class="name">goal</span>&gt;</span></span><br><span class="line">						<span class="tag">&lt;/<span class="name">goals</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;/<span class="name">execution</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">executions</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-    &lt;groupId&gt;org.js&lt;/groupId&gt;
-    &lt;artifactId&gt;lib&lt;/artifactId&gt;
-    &lt;version&gt;0.0.1-SNAPSHOT&lt;/version&gt;
-
-    &lt;name&gt;lib&lt;/name&gt;
-    &lt;description&gt;gRPC lib&lt;/description&gt;
-
-    &lt;properties&gt;
-        &lt;os-maven-plugin.version&gt;1.5.0.Final&lt;/os-maven-plugin.version&gt;
-        &lt;protobuf-maven-plugin.version&gt;0.5.1&lt;/protobuf-maven-plugin.version&gt;
-        &lt;protoc.version&gt;3.5.1-1&lt;/protoc.version&gt;
-        &lt;protobuf.version&gt;3.6.0&lt;/protobuf.version&gt;
-        &lt;grpc.version&gt;1.13.1&lt;/grpc.version&gt;
-    &lt;/properties&gt;
-
-    &lt;dependencies&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;com.google.protobuf&lt;/groupId&gt;
-            &lt;artifactId&gt;protobuf-java&lt;/artifactId&gt;
-            &lt;version&gt;${protobuf.version}&lt;/version&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;io.grpc&lt;/groupId&gt;
-            &lt;artifactId&gt;grpc-netty&lt;/artifactId&gt;
-            &lt;version&gt;${grpc.version}&lt;/version&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;io.grpc&lt;/groupId&gt;
-            &lt;artifactId&gt;grpc-protobuf&lt;/artifactId&gt;
-            &lt;version&gt;${grpc.version}&lt;/version&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;io.grpc&lt;/groupId&gt;
-            &lt;artifactId&gt;grpc-stub&lt;/artifactId&gt;
-            &lt;version&gt;${grpc.version}&lt;/version&gt;
-        &lt;/dependency&gt;
-    &lt;/dependencies&gt;
-
-    &lt;build&gt;
-        &lt;extensions&gt;
-            &lt;extension&gt;
-                &lt;groupId&gt;kr.motd.maven&lt;/groupId&gt;
-                &lt;artifactId&gt;os-maven-plugin&lt;/artifactId&gt;
-                &lt;version&gt;${os-maven-plugin.version}&lt;/version&gt;
-            &lt;/extension&gt;
-        &lt;/extensions&gt;
-        &lt;plugins&gt;
-            &lt;plugin&gt;
-                &lt;groupId&gt;org.xolstice.maven.plugins&lt;/groupId&gt;
-                &lt;artifactId&gt;protobuf-maven-plugin&lt;/artifactId&gt;
-                &lt;version&gt;${protobuf-maven-plugin.version}&lt;/version&gt;
-                &lt;configuration&gt;
-                    &lt;protocArtifact&gt;com.google.protobuf:protoc:${protoc.version}:exe:${os.detected.classifier}&lt;/protocArtifact&gt;
-                    &lt;pluginId&gt;grpc-java&lt;/pluginId&gt;
-                    &lt;pluginArtifact&gt;io.grpc:protoc-gen-grpc-java:${grpc.version}:exe:${os.detected.classifier}&lt;/pluginArtifact&gt;
-                &lt;/configuration&gt;
-                &lt;executions&gt;
-                    &lt;execution&gt;
-                        &lt;goals&gt;
-                            &lt;goal&gt;compile&lt;/goal&gt;
-                            &lt;goal&gt;compile-custom&lt;/goal&gt;
-                        &lt;/goals&gt;
-                    &lt;/execution&gt;
-                &lt;/executions&gt;
-            &lt;/plugin&gt;
-        &lt;/plugins&gt;
-    &lt;/build&gt;
-&lt;/project&gt;
-</code></pre>
 <p>将定义好的simple.proto文件拷贝项目proto的package下。随后右键：Run Maven——compile。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-client-lib.png" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-client-lib.png" alt=""></p>
 <p>生成完成后将target下图中的两个文件拷贝到client项目目录中。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-client-lib-target.png" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-client-lib-target.png" alt=""></p>
 <p>之后就是编写我们的业务代码进行gRPC的远程调用了。本次我们写一个简单的web程序模拟远程的调用。</p>
 <p>定义一个class：SimpleClient：</p>
-<pre><code class="java">package org.js.client.grpc;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.js.client.grpc;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> io.grpc.ManagedChannel;</span><br><span class="line"><span class="keyword">import</span> io.grpc.ManagedChannelBuilder;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> JiaShun</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/8/11 12:11</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SimpleClient</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> ManagedChannel channel;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> SimpleGrpc.SimpleBlockingStub blockingStub;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">SimpleClient</span><span class="params">(String host, <span class="type">int</span> port)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>(ManagedChannelBuilder.forAddress(host, port).usePlaintext());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="title function_">SimpleClient</span><span class="params">(ManagedChannelBuilder&lt;?&gt; channelBuilder)</span> &#123;</span><br><span class="line">        channel = channelBuilder.build();</span><br><span class="line">        blockingStub = SimpleGrpc.newBlockingStub(channel);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">shutdown</span><span class="params">()</span><span class="keyword">throws</span> InterruptedException &#123;</span><br><span class="line">        channel.shutdown().awaitTermination(<span class="number">5</span>, TimeUnit.SECONDS);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//核心业务代码，将请求参数通过channel传进去，并返回远程服务的返回结果。</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        SimpleOuterClass.<span class="type">HelloRequest</span> <span class="variable">req</span> <span class="operator">=</span> </span><br><span class="line">                SimpleOuterClass.HelloRequest.newBuilder().setName(name).build();</span><br><span class="line">        SimpleOuterClass.<span class="type">HelloReplay</span> <span class="variable">replay</span> <span class="operator">=</span> blockingStub.sayHello(req);</span><br><span class="line">        <span class="keyword">return</span> replay.getMessage();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
-
-import java.util.concurrent.TimeUnit;
-
-/**
- * @author JiaShun
- * @date 2018/8/11 12:11
- */
-public class SimpleClient {
-    private final ManagedChannel channel;
-    private final SimpleGrpc.SimpleBlockingStub blockingStub;
-    public SimpleClient(String host, int port) {
-        this(ManagedChannelBuilder.forAddress(host, port).usePlaintext());
-    }
-
-    private SimpleClient(ManagedChannelBuilder&lt;?&gt; channelBuilder) {
-        channel = channelBuilder.build();
-        blockingStub = SimpleGrpc.newBlockingStub(channel);
-    }
-
-    public void shutdown()throws InterruptedException {
-        channel.shutdown().awaitTermination(5, TimeUnit.SECONDS);
-    }
-
-    //核心业务代码，将请求参数通过channel传进去，并返回远程服务的返回结果。
-    public String sayHello(String name) {
-        SimpleOuterClass.HelloRequest req = 
-                SimpleOuterClass.HelloRequest.newBuilder().setName(name).build();
-        SimpleOuterClass.HelloReplay replay = blockingStub.sayHello(req);
-        return replay.getMessage();
-    }
-}
-</code></pre>
 <p>基本都是模板代码。下面再编写一个简单的web请求：</p>
 <p>controller代码：</p>
-<pre><code class="java">package org.js.client.controller;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.js.client.controller;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.js.client.service.IHelloService;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Autowired;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.PathVariable;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> JiaShun</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/8/10 22:20</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloController</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> IHelloService helloService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/&#123;name&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">(<span class="meta">@PathVariable</span> String name)</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> helloService.sayHello(name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-import org.js.client.service.IHelloService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-
-/**
- * @author JiaShun
- * @date 2018/8/10 22:20
- */
-@RestController
-public class HelloController {
-    @Autowired
-    private IHelloService helloService;
-
-    @GetMapping(&quot;/{name}&quot;)
-    public String sayHello(@PathVariable String name) {
-        return helloService.sayHello(name);
-    }
-}
-</code></pre>
 <p>service实现类：</p>
-<pre><code class="java">package org.js.client.service;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.js.client.service;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.js.client.grpc.SimpleClient;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"><span class="keyword">import</span> org.springframework.beans.factory.annotation.Value;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.Service;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> JiaShun</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/8/10 22:22</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">IHelloService</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">Logger</span> <span class="variable">logger</span> <span class="operator">=</span> LoggerFactory.getLogger(HelloServiceImpl.class);</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;gRPC.host&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> String host;</span><br><span class="line">    <span class="meta">@Value(&quot;$&#123;gRPC.port&#125;&quot;)</span></span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> port;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">sayHello</span><span class="params">(String name)</span> &#123;</span><br><span class="line">        <span class="type">SimpleClient</span> <span class="variable">client</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleClient</span>(host,port);</span><br><span class="line">        <span class="type">String</span> <span class="variable">replay</span> <span class="operator">=</span> client.sayHello(name);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            client.shutdown();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            logger.error(<span class="string">&quot;channel关闭异常：err=&#123;&#125;&quot;</span>,e.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> replay;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-import org.js.client.grpc.SimpleClient;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
-/**
- * @author JiaShun
- * @date 2018/8/10 22:22
- */
-@Service
-public class HelloServiceImpl implements IHelloService {
-    private Logger logger = LoggerFactory.getLogger(HelloServiceImpl.class);
-    @Value(&quot;${gRPC.host}&quot;)
-    private String host;
-    @Value(&quot;${gRPC.port}&quot;)
-    private int port;
-
-    @Override
-    public String sayHello(String name) {
-        SimpleClient client = new SimpleClient(host,port);
-        String replay = client.sayHello(name);
-        try {
-            client.shutdown();
-        } catch (InterruptedException e) {
-            logger.error(&quot;channel关闭异常：err={}&quot;,e.getMessage());
-        }
-        return replay;
-    }
-
-}</code></pre>
 <p>就这么简单。</p>
 <p>随后我们测试一下：</p>
 <p>分别启动Go server端，Java client端。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/gRPC-start.png" alt></p>
-<p>访问：<a href="http://localhost:8080/jiashun" target="_blank" rel="noopener">http://localhost:8080/jiashun</a></p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-web-test.png" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/gRPC-start.png" alt=""></p>
+<p>访问：<a href="http://localhost:8080/jiashun">http://localhost:8080/jiashun</a></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/grpc/grpc-web-test.png" alt=""></p>
 <p><strong>可以发现server端打印出了client端的请求，client端也收到了server端的返回。</strong></p>
 <blockquote>
 <p>完整代码：</p>
-<p>server：<a href="https://github.com/jia-shun/grpc-server" target="_blank" rel="noopener">https://github.com/jia-shun/grpc-server</a></p>
-<p>client：<a href="https://github.com/jia-shun/grpc-client" target="_blank" rel="noopener">https://github.com/jia-shun/grpc-client</a></p>
+<p>server：<a href="https://github.com/jia-shun/grpc-server">https://github.com/jia-shun/grpc-server</a></p>
+<p>client：<a href="https://github.com/jia-shun/grpc-client">https://github.com/jia-shun/grpc-client</a></p>
 </blockquote>
 <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-ready.jpg" alt="快掏出你的大手机扫我"></p>
 <center>快掏出你的大手机扫我</center>
@@ -475,7 +268,7 @@ public class HelloServiceImpl implements IHelloService {
             
               
                 <li class="base">
-                  <a  href="/2017/11/16/基于SpringBoot、STOMP使用WebSocket实现聊天室功能/" class="post-categoris-bottom-link">
+                  <a  href="/2017/11/16/%E5%9F%BA%E4%BA%8ESpringBoot%E3%80%81STOMP%E4%BD%BF%E7%94%A8WebSocket%E5%AE%9E%E7%8E%B0%E8%81%8A%E5%A4%A9%E5%AE%A4%E5%8A%9F%E8%83%BD/" class="post-categoris-bottom-link">
                   基于SpringBoot、STOMP使用WebSocket实现聊天室功能
                 </a>
                 </li>
@@ -497,7 +290,7 @@ public class HelloServiceImpl implements IHelloService {
             
               
                 <li class="base">
-                  <a  href="/2018/07/14/TiDB-重新定义下一代关系型数据库/" class="post-categoris-bottom-link">
+                  <a  href="/2018/07/14/TiDB-%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89%E4%B8%8B%E4%B8%80%E4%BB%A3%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-categoris-bottom-link">
                   TiDB:重新定义下一代关系型数据库
                 </a>
                 </li>
@@ -531,7 +324,7 @@ public class HelloServiceImpl implements IHelloService {
             
               
                 <li class="base">
-                  <a  href="/2019/08/20/关于RabbitMQ，看这篇文章就够了/" class="post-categoris-bottom-link">
+                  <a  href="/2019/08/20/%E5%85%B3%E4%BA%8ERabbitMQ%EF%BC%8C%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/" class="post-categoris-bottom-link">
                   关于RabbitMQ，看这篇文章就够了
                 </a>
                 </li>
@@ -579,7 +372,7 @@ public class HelloServiceImpl implements IHelloService {
             
               
                 <li class="base">
-                  <a  href="/2021/03/22/管理小记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/03/22/%E7%AE%A1%E7%90%86%E5%B0%8F%E8%AE%B0/" class="post-categoris-bottom-link">
                   管理小记
                 </a>
                 </li>
@@ -594,7 +387,7 @@ public class HelloServiceImpl implements IHelloService {
             
               
                 <li class="base">
-                  <a  href="/2021/05/05/架构笔记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/05/05/%E6%9E%B6%E6%9E%84%E7%AC%94%E8%AE%B0/" class="post-categoris-bottom-link">
                   架构笔记
                 </a>
                 </li>
@@ -605,7 +398,7 @@ public class HelloServiceImpl implements IHelloService {
             
               
                 <li class="base">
-                  <a  href="/2021/08/20/Spring Data JPA/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/20/Spring%20Data%20JPA/" class="post-categoris-bottom-link">
                   Spring Data JPA
                 </a>
                 </li>
@@ -627,7 +420,7 @@ public class HelloServiceImpl implements IHelloService {
             
               
                 <li class="base">
-                  <a  href="/2021/08/21/Java单元测试/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/21/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" class="post-categoris-bottom-link">
                   Java Unit Test
                 </a>
                 </li>
@@ -638,7 +431,7 @@ public class HelloServiceImpl implements IHelloService {
             
               
                 <li class="base">
-                  <a  href="/2022/02/12/Code Review/" class="post-categoris-bottom-link">
+                  <a  href="/2022/02/12/Code%20Review/" class="post-categoris-bottom-link">
                   Code Review
                 </a>
                 </li>
@@ -649,7 +442,7 @@ public class HelloServiceImpl implements IHelloService {
             
               
                 <li class="base">
-                  <a  href="/2022/06/06/技术思维/" class="post-categoris-bottom-link">
+                  <a  href="/2022/06/06/%E6%8A%80%E6%9C%AF%E6%80%9D%E7%BB%B4/" class="post-categoris-bottom-link">
                   技术思维
                 </a>
                 </li>
@@ -714,11 +507,15 @@ public class HelloServiceImpl implements IHelloService {
 
 
 
+
 <script src="/js/white.js"></script>
 
 
+
     
-      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+      
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
       <script>hljs.initHighlightingOnLoad();</script>
     
 

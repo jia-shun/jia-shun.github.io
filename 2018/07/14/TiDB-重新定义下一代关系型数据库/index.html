@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>  TiDB:重新定义下一代关系型数据库 |    freedom</title>
@@ -16,15 +16,19 @@
   <!-- 动画库 -->
   
   <!-- css文件 -->
-  <link rel="stylesheet" href="/css/white.css">
+  
+<link rel="stylesheet" href="/css/white.css">
+
   <!-- 代码高亮 -->
   
     
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+
     
   
-</head>
-</html>
+<meta name="generator" content="Hexo 7.0.0-rc1"></head>
+
 
 <body>
 
@@ -55,7 +59,7 @@
           <li class="menu-li " id="sort">
              CATEGORY
              <div class="categories-outer " id="sort-div">
-               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
+               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E4%B9%90/">音乐</a></li></ul>
              </div>
           </li>
         
@@ -120,7 +124,7 @@
       <div class="post-content-main animate__animated  animate__fadeInUp">
         <!-- top型目录 -->
         
-        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/timg.gif" alt></p>
+        <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/timg.gif" alt=""></p>
 <p>从宏观的角度来看，计算机科学的基础模型早已被定义完整。从数学思维发散嵌入硬件产品，一些晦涩难懂的概念经过层层的封装，对于大多数人，甚至大部分从业人员来说都是黑盒。</p>
 <p> 随着硬件技术的进步，底层技术的完善，加上规则的制定，包括我们共同认同的协议和标准。计算机科学开始走出实验室，但有人的地方就有江湖，尤其是互联网的爆发，所有人都融入了网络的环境中。</p>
 <p> 机器是冰冷的，但人是多变的，或许计算机革命真的带来了所谓的便利性，但人总想着让它更便利，从而任何一个行业都想用计算机网络来解决痛点。最终导致网络技术另外一个维度的难点变成了如何应对复杂多变的业务，如何承受突如其来的并发量和如何处理堆积如山的数据。</p>
@@ -128,18 +132,18 @@
 <h3 id="一：数据库面临的挑战："><a href="#一：数据库面临的挑战：" class="headerlink" title="一：数据库面临的挑战："></a>一：数据库面临的挑战：</h3><p>上文所说的几个难点都和数据库技术息息相关。</p>
 <p> 当我们做计算的时候要求相关的数据建立某种关系。一个简单的线性结构并不能满足我们的需求，需要一个数据模型存储这种关系。这些数据不仅要参与结算，还要落地，关系型数据库应运而生。尤其是后来面向对象思想的发展，以及越来越多复杂业务数据的存储要求，关系型数据库更变得不可或缺。</p>
 <p> 但从硬件方面来说，却存在一些驳论。摩尔定律认为集成电路每18个月集成度会成倍增长，计算机的产品性能会提升一倍。安迪-比尔定律认为硬件提升的性能会被软件的升级所吃掉（搞来搞去，最终好像结果没有多少变化）。具体到数据库，最初一块磁盘可以搞定，一块软盘可以搞定，后来一块硬盘可以搞定，100块硬盘可以搞定。最后不好意思，某小哥的数据库需要一座山才可以搞定。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/tengxun.jpg" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/tengxun.jpg" alt=""></p>
 <p>还是不行，量大了，但是速度变慢了。贪婪的人类还喜欢瞎凑热闹，某一天半夜12点，某爸爸公司的数据层1秒钟处理了4200万次请求 …</p>
 <p>仅从软件层面来说，我们习惯和喜欢通过解耦的方式去处理痛点。抽象和分层是很好的实践。所有程序的核心思维都是对真实世界的抽象。我们把程序分成三层也好，四层也罢，最终的痛点都卡在了数据层。针对业务层，控制层我们可以通过各种各样的复杂的简单的有用的没用的技术去实现。到了数据层，不好意思，你得等一会。为啥？前几层都可以在内存中操作，数据层是硬盘，哪怕是SSD，在上亿的数据面前也无能为力，何况还要求对数据层的操作遵从各种事务原则（从另外一个层面上来说，硬件技术还有太多提升的空间）。</p>
 <p> 没关系，可以考虑分库分表，可以整合卡车数据库，可以整合NoSQL。但复杂的业务sharding规则，以及后续的动态水平扩展，Cache数据库的同步和持久化，即时业务NoSQL的支持都是后续不可避免的问题。</p>
 <p>有没有一种数据库，遵循jdbc原则，学习成本低，强关系型，强一致性，不用担心主从配置，不用考虑分库分表，还可以无缝动态扩展 …</p>
 <p> 做梦呢，有也不让你免费用啊。</p>
-<p><a href="https://pingcap.com/" target="_blank" rel="noopener">直到有一天我看到了TiDB…</a></p>
+<p><a href="https://pingcap.com/">直到有一天我看到了TiDB…</a></p>
 <hr>
 <h3 id="TiDB的解决方案"><a href="#TiDB的解决方案" class="headerlink" title="TiDB的解决方案"></a>TiDB的解决方案</h3><p>官方给出三篇文章了解TiDB技术内幕：</p>
-<p>- <strong><a href="https://pingcap.com/blog-cn/tidb-internal-1/" target="_blank" rel="noopener">说存储</a></strong></p>
-<p>- <strong><a href="https://pingcap.com/blog-cn/tidb-internal-2/" target="_blank" rel="noopener">说计算</a></strong></p>
-<p>- <strong><a href="https://pingcap.com/blog-cn/tidb-internal-3/" target="_blank" rel="noopener">谈调度</a></strong></p>
+<p>- <strong><a href="https://pingcap.com/blog-cn/tidb-internal-1/">说存储</a></strong></p>
+<p>- <strong><a href="https://pingcap.com/blog-cn/tidb-internal-2/">说计算</a></strong></p>
+<p>- <strong><a href="https://pingcap.com/blog-cn/tidb-internal-3/">谈调度</a></strong></p>
 <p><strong>下面的内容仅是我对三篇文章自己的总结，如果你认真看完了上面三篇文章，本节内容完全没必要读，因为大部分是摘抄，并且很多理解也仅限于我有限的理解。</strong></p>
 <h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p>TiDB是传统的数据库中间件，数据库分库分表等sharding方案非常优雅而理想的替代和解决方案。</p>
 <p>核心特征：水平扩展和高可用</p>
@@ -147,7 +151,7 @@
 <p>说白了：就是上层封装了mysql协议，让程序员完全无感知，和使用mysql基本没有异同。下层使用KV数据库，保证了数据的扩展性和高可用。</p>
 </blockquote>
 <p>而TiDB如何做到这一点：</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/tidb-architecture.png" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/tidb-architecture.png" alt=""></p>
 <p>以上是官方的一张TiDB整体架构图片。</p>
 <p><strong>可以看出TiDB集群分为三个组件：</strong></p>
 <p><strong>TiKV Server：</strong></p>
@@ -162,7 +166,7 @@
 <p>2：成员变更。</p>
 <p>3：日志复制。</p>
 <p>TiKV利用Raft做数据复制。每个数据变更都会落地为一条Raft日志。通过Raft日志的复制功能，可以将数据安全可靠的同步到Group的多数节点中。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/raft-rocksdb.png" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/raft-rocksdb.png" alt=""></p>
 <blockquote>
 <p>至此，我们简单总结一下：</p>
 </blockquote>
@@ -171,7 +175,7 @@
 </blockquote>
 <p>下面我们聊一个非常重要的概念：Region</p>
 <p>对于一个KV系统，将数据分散在多台机器上有两种比较经典的方案：一种按照key做Hash，根据Hash值选择对应的存储节点；另一种是分Range（范围）。TiKV选择了第二种。将整个KV空间分成很多段。每一段是一系列连续的key，我们将每一段叫做一个Region，并且会尽量保持每个Region中保存的数据不超过一定的大小。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/raft-region.png" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/raft-region.png" alt=""></p>
 <p>也就是说我们将数据根据一系列连续的key将分段，每一段根据Raft协议复制成三份组成Raft Group分布式存储在不同的节点中，这样即使任何一台节点出现异常，我们都可以保证数据的完整性。</p>
 <p>同时为了上层客户端能够访问所需要的数据，系统中也会有一个组件记录Region在节点上的分布情况，也就是通过任意一个Key就能查到这个key在哪个Region中，以及这个Region目前在哪个节点上，这个组件就是后面我们讲到的PD。</p>
 <p>很多数据库都会实现多版本控制，TiKV的实现是比较常见的在每一个Key后面添加一个version字段。从而事务来说，TiKV采用Percolator模型，但核心只提一点：使用了乐观锁的机制实现。</p>
@@ -185,7 +189,7 @@
 <p>也就是说，一个Table内部所有的Row都有相同的前缀，一个Index的数据也都相同的前缀。这样具体相同前缀的数据，在TiKV的Key空间内，是排列在一起的。同时只要我们小心的设计后缀部分的编码方案，就可以将Row或者Index数据有序的保存在TiKV中。</p>
 <p>这样就极大的方便了我们后续对数据的查询操作。</p>
 <p> 下面所做的工作就是SQL运算了，也就是说TiDB Server负责接收sql请求，然后对sql语句做语法解析，查询计划制定和优化，最终将SQL语句映射为KV的查询。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/tidb-core.png" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/tidb-core.png" alt=""></p>
 <p><strong>PD：</strong></p>
 <p>总结上面文章中提到的一些信息：TiKV集群是TiDB数据库的分布式存储引擎，但同样也会面临很多问题，包括Region具体如何负载均衡，如何跨机房容灾，TiKV集群数据的有效迁移等。</p>
 <p>这样就需要一个掌握全局信息，可以对全局进行调度，并且可以配置的组件。因此我们需要一个中心节点，来对系统进行整体状况的把控和调整，这就是PD模块。</p>
@@ -210,9 +214,9 @@
 <p>控制调度速度，避免影响在线服务。</p>
 <p>支持手动下线节点。</p>
 <hr>
-<h3 id="三：TiDB实践"><a href="#三：TiDB实践" class="headerlink" title="三：TiDB实践"></a>三：TiDB实践</h3><p>TiDB集群部署简单，如果仅仅是测试功能，完全可以<a href="https://pingcap.com/docs-cn/op-guide/docker-deployment/" target="_blank" rel="noopener">使用Docker部署一个简单的TiDB集群</a>。</p>
-<p>官方推荐<a href="https://pingcap.com/docs-cn/op-guide/ansible-deployment/" target="_blank" rel="noopener">使用Ansible部署方案</a>。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/TiDB.png" alt></p>
+<h3 id="三：TiDB实践"><a href="#三：TiDB实践" class="headerlink" title="三：TiDB实践"></a>三：TiDB实践</h3><p>TiDB集群部署简单，如果仅仅是测试功能，完全可以<a href="https://pingcap.com/docs-cn/op-guide/docker-deployment/">使用Docker部署一个简单的TiDB集群</a>。</p>
+<p>官方推荐<a href="https://pingcap.com/docs-cn/op-guide/ansible-deployment/">使用Ansible部署方案</a>。</p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tidb/TiDB.png" alt=""></p>
 <p> 我司使用TiDB官方最低配置要求进行测试，目前已插入数据1亿2千万+，持续运行良好。这用mysql中是不可想象的，依据单表千万级别考虑分库分表的话如果使用mysql集群估计sharding规则就已经复杂到一定的级别了。这对运维人员和开发人员都是不小的挑战，而TiDB完全避免了这些问题。</p>
 <p>针对数据进行操作，简单的查询都在毫秒级别，复杂的查询根据业务情况在where条件加索引，也可以正常满足需求。只不过需要全表扫描的情况下（比如count操作）比较耗时。在业务中进行sql优化根据TiDB的存储规则尽量避免全表扫描。</p>
 <hr>
@@ -236,7 +240,7 @@
             
               
                 <li class="base">
-                  <a  href="/2017/11/16/基于SpringBoot、STOMP使用WebSocket实现聊天室功能/" class="post-categoris-bottom-link">
+                  <a  href="/2017/11/16/%E5%9F%BA%E4%BA%8ESpringBoot%E3%80%81STOMP%E4%BD%BF%E7%94%A8WebSocket%E5%AE%9E%E7%8E%B0%E8%81%8A%E5%A4%A9%E5%AE%A4%E5%8A%9F%E8%83%BD/" class="post-categoris-bottom-link">
                   基于SpringBoot、STOMP使用WebSocket实现聊天室功能
                 </a>
                 </li>
@@ -258,7 +262,7 @@
             
               
                 <li class="me base">
-                  <a  href="/2018/07/14/TiDB-重新定义下一代关系型数据库/" class="post-categoris-bottom-link">
+                  <a  href="/2018/07/14/TiDB-%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89%E4%B8%8B%E4%B8%80%E4%BB%A3%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-categoris-bottom-link">
                   TiDB:重新定义下一代关系型数据库
                 </a>
                 </li>
@@ -292,7 +296,7 @@
             
               
                 <li class="base">
-                  <a  href="/2019/08/20/关于RabbitMQ，看这篇文章就够了/" class="post-categoris-bottom-link">
+                  <a  href="/2019/08/20/%E5%85%B3%E4%BA%8ERabbitMQ%EF%BC%8C%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/" class="post-categoris-bottom-link">
                   关于RabbitMQ，看这篇文章就够了
                 </a>
                 </li>
@@ -340,7 +344,7 @@
             
               
                 <li class="base">
-                  <a  href="/2021/03/22/管理小记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/03/22/%E7%AE%A1%E7%90%86%E5%B0%8F%E8%AE%B0/" class="post-categoris-bottom-link">
                   管理小记
                 </a>
                 </li>
@@ -355,7 +359,7 @@
             
               
                 <li class="base">
-                  <a  href="/2021/05/05/架构笔记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/05/05/%E6%9E%B6%E6%9E%84%E7%AC%94%E8%AE%B0/" class="post-categoris-bottom-link">
                   架构笔记
                 </a>
                 </li>
@@ -366,7 +370,7 @@
             
               
                 <li class="base">
-                  <a  href="/2021/08/20/Spring Data JPA/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/20/Spring%20Data%20JPA/" class="post-categoris-bottom-link">
                   Spring Data JPA
                 </a>
                 </li>
@@ -388,7 +392,7 @@
             
               
                 <li class="base">
-                  <a  href="/2021/08/21/Java单元测试/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/21/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" class="post-categoris-bottom-link">
                   Java Unit Test
                 </a>
                 </li>
@@ -399,7 +403,7 @@
             
               
                 <li class="base">
-                  <a  href="/2022/02/12/Code Review/" class="post-categoris-bottom-link">
+                  <a  href="/2022/02/12/Code%20Review/" class="post-categoris-bottom-link">
                   Code Review
                 </a>
                 </li>
@@ -410,7 +414,7 @@
             
               
                 <li class="base">
-                  <a  href="/2022/06/06/技术思维/" class="post-categoris-bottom-link">
+                  <a  href="/2022/06/06/%E6%8A%80%E6%9C%AF%E6%80%9D%E7%BB%B4/" class="post-categoris-bottom-link">
                   技术思维
                 </a>
                 </li>
@@ -475,11 +479,15 @@
 
 
 
+
 <script src="/js/white.js"></script>
 
 
+
     
-      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+      
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
       <script>hljs.initHighlightingOnLoad();</script>
     
 

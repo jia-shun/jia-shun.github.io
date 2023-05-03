@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>  Redisson |    freedom</title>
@@ -16,15 +16,19 @@
   <!-- 动画库 -->
   
   <!-- css文件 -->
-  <link rel="stylesheet" href="/css/white.css">
+  
+<link rel="stylesheet" href="/css/white.css">
+
   <!-- 代码高亮 -->
   
     
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+
     
   
-</head>
-</html>
+<meta name="generator" content="Hexo 7.0.0-rc1"></head>
+
 
 <body>
 
@@ -55,7 +59,7 @@
           <li class="menu-li " id="sort">
              CATEGORY
              <div class="categories-outer " id="sort-div">
-               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
+               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E4%B9%90/">音乐</a></li></ul>
              </div>
           </li>
         
@@ -120,7 +124,7 @@
       <div class="post-content-main animate__animated  animate__fadeInUp">
         <!-- top型目录 -->
         
-        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson.jpeg" alt></p>
+        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson.jpeg" alt=""></p>
 <h2 id="Redis"><a href="#Redis" class="headerlink" title="Redis"></a>Redis</h2><blockquote>
 <p><strong>简介：</strong></p>
 <ul>
@@ -131,8 +135,8 @@
 <p><strong>Redis 是其中最流行的开源内存数据存储，可用作数据库、缓存或消息代理。</strong></p>
 </blockquote>
 <p><strong>关于Redis的细节不是本文的重点，可参考以下：</strong></p>
-<p><strong>官网：<a href="https://redis.io/" target="_blank" rel="noopener">Redis</a></strong></p>
-<p><strong>推荐书籍: <a href="https://juejin.cn/book/6844733724618129422" target="_blank" rel="noopener">Redis 深度历险</a></strong></p>
+<p><strong>官网：<a href="https://redis.io/">Redis</a></strong></p>
+<p><strong>推荐书籍: <a href="https://juejin.cn/book/6844733724618129422">Redis 深度历险</a></strong></p>
 <h2 id="Redis-客户端"><a href="#Redis-客户端" class="headerlink" title="Redis 客户端"></a>Redis 客户端</h2><blockquote>
 <p>Redis官方推荐的客户端：<code>Jedis</code>、<code>Redisson</code>、<code>Lettuce</code></p>
 <p>所以本次仅针对这三个进行比较选型：</p>
@@ -141,9 +145,9 @@
 <thead>
 <tr>
 <th></th>
-<th><a href="https://github.com/redis/jedis" target="_blank" rel="noopener">Jedis</a></th>
-<th><a href="https://github.com/redisson" target="_blank" rel="noopener">Redisson</a></th>
-<th><a href="https://lettuce.io/" target="_blank" rel="noopener">Lettuce</a></th>
+<th><a href="https://github.com/redis/jedis">Jedis</a></th>
+<th><a href="https://github.com/redisson">Redisson</a></th>
+<th><a href="https://lettuce.io/">Lettuce</a></th>
 </tr>
 </thead>
 <tbody><tr>
@@ -187,195 +191,103 @@
 <p><strong>综上，本团队针对Redis的操作客户端选择Redisson。</strong></p>
 <h2 id="Redisson"><a href="#Redisson" class="headerlink" title="Redisson"></a>Redisson</h2><blockquote>
 <p><strong>简介：</strong></p>
-<p><strong><a href="https://github.com/redisson/redisson/wiki" target="_blank" rel="noopener">wiki</a></strong></p>
+<p><strong><a href="https://github.com/redisson/redisson/wiki">wiki</a></strong></p>
 <p>以上文档对Redisson有相对全面的介绍</p>
 <p>以下会针对一些基础特性及常用功能做一些说明</p>
 </blockquote>
 <h4 id="一：分布式对象"><a href="#一：分布式对象" class="headerlink" title="一：分布式对象"></a>一：分布式对象</h4><p>1.<code>RedissonClient</code> :</p>
 <p><code>RedissonClient</code>为顶层接口，通过<code>RedissonClient</code>接口对象操作Redis数据。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson_interface.jpeg" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson_interface.jpeg" alt=""></p>
 <p>每个Redisson对象实例都有有一个与之对应的Redis数据实例。</p>
 <p>Redisson支持各种Redis集群模式，本次测试我们使用单机模式：</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson_init_client.jpg" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson_init_client.jpg" alt=""></p>
 <p>初始化Redisson实例：</p>
-<pre><code class="java">@Configuration
-public class RedissonConfig {
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedissonConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RedissonClient <span class="title function_">redissonClient</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">Config</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Config</span>();</span><br><span class="line">        config.useSingleServer()</span><br><span class="line">                .setAddress(<span class="string">&quot;$&#123;address&#125;&quot;</span>)</span><br><span class="line">                .setUsername(<span class="string">&quot;$&#123;username&#125;&quot;</span>)</span><br><span class="line">                .setPassword(<span class="string">&quot;$&#123;password&#125;&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> Redisson.create(config);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    @Bean
-    public RedissonClient redissonClient() {
-        Config config = new Config();
-        config.useSingleServer()
-                .setAddress(&quot;${address}&quot;)
-                .setUsername(&quot;${username}&quot;)
-                .setPassword(&quot;${password}&quot;);
-        return Redisson.create(config);
-    }
-
-}</code></pre>
 <ol start="2">
 <li><code>RKeys</code> : 所有与Redis key相关的操作都归纳在<code>RKeys</code>这个接口里(请谨慎使用，getKeys()可能会造成redis阻塞)</li>
 </ol>
-<pre><code class="java">RKeys keys = redissonClient.getKeys();
-keys.getKeys().forEach(System.out::println);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">RKeys</span> <span class="variable">keys</span> <span class="operator">=</span> redissonClient.getKeys();</span><br><span class="line">keys.getKeys().forEach(System.out::println);</span><br></pre></td></tr></table></figure>
+
 <ol start="3">
 <li><code>RBucket</code> : 通用对象桶</li>
 </ol>
-<pre><code class="java">RBucket&lt;String&gt; bucket = redissonClient.getBucket(&quot;bucket&quot;);
-bucket.set(&quot;elem1&quot;);
-System.out.println(bucket.get());
-bucket.trySet(&quot;elem2&quot;);
-bucket.compareAndSet(&quot;elem3&quot;, &quot;elem4&quot;);
-bucket.getAndSet(&quot;elem5&quot;);
-System.out.println(bucket.get());</code></pre>
-<h4 id="二：分布式集合"><a href="#二：分布式集合" class="headerlink" title="二：分布式集合"></a>二：分布式集合</h4><p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson_java_collection.gif" alt></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">RBucket&lt;String&gt; bucket = redissonClient.getBucket(<span class="string">&quot;bucket&quot;</span>);</span><br><span class="line">bucket.set(<span class="string">&quot;elem1&quot;</span>);</span><br><span class="line">System.out.println(bucket.get());</span><br><span class="line">bucket.trySet(<span class="string">&quot;elem2&quot;</span>);</span><br><span class="line">bucket.compareAndSet(<span class="string">&quot;elem3&quot;</span>, <span class="string">&quot;elem4&quot;</span>);</span><br><span class="line">bucket.getAndSet(<span class="string">&quot;elem5&quot;</span>);</span><br><span class="line">System.out.println(bucket.get());</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="二：分布式集合"><a href="#二：分布式集合" class="headerlink" title="二：分布式集合"></a>二：分布式集合</h4><p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/redisson/redisson_java_collection.gif" alt=""></p>
 <p><strong>Java丰富的集合框架，Redisson中基本都有与之对应的分布式集合对象，使用起来非常方便。</strong></p>
 <ul>
 <li><p><strong>Map:</strong></p>
 <ol>
 <li><p>Redisson的分布式Map结构<code>RMap</code> 对象实现了<code>java.util.concurrent.ConcurrentMap</code>和<code>java.util.Map</code>接口，同时还保持了元素的插入顺序。</p>
-<pre><code class="java">RMap&lt;String, String&gt; map = redissonClient.getMap(&quot;map&quot;);
-//设置value，并返回先前的关联value，新key就返回null
-String prevValue = map.put(&quot;1&quot;, &quot;elem1&quot;);
-//判断hash是否存在，存在就不插入返回先前value，不存在就插入并返回null
-String currValue = map.putIfAbsent(&quot;2&quot;, &quot;elem2&quot;);
-//移除Key。返回先前value
-String removedValue = map.remove(&quot;1&quot;);
-//比put快，不返回以前的值，返回boolean。 true代表key是哈希中的新密钥，并且已设置值。false代表密钥已经存在于哈希中并且值已更新
-boolean putResult = map.fastPut(&quot;3&quot;, &quot;elem3&quot;);
-//异步 设置值,并返回先前的关联值，新key就返回null
-RFuture&lt;String&gt; putAsyncFuture = map.putAsync(&quot;4&quot;, &quot;elem4&quot;);
-//异步 true如果key是哈希中的新密钥，并且已设置值。 false如果密钥已经存在于哈希中并且值已更新
-RFuture&lt;Boolean&gt; fastPutAsyncFuture = map.fastPutAsync(&quot;5&quot;, &quot;elem5&quot;);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">RMap&lt;String, String&gt; map = redissonClient.getMap(<span class="string">&quot;map&quot;</span>);</span><br><span class="line"><span class="comment">//设置value，并返回先前的关联value，新key就返回null</span></span><br><span class="line"><span class="type">String</span> <span class="variable">prevValue</span> <span class="operator">=</span> map.put(<span class="string">&quot;1&quot;</span>, <span class="string">&quot;elem1&quot;</span>);</span><br><span class="line"><span class="comment">//判断hash是否存在，存在就不插入返回先前value，不存在就插入并返回null</span></span><br><span class="line"><span class="type">String</span> <span class="variable">currValue</span> <span class="operator">=</span> map.putIfAbsent(<span class="string">&quot;2&quot;</span>, <span class="string">&quot;elem2&quot;</span>);</span><br><span class="line"><span class="comment">//移除Key。返回先前value</span></span><br><span class="line"><span class="type">String</span> <span class="variable">removedValue</span> <span class="operator">=</span> map.remove(<span class="string">&quot;1&quot;</span>);</span><br><span class="line"><span class="comment">//比put快，不返回以前的值，返回boolean。 true代表key是哈希中的新密钥，并且已设置值。false代表密钥已经存在于哈希中并且值已更新</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">putResult</span> <span class="operator">=</span> map.fastPut(<span class="string">&quot;3&quot;</span>, <span class="string">&quot;elem3&quot;</span>);</span><br><span class="line"><span class="comment">//异步 设置值,并返回先前的关联值，新key就返回null</span></span><br><span class="line">RFuture&lt;String&gt; putAsyncFuture = map.putAsync(<span class="string">&quot;4&quot;</span>, <span class="string">&quot;elem4&quot;</span>);</span><br><span class="line"><span class="comment">//异步 true如果key是哈希中的新密钥，并且已设置值。 false如果密钥已经存在于哈希中并且值已更新</span></span><br><span class="line">RFuture&lt;Boolean&gt; fastPutAsyncFuture = map.fastPutAsync(<span class="string">&quot;5&quot;</span>, <span class="string">&quot;elem5&quot;</span>);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>淘汰机制：</p>
 <p>目前的Redis自身并不支持哈希（Hash）当中的元素淘汰，因此所有过期元素都是通过org.redisson.EvictionScheduler实例来实现定期清理的。为了保证资源的有效利用，每次运行最多清理100个过期元素。任务的启动时间将根据上次实际清理数量自动调整，间隔时间趋于1秒到2小时之间。比如该次清理时删除了100条元素，那么下次执行清理的时间将在1秒以后（最小间隔时间）。一旦该次清理数量少于上次清理数量，时间间隔将增加1.5倍。</p>
-<pre><code class="java">RMapCache&lt;String, String&gt; cacheMap = redissonClient.getMapCache(&quot;anyMap&quot;);
-//有效时间 ttl = 10分钟
-cacheMap.put(&quot;key1&quot;, &quot;key1&quot;, 10, TimeUnit.MINUTES);
-//有效时间 ttl = 10分钟, 最长闲置时间 maxIdleTime = 10秒钟
-cacheMap.put(&quot;key1&quot;, &quot;key1&quot;, 10, TimeUnit.MINUTES, 10, TimeUnit.SECONDS);
-//有效时间 = 3 秒钟
-cacheMap.putIfAbsent(&quot;key2&quot;, &quot;key2&quot;, 3, TimeUnit.SECONDS);
-//有效时间 ttl = 40秒钟, 最长闲置时间 maxIdleTime = 10秒钟
-cacheMap.putIfAbsent(&quot;key2&quot;, &quot;key2&quot;, 40, TimeUnit.SECONDS, 10, TimeUnit.SECONDS);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">RMapCache&lt;String, String&gt; cacheMap = redissonClient.getMapCache(<span class="string">&quot;anyMap&quot;</span>);</span><br><span class="line"><span class="comment">//有效时间 ttl = 10分钟</span></span><br><span class="line">cacheMap.put(<span class="string">&quot;key1&quot;</span>, <span class="string">&quot;key1&quot;</span>, <span class="number">10</span>, TimeUnit.MINUTES);</span><br><span class="line"><span class="comment">//有效时间 ttl = 10分钟, 最长闲置时间 maxIdleTime = 10秒钟</span></span><br><span class="line">cacheMap.put(<span class="string">&quot;key1&quot;</span>, <span class="string">&quot;key1&quot;</span>, <span class="number">10</span>, TimeUnit.MINUTES, <span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line"><span class="comment">//有效时间 = 3 秒钟</span></span><br><span class="line">cacheMap.putIfAbsent(<span class="string">&quot;key2&quot;</span>, <span class="string">&quot;key2&quot;</span>, <span class="number">3</span>, TimeUnit.SECONDS);</span><br><span class="line"><span class="comment">//有效时间 ttl = 40秒钟, 最长闲置时间 maxIdleTime = 10秒钟</span></span><br><span class="line">cacheMap.putIfAbsent(<span class="string">&quot;key2&quot;</span>, <span class="string">&quot;key2&quot;</span>, <span class="number">40</span>, TimeUnit.SECONDS, <span class="number">10</span>, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
 <li><p><strong>Set:</strong></p>
 <ol>
 <li><p>Redisson的分布式Set结构的<code>RSet</code>对象实现了<code>java.util.Set</code>接口。通过元素的相互状态比较保证了每个元素的唯一性。</p>
-<pre><code class="java">RSet&lt;String&gt; set = redissonClient.getSet(&quot;set&quot;);
-set.add(&quot;elem1&quot;);
-set.add(&quot;elem1&quot;);
-set.remove(&quot;elem1&quot;);
-Assert.isTrue(set.size() == 0, &quot;uniqueness test failed&quot;);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">RSet&lt;String&gt; set = redissonClient.getSet(<span class="string">&quot;set&quot;</span>);</span><br><span class="line">set.add(<span class="string">&quot;elem1&quot;</span>);</span><br><span class="line">set.add(<span class="string">&quot;elem1&quot;</span>);</span><br><span class="line">set.remove(<span class="string">&quot;elem1&quot;</span>);</span><br><span class="line">Assert.isTrue(set.size() == <span class="number">0</span>, <span class="string">&quot;uniqueness test failed&quot;</span>);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>淘汰机制：</p>
 <p>同<code>RMap</code>的淘汰机制。</p>
-<pre><code class="java">RSetCache&lt;String&gt; cacheSet = redissonClient.getSetCache(&quot;cacheSet&quot;);
-// ttl = 10 seconds
-cacheSet.add(&quot;elem1&quot;, 10, TimeUnit.SECONDS);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">RSetCache&lt;String&gt; cacheSet = redissonClient.getSetCache(<span class="string">&quot;cacheSet&quot;</span>);</span><br><span class="line"><span class="comment">// ttl = 10 seconds</span></span><br><span class="line">cacheSet.add(<span class="string">&quot;elem1&quot;</span>, <span class="number">10</span>, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 </li>
 <li><p><strong>SortedSet:</strong></p>
 <p>Redisson的分布式<code>RSortedSet</code>对象实现了<code>java.util.SortedSet</code>接口，在保证元素唯一性的前提下，通过比较器(<code>Compaarator</code>)接口实现了对元素的排序。</p>
-<pre><code class="java">RSortedSet&lt;Integer&gt; sortedSet = redissonClient.getSortedSet(&quot;sortedSet&quot;);
-// 配置元素比较器
-sortedSet.trySetComparator(new MyComparator()); 
-sortedSet.add(3);
-sortedSet.add(1);
-sortedSet.add(2);
-sortedSet.removeAsync(0);
-sortedSet.addAsync(5);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">RSortedSet&lt;Integer&gt; sortedSet = redissonClient.getSortedSet(<span class="string">&quot;sortedSet&quot;</span>);</span><br><span class="line"><span class="comment">// 配置元素比较器</span></span><br><span class="line">sortedSet.trySetComparator(<span class="keyword">new</span> <span class="title class_">MyComparator</span>()); </span><br><span class="line">sortedSet.add(<span class="number">3</span>);</span><br><span class="line">sortedSet.add(<span class="number">1</span>);</span><br><span class="line">sortedSet.add(<span class="number">2</span>);</span><br><span class="line">sortedSet.removeAsync(<span class="number">0</span>);</span><br><span class="line">sortedSet.addAsync(<span class="number">5</span>);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>List:</strong></p>
 <p>Redisson分布式列表<code>RList</code> 对象在实现了<code>java.util.List</code>接口的同时，确保了元素插入时的顺序。</p>
-<pre><code class="java">RList&lt;String&gt; list = redissonClient.getList(&quot;list&quot;);
-list.add(&quot;elem&quot;);
-String result = list.get(0);
-Assert.isTrue(result.equals(&quot;elem&quot;), &quot;RList add failed&quot;);
-list.remove(&quot;elem&quot;);
-Assert.isTrue(list.size() == 0, &quot;RList remove test failed&quot;);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RList&lt;String&gt; list = redissonClient.getList(<span class="string">&quot;list&quot;</span>);</span><br><span class="line">list.add(<span class="string">&quot;elem&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> list.get(<span class="number">0</span>);</span><br><span class="line">Assert.isTrue(result.equals(<span class="string">&quot;elem&quot;</span>), <span class="string">&quot;RList add failed&quot;</span>);</span><br><span class="line">list.remove(<span class="string">&quot;elem&quot;</span>);</span><br><span class="line">Assert.isTrue(list.size() == <span class="number">0</span>, <span class="string">&quot;RList remove test failed&quot;</span>);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><strong>More:</strong></p>
 <p>更多 (<code>ScoredSortedSet</code>、<code>LexSortedSet</code> 、<code>Queue</code>、<code>Deque</code>、<code>Blocking Queue</code> 、<code>Bounded Blocking Queue</code> 、<code>Blocking Deque</code> 、<code>Blocking Fair Queue</code> 、<code>Delyed Queue</code> 、<code>Priority Queue</code>) 请参考：</p>
-<p><a href="https://github.com/redisson/redisson/wiki/7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88" target="_blank" rel="noopener"><strong>分布式集合</strong></a></p>
+<p><a href="https://github.com/redisson/redisson/wiki/7.-%E5%88%86%E5%B8%83%E5%BC%8F%E9%9B%86%E5%90%88"><strong>分布式集合</strong></a></p>
 </li>
 </ul>
 <h4 id="三：分布式锁"><a href="#三：分布式锁" class="headerlink" title="三：分布式锁"></a>三：分布式锁</h4><p><code>Jedis</code>和<code>Lettuce</code>关于分布式锁都要自己手动去实现，而<code>Redisson</code>对此有完整的封装。</p>
 <p>Redisson的分布式可重入锁<code>RLock</code>对象实现了<code>java.util.concurrent.locks.Lock</code>接口，并且还支持自动过期解锁。</p>
 <p>简单实现分布式锁：</p>
-<pre><code class="java">RLock lock = redissonClient.getLock(&quot;lockKey&quot;);
-// 最常见的使用方法
-lock.lock();
-// 支持过期解锁功能
-// 10秒钟以后自动解锁
-// 无需调用unlock方法手动解锁
-lock.lock(10, TimeUnit.SECONDS);
-// 尝试加锁，最多等待100秒，上锁以后10秒自动解锁
-boolean res = lock.tryLock(100, 10, TimeUnit.SECONDS);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">RLock</span> <span class="variable">lock</span> <span class="operator">=</span> redissonClient.getLock(<span class="string">&quot;lockKey&quot;</span>);</span><br><span class="line"><span class="comment">// 最常见的使用方法</span></span><br><span class="line">lock.lock();</span><br><span class="line"><span class="comment">// 支持过期解锁功能</span></span><br><span class="line"><span class="comment">// 10秒钟以后自动解锁</span></span><br><span class="line"><span class="comment">// 无需调用unlock方法手动解锁</span></span><br><span class="line">lock.lock(<span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line"><span class="comment">// 尝试加锁，最多等待100秒，上锁以后10秒自动解锁</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">res</span> <span class="operator">=</span> lock.tryLock(<span class="number">100</span>, <span class="number">10</span>, TimeUnit.SECONDS);</span><br></pre></td></tr></table></figure>
+
 <p>同时Redisson可以完美实现<code>fairLock</code>、<code>RedLock</code>、<code>ReadWriteLock</code>等</p>
 <h4 id="四：高级特性"><a href="#四：高级特性" class="headerlink" title="四：高级特性"></a>四：高级特性</h4><ol>
 <li><p><code>Geospatial Bucket</code></p>
 <p>Redisson的分布式<code>RGeo</code>对象是一种专门用来储存与地理位置有关的对象桶。</p>
-<pre><code class="java">RGeo&lt;String&gt; geo = redissonClient.getGeo(&quot;test&quot;);
-geo.add(new GeoEntry(13.361389, 38.115556, &quot;Palermo&quot;),
-        new GeoEntry(15.087269, 37.502669, &quot;Catania&quot;));
-geo.addAsync(37.618423, 55.751244, &quot;Moscow&quot;);
-
-Double distance = geo.dist(&quot;Palermo&quot;, &quot;Catania&quot;, GeoUnit.METERS);
-geo.hashAsync(&quot;Palermo&quot;, &quot;Catania&quot;);
-Map&lt;String, GeoPosition&gt; positions = geo.pos(&quot;test2&quot;, &quot;Palermo&quot;, &quot;test3&quot;, &quot;Catania&quot;, &quot;test1&quot;);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">RGeo&lt;String&gt; geo = redissonClient.getGeo(<span class="string">&quot;test&quot;</span>);</span><br><span class="line">geo.add(<span class="keyword">new</span> <span class="title class_">GeoEntry</span>(<span class="number">13.361389</span>, <span class="number">38.115556</span>, <span class="string">&quot;Palermo&quot;</span>),</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">GeoEntry</span>(<span class="number">15.087269</span>, <span class="number">37.502669</span>, <span class="string">&quot;Catania&quot;</span>));</span><br><span class="line">geo.addAsync(<span class="number">37.618423</span>, <span class="number">55.751244</span>, <span class="string">&quot;Moscow&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="type">Double</span> <span class="variable">distance</span> <span class="operator">=</span> geo.dist(<span class="string">&quot;Palermo&quot;</span>, <span class="string">&quot;Catania&quot;</span>, GeoUnit.METERS);</span><br><span class="line">geo.hashAsync(<span class="string">&quot;Palermo&quot;</span>, <span class="string">&quot;Catania&quot;</span>);</span><br><span class="line">Map&lt;String, GeoPosition&gt; positions = geo.pos(<span class="string">&quot;test2&quot;</span>, <span class="string">&quot;Palermo&quot;</span>, <span class="string">&quot;test3&quot;</span>, <span class="string">&quot;Catania&quot;</span>, <span class="string">&quot;test1&quot;</span>);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><code>Bloom Filter</code></p>
 <p>Redisson利用<code>RBloomFilter</code>实现了Java分布式布隆过滤器，这在分布式环境中大数据量去重有显著的效果。</p>
-<pre><code class="java">RBloomFilter&lt;String&gt; bloomFilter = redissonClient.getBloomFilter(&quot;sample&quot;);
-// 初始化布隆过滤器，预计统计元素数量为55000000，期望误差率为0.03
-bloomFilter.tryInit(55000000L, 0.03);
-bloomFilter.add(&quot;field1Value&quot;);
-bloomFilter.add(&quot;field2Value&quot;);
-bloomFilter.contains(&quot;field3Value&quot;);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">RBloomFilter&lt;String&gt; bloomFilter = redissonClient.getBloomFilter(<span class="string">&quot;sample&quot;</span>);</span><br><span class="line"><span class="comment">// 初始化布隆过滤器，预计统计元素数量为55000000，期望误差率为0.03</span></span><br><span class="line">bloomFilter.tryInit(<span class="number">55000000L</span>, <span class="number">0.03</span>);</span><br><span class="line">bloomFilter.add(<span class="string">&quot;field1Value&quot;</span>);</span><br><span class="line">bloomFilter.add(<span class="string">&quot;field2Value&quot;</span>);</span><br><span class="line">bloomFilter.contains(<span class="string">&quot;field3Value&quot;</span>);</span><br></pre></td></tr></table></figure>
 </li>
 <li><p><code>RRateLimiter</code></p>
 <p>Redisson利用<code>RRateLimiter</code>实现了分布式布限流器，这在分布式环境中在网关层对于<code>QPS</code>限制等方面特别易于使用。</p>
-<pre><code class="java">RRateLimiter rateLimiter = redissonClient.getRateLimiter(&quot;myRateLimiter&quot;);
-//最大流速 = 每1秒钟产生100个令牌
-rateLimiter.trySetRate(RateType.OVERALL, 1, 100, RateIntervalUnit.SECONDS);
-//阻塞直到一个可用。
-//获取给定数量的许可证，如果它们可用并立即返回，减少给定数量的可用许可证数量。
-//返回是否获取成功
-boolean succeed = rateLimiter.tryAcquire(1);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">RRateLimiter</span> <span class="variable">rateLimiter</span> <span class="operator">=</span> redissonClient.getRateLimiter(<span class="string">&quot;myRateLimiter&quot;</span>);</span><br><span class="line"><span class="comment">//最大流速 = 每1秒钟产生100个令牌</span></span><br><span class="line">rateLimiter.trySetRate(RateType.OVERALL, <span class="number">1</span>, <span class="number">100</span>, RateIntervalUnit.SECONDS);</span><br><span class="line"><span class="comment">//阻塞直到一个可用。</span></span><br><span class="line"><span class="comment">//获取给定数量的许可证，如果它们可用并立即返回，减少给定数量的可用许可证数量。</span></span><br><span class="line"><span class="comment">//返回是否获取成功</span></span><br><span class="line"><span class="type">boolean</span> <span class="variable">succeed</span> <span class="operator">=</span> rateLimiter.tryAcquire(<span class="number">1</span>);</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>更多高级特性请参考<a href="https://github.com/redisson/redisson/wiki/Redisson%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D" target="_blank" rel="noopener"><code>wiki</code></a></p>
+<li><p>更多高级特性请参考<a href="https://github.com/redisson/redisson/wiki/Redisson%E9%A1%B9%E7%9B%AE%E4%BB%8B%E7%BB%8D"><code>wiki</code></a></p>
 </li>
 </ol>
 <h4 id="五：Quick-Start"><a href="#五：Quick-Start" class="headerlink" title="五：Quick Start"></a>五：Quick Start</h4><p><strong>1. 添加redisson-spring-boot-starter依赖</strong></p>
-<pre><code class="groovy">dependencies {
-    implementation &#39;org.redisson:redisson-spring-boot-starter:3.16.0&#39;
-}</code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">&#x27;org.redisson:redisson-spring-boot-starter:3.16.0&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><strong>2. 配置redis连接</strong></p>
-<pre><code class="yaml">spring:
-  redis:
-    host: ${host}
-    port: 6379
-    username: ${usrname}
-    password: ${password}</code></pre>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">$&#123;host&#125;</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">6379</span></span><br><span class="line">    <span class="attr">username:</span> <span class="string">$&#123;usrname&#125;</span></span><br><span class="line">    <span class="attr">password:</span> <span class="string">$&#123;password&#125;</span></span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>更过配置参数参考 <code>org.redisson.config.Config</code></p>
 </blockquote>
 <p><strong>3. 使用</strong></p>
-<pre><code class="java">@Autowired
-private RedissonClient redissonClient;
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> RedissonClient redissonClient;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testRedis</span><span class="params">()</span> &#123;</span><br><span class="line">    RList&lt;String&gt; list = redissonClient.getList(<span class="string">&quot;list&quot;</span>);</span><br><span class="line">    list.add(<span class="string">&quot;elem1&quot;</span>);</span><br><span class="line">    list.add(<span class="string">&quot;elem2&quot;</span>);</span><br><span class="line">    list.forEach(System.out::println);</span><br><span class="line">    list.clear();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-@Test
-public void testRedis() {
-    RList&lt;String&gt; list = redissonClient.getList(&quot;list&quot;);
-    list.add(&quot;elem1&quot;);
-    list.add(&quot;elem2&quot;);
-    list.forEach(System.out::println);
-    list.clear();
-}</code></pre>
 
         <!-- 分类文章 -->
         
@@ -390,7 +302,7 @@ public void testRedis() {
             
               
                 <li class="base">
-                  <a  href="/2017/11/16/基于SpringBoot、STOMP使用WebSocket实现聊天室功能/" class="post-categoris-bottom-link">
+                  <a  href="/2017/11/16/%E5%9F%BA%E4%BA%8ESpringBoot%E3%80%81STOMP%E4%BD%BF%E7%94%A8WebSocket%E5%AE%9E%E7%8E%B0%E8%81%8A%E5%A4%A9%E5%AE%A4%E5%8A%9F%E8%83%BD/" class="post-categoris-bottom-link">
                   基于SpringBoot、STOMP使用WebSocket实现聊天室功能
                 </a>
                 </li>
@@ -412,7 +324,7 @@ public void testRedis() {
             
               
                 <li class="base">
-                  <a  href="/2018/07/14/TiDB-重新定义下一代关系型数据库/" class="post-categoris-bottom-link">
+                  <a  href="/2018/07/14/TiDB-%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89%E4%B8%8B%E4%B8%80%E4%BB%A3%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-categoris-bottom-link">
                   TiDB:重新定义下一代关系型数据库
                 </a>
                 </li>
@@ -446,7 +358,7 @@ public void testRedis() {
             
               
                 <li class="base">
-                  <a  href="/2019/08/20/关于RabbitMQ，看这篇文章就够了/" class="post-categoris-bottom-link">
+                  <a  href="/2019/08/20/%E5%85%B3%E4%BA%8ERabbitMQ%EF%BC%8C%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/" class="post-categoris-bottom-link">
                   关于RabbitMQ，看这篇文章就够了
                 </a>
                 </li>
@@ -494,7 +406,7 @@ public void testRedis() {
             
               
                 <li class="base">
-                  <a  href="/2021/03/22/管理小记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/03/22/%E7%AE%A1%E7%90%86%E5%B0%8F%E8%AE%B0/" class="post-categoris-bottom-link">
                   管理小记
                 </a>
                 </li>
@@ -509,7 +421,7 @@ public void testRedis() {
             
               
                 <li class="base">
-                  <a  href="/2021/05/05/架构笔记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/05/05/%E6%9E%B6%E6%9E%84%E7%AC%94%E8%AE%B0/" class="post-categoris-bottom-link">
                   架构笔记
                 </a>
                 </li>
@@ -520,7 +432,7 @@ public void testRedis() {
             
               
                 <li class="base">
-                  <a  href="/2021/08/20/Spring Data JPA/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/20/Spring%20Data%20JPA/" class="post-categoris-bottom-link">
                   Spring Data JPA
                 </a>
                 </li>
@@ -542,7 +454,7 @@ public void testRedis() {
             
               
                 <li class="base">
-                  <a  href="/2021/08/21/Java单元测试/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/21/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" class="post-categoris-bottom-link">
                   Java Unit Test
                 </a>
                 </li>
@@ -553,7 +465,7 @@ public void testRedis() {
             
               
                 <li class="base">
-                  <a  href="/2022/02/12/Code Review/" class="post-categoris-bottom-link">
+                  <a  href="/2022/02/12/Code%20Review/" class="post-categoris-bottom-link">
                   Code Review
                 </a>
                 </li>
@@ -564,7 +476,7 @@ public void testRedis() {
             
               
                 <li class="base">
-                  <a  href="/2022/06/06/技术思维/" class="post-categoris-bottom-link">
+                  <a  href="/2022/06/06/%E6%8A%80%E6%9C%AF%E6%80%9D%E7%BB%B4/" class="post-categoris-bottom-link">
                   技术思维
                 </a>
                 </li>
@@ -629,11 +541,15 @@ public void testRedis() {
 
 
 
+
 <script src="/js/white.js"></script>
 
 
+
     
-      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+      
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
       <script>hljs.initHighlightingOnLoad();</script>
     
 

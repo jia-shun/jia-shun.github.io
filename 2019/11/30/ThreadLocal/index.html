@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>  ThreadLocal |    freedom</title>
@@ -16,15 +16,19 @@
   <!-- 动画库 -->
   
   <!-- css文件 -->
-  <link rel="stylesheet" href="/css/white.css">
+  
+<link rel="stylesheet" href="/css/white.css">
+
   <!-- 代码高亮 -->
   
     
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+
     
   
-</head>
-</html>
+<meta name="generator" content="Hexo 7.0.0-rc1"></head>
+
 
 <body>
 
@@ -55,7 +59,7 @@
           <li class="menu-li " id="sort">
              CATEGORY
              <div class="categories-outer " id="sort-div">
-               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
+               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E4%B9%90/">音乐</a></li></ul>
              </div>
           </li>
         
@@ -127,77 +131,13 @@
 <h4 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h4><ul>
 <li>最常见数据库连接。<br>操作数据库使用连接池，连接池的链接使用ThreadLocal来管理，能够实现当前线程的操作都是使用同一个Connection.</li>
 </ul>
-<pre><code class="java">    private static final ThreadLocal&lt;Connection&gt; THREAD_LOCAL = new ThreadLocal&lt;&gt;();
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;Connection&gt; THREAD_LOCAL = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 取得数据库的连接对象，如果没有则自动创建新的连接。</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> Connection</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title function_">getConnection</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> THREAD_LOCAL.get();</span><br><span class="line">    <span class="keyword">if</span> (conn == <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            Class.forName(DRIVER);</span><br><span class="line">            conn = DriverManager.getConnection(URL, USER, PASSWORD);</span><br><span class="line">            THREAD_LOCAL.set(conn);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            <span class="comment">//</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> conn;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 关闭数据库连接</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">close</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> THREAD_LOCAL.get() ;</span><br><span class="line">    <span class="keyword">if</span> (conn != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            conn.close();</span><br><span class="line">            THREAD_LOCAL.remove();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">            <span class="comment">//</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    /**
-     * 取得数据库的连接对象，如果没有则自动创建新的连接。
-     * @return Connection
-     */
-    public static Connection getConnection() {
-        Connection conn = THREAD_LOCAL.get();
-        if (conn == null) {
-            try {
-                Class.forName(DRIVER);
-                conn = DriverManager.getConnection(URL, USER, PASSWORD);
-                THREAD_LOCAL.set(conn);
-            } catch (Exception e) {
-                //
-            }
-        }
-        return conn;
-    }
-
-    /**
-     * 关闭数据库连接
-     */
-    public static void close() {
-        Connection conn = THREAD_LOCAL.get() ;
-        if (conn != null) {
-            try {
-                conn.close();
-                THREAD_LOCAL.remove();
-            } catch (SQLException e) {
-                //
-            }
-        }
-    }</code></pre>
 <ul>
 <li>维护session或token。<br>Http本身是无状态的，前端发来的请求中一般包含用户的标识信息(类session)，将信息使用ThreadLocal放入Thread中，这样在线程的调用链中随时可取出用户的标识信息。</li>
 </ul>
-<pre><code class="java">    private static final int CAPACITY = 8;
-    private static final ThreadLocal&lt;Map&lt;String, Object&gt;&gt; THREAD_LOCAL = new ThreadLocal&lt;&gt;();
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">CAPACITY</span> <span class="operator">=</span> <span class="number">8</span>;</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;Map&lt;String, Object&gt;&gt; THREAD_LOCAL = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * setToken</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> key key</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> value value</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">set</span><span class="params">(String key, Object value)</span> &#123;</span><br><span class="line">    Map&lt;String, Object&gt; map = THREAD_LOCAL.get();</span><br><span class="line">    <span class="keyword">if</span> (map == <span class="literal">null</span>) &#123;</span><br><span class="line">        map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(CAPACITY);</span><br><span class="line">        THREAD_LOCAL.set(map);</span><br><span class="line">    &#125;</span><br><span class="line">    map.put(key, value);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * getToken</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> key key</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> value</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Object <span class="title function_">get</span><span class="params">(String key)</span> &#123;</span><br><span class="line">    Map&lt;String, Object&gt; map = THREAD_LOCAL.get();</span><br><span class="line">    <span class="keyword">if</span> (map == <span class="literal">null</span>) &#123;</span><br><span class="line">        map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(CAPACITY);</span><br><span class="line">        THREAD_LOCAL.set(map);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> map.get(key);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">remove</span><span class="params">()</span> &#123;</span><br><span class="line">    THREAD_LOCAL.remove();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    /**
-     * setToken
-     * @param key key
-     * @param value value
-     */
-    public static void set(String key, Object value) {
-        Map&lt;String, Object&gt; map = THREAD_LOCAL.get();
-        if (map == null) {
-            map = new HashMap&lt;&gt;(CAPACITY);
-            THREAD_LOCAL.set(map);
-        }
-        map.put(key, value);
-    }
-
-    /**
-     * getToken
-     * @param key key
-     * @return value
-     */
-    public static Object get(String key) {
-        Map&lt;String, Object&gt; map = THREAD_LOCAL.get();
-        if (map == null) {
-            map = new HashMap&lt;&gt;(CAPACITY);
-            THREAD_LOCAL.set(map);
-        }
-        return map.get(key);
-    }
-
-    public static void remove() {
-        THREAD_LOCAL.remove();
-    }</code></pre>
 <h4 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h4><p>ThreadLocal类的源码特别简单，加注释总共才700多行。</p>
 <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/thread-local/method.png" alt="method"></p>
 <p>我们主要关注set() 和get()方法，看内部具体做了什么操作。</p>
@@ -233,7 +173,7 @@
             
               
                 <li class="base">
-                  <a  href="/2017/11/16/基于SpringBoot、STOMP使用WebSocket实现聊天室功能/" class="post-categoris-bottom-link">
+                  <a  href="/2017/11/16/%E5%9F%BA%E4%BA%8ESpringBoot%E3%80%81STOMP%E4%BD%BF%E7%94%A8WebSocket%E5%AE%9E%E7%8E%B0%E8%81%8A%E5%A4%A9%E5%AE%A4%E5%8A%9F%E8%83%BD/" class="post-categoris-bottom-link">
                   基于SpringBoot、STOMP使用WebSocket实现聊天室功能
                 </a>
                 </li>
@@ -255,7 +195,7 @@
             
               
                 <li class="base">
-                  <a  href="/2018/07/14/TiDB-重新定义下一代关系型数据库/" class="post-categoris-bottom-link">
+                  <a  href="/2018/07/14/TiDB-%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89%E4%B8%8B%E4%B8%80%E4%BB%A3%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-categoris-bottom-link">
                   TiDB:重新定义下一代关系型数据库
                 </a>
                 </li>
@@ -289,7 +229,7 @@
             
               
                 <li class="base">
-                  <a  href="/2019/08/20/关于RabbitMQ，看这篇文章就够了/" class="post-categoris-bottom-link">
+                  <a  href="/2019/08/20/%E5%85%B3%E4%BA%8ERabbitMQ%EF%BC%8C%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/" class="post-categoris-bottom-link">
                   关于RabbitMQ，看这篇文章就够了
                 </a>
                 </li>
@@ -337,7 +277,7 @@
             
               
                 <li class="base">
-                  <a  href="/2021/03/22/管理小记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/03/22/%E7%AE%A1%E7%90%86%E5%B0%8F%E8%AE%B0/" class="post-categoris-bottom-link">
                   管理小记
                 </a>
                 </li>
@@ -352,7 +292,7 @@
             
               
                 <li class="base">
-                  <a  href="/2021/05/05/架构笔记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/05/05/%E6%9E%B6%E6%9E%84%E7%AC%94%E8%AE%B0/" class="post-categoris-bottom-link">
                   架构笔记
                 </a>
                 </li>
@@ -363,7 +303,7 @@
             
               
                 <li class="base">
-                  <a  href="/2021/08/20/Spring Data JPA/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/20/Spring%20Data%20JPA/" class="post-categoris-bottom-link">
                   Spring Data JPA
                 </a>
                 </li>
@@ -385,7 +325,7 @@
             
               
                 <li class="base">
-                  <a  href="/2021/08/21/Java单元测试/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/21/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" class="post-categoris-bottom-link">
                   Java Unit Test
                 </a>
                 </li>
@@ -396,7 +336,7 @@
             
               
                 <li class="base">
-                  <a  href="/2022/02/12/Code Review/" class="post-categoris-bottom-link">
+                  <a  href="/2022/02/12/Code%20Review/" class="post-categoris-bottom-link">
                   Code Review
                 </a>
                 </li>
@@ -407,7 +347,7 @@
             
               
                 <li class="base">
-                  <a  href="/2022/06/06/技术思维/" class="post-categoris-bottom-link">
+                  <a  href="/2022/06/06/%E6%8A%80%E6%9C%AF%E6%80%9D%E7%BB%B4/" class="post-categoris-bottom-link">
                   技术思维
                 </a>
                 </li>
@@ -472,11 +412,15 @@
 
 
 
+
 <script src="/js/white.js"></script>
 
 
+
     
-      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+      
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
       <script>hljs.initHighlightingOnLoad();</script>
     
 

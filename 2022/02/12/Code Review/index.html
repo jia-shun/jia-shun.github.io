@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>  Code Review |    freedom</title>
@@ -16,15 +16,19 @@
   <!-- 动画库 -->
   
   <!-- css文件 -->
-  <link rel="stylesheet" href="/css/white.css">
+  
+<link rel="stylesheet" href="/css/white.css">
+
   <!-- 代码高亮 -->
   
     
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+
     
   
-</head>
-</html>
+<meta name="generator" content="Hexo 7.0.0-rc1"></head>
+
 
 <body>
 
@@ -55,7 +59,7 @@
           <li class="menu-li " id="sort">
              CATEGORY
              <div class="categories-outer " id="sort-div">
-               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
+               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E4%B9%90/">音乐</a></li></ul>
              </div>
           </li>
         
@@ -120,7 +124,7 @@
       <div class="post-content-main animate__animated  animate__fadeInUp">
         <!-- top型目录 -->
         
-        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/apple-bucket.jpg" alt></p>
+        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/apple-bucket.jpg" alt=""></p>
 <h1 id="Code-Review"><a href="#Code-Review" class="headerlink" title="Code Review"></a>Code Review</h1><h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>时至今日，软件开发工作早已不是一个人的单打独斗，而是一个团队的相互协作。这儿有一个很重要的问题：协作。</p>
 <p>如果想要共同打造一件产品，除了我们要达成共同的认知，我们使用的方法和工艺也必须一致，这样最终产品才能完整并尽可能完美。</p>
 <p>对于软件工程来说，我们制作产品的流程就是写代码。将一个团队的代码整合在一起并能完美运行的一个重要手段就是进行Code Review。</p>
@@ -143,7 +147,7 @@
 <li><strong>统一风格：</strong>尽管有各种代码规范，但不同的人仍然有不同的编码风格和思考方式。通过多次的Code Reivew大家相互了解，最终代码风格一致。</li>
 <li><strong>提升代码质量，提前发现错误：</strong>人都会不可避免的出现错误且很容易陷入当局者迷的状态，而这些问题也许在另一个眼中显而易见。</li>
 </ul>
-<h2 id="如何做"><a href="#如何做" class="headerlink" title="如何做"></a>如何做</h2><h4 id="Git-Flow"><a href="#Git-Flow" class="headerlink" title="Git Flow"></a>Git Flow</h4><p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/git-flow.png" alt></p>
+<h2 id="如何做"><a href="#如何做" class="headerlink" title="如何做"></a>如何做</h2><h4 id="Git-Flow"><a href="#Git-Flow" class="headerlink" title="Git Flow"></a>Git Flow</h4><p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/git-flow.png" alt=""></p>
 <p><strong>注：</strong></p>
 <p>git-flow是思想，不是固定的流程，团队完全可以根据自己的喜好找到合适的方式。</p>
 <p><strong>流程：</strong></p>
@@ -154,7 +158,7 @@
 <p>本地开发分支管理参照 git-flow 流程</p>
 </blockquote>
 <ul>
-<li>Git Flow 教程请参照： <a href="https://www.git-tower.com/learn/git/ebook/cn/command-line/advanced-topics/git-flow/" target="_blank" rel="noopener">git-flow</a></li>
+<li>Git Flow 教程请参照： <a href="https://www.git-tower.com/learn/git/ebook/cn/command-line/advanced-topics/git-flow/">git-flow</a></li>
 </ul>
 <ul>
 <li><p>远程主分支：develop分支 -&gt;开发测试环境、master分支 -&gt; production环境</p>
@@ -185,15 +189,15 @@
 <p><strong>流程：</strong></p>
 <ol>
 <li><p>创建 Merge Request 并分配到指定人</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/new-mr.jpeg" alt></p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/mr.jpeg" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/new-mr.jpeg" alt=""></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/mr.jpeg" alt=""></p>
 </li>
 <li><p>MR 必须包含详细说明信息，必须包含详细说明信息，必须包含详细说明信息：包括功能列表，重点逻辑修改，风险点等</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/mr-submit.jpeg" alt></p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/mr-content-submit.jpeg" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/mr-submit.jpeg" alt=""></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/mr-content-submit.jpeg" alt=""></p>
 </li>
 <li><p>Reviewer 提的意见直接在 gitlab上编辑，工程师修复问题后，在 gitlab 上回复修改意见</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/mr-discuss.jpeg" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/code-review/mr-discuss.jpeg" alt=""></p>
 </li>
 <li><p>Reviewer 确认修改意见后并点击确认解决，即可 Merge 代码</p>
 </li>
@@ -230,7 +234,7 @@
             
               
                 <li class="base">
-                  <a  href="/2017/11/16/基于SpringBoot、STOMP使用WebSocket实现聊天室功能/" class="post-categoris-bottom-link">
+                  <a  href="/2017/11/16/%E5%9F%BA%E4%BA%8ESpringBoot%E3%80%81STOMP%E4%BD%BF%E7%94%A8WebSocket%E5%AE%9E%E7%8E%B0%E8%81%8A%E5%A4%A9%E5%AE%A4%E5%8A%9F%E8%83%BD/" class="post-categoris-bottom-link">
                   基于SpringBoot、STOMP使用WebSocket实现聊天室功能
                 </a>
                 </li>
@@ -252,7 +256,7 @@
             
               
                 <li class="base">
-                  <a  href="/2018/07/14/TiDB-重新定义下一代关系型数据库/" class="post-categoris-bottom-link">
+                  <a  href="/2018/07/14/TiDB-%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89%E4%B8%8B%E4%B8%80%E4%BB%A3%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-categoris-bottom-link">
                   TiDB:重新定义下一代关系型数据库
                 </a>
                 </li>
@@ -286,7 +290,7 @@
             
               
                 <li class="base">
-                  <a  href="/2019/08/20/关于RabbitMQ，看这篇文章就够了/" class="post-categoris-bottom-link">
+                  <a  href="/2019/08/20/%E5%85%B3%E4%BA%8ERabbitMQ%EF%BC%8C%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/" class="post-categoris-bottom-link">
                   关于RabbitMQ，看这篇文章就够了
                 </a>
                 </li>
@@ -334,7 +338,7 @@
             
               
                 <li class="base">
-                  <a  href="/2021/03/22/管理小记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/03/22/%E7%AE%A1%E7%90%86%E5%B0%8F%E8%AE%B0/" class="post-categoris-bottom-link">
                   管理小记
                 </a>
                 </li>
@@ -349,7 +353,7 @@
             
               
                 <li class="base">
-                  <a  href="/2021/05/05/架构笔记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/05/05/%E6%9E%B6%E6%9E%84%E7%AC%94%E8%AE%B0/" class="post-categoris-bottom-link">
                   架构笔记
                 </a>
                 </li>
@@ -360,7 +364,7 @@
             
               
                 <li class="base">
-                  <a  href="/2021/08/20/Spring Data JPA/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/20/Spring%20Data%20JPA/" class="post-categoris-bottom-link">
                   Spring Data JPA
                 </a>
                 </li>
@@ -382,7 +386,7 @@
             
               
                 <li class="base">
-                  <a  href="/2021/08/21/Java单元测试/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/21/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" class="post-categoris-bottom-link">
                   Java Unit Test
                 </a>
                 </li>
@@ -393,7 +397,7 @@
             
               
                 <li class="me base">
-                  <a  href="/2022/02/12/Code Review/" class="post-categoris-bottom-link">
+                  <a  href="/2022/02/12/Code%20Review/" class="post-categoris-bottom-link">
                   Code Review
                 </a>
                 </li>
@@ -404,7 +408,7 @@
             
               
                 <li class="base">
-                  <a  href="/2022/06/06/技术思维/" class="post-categoris-bottom-link">
+                  <a  href="/2022/06/06/%E6%8A%80%E6%9C%AF%E6%80%9D%E7%BB%B4/" class="post-categoris-bottom-link">
                   技术思维
                 </a>
                 </li>
@@ -469,11 +473,15 @@
 
 
 
+
 <script src="/js/white.js"></script>
 
 
+
     
-      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+      
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
       <script>hljs.initHighlightingOnLoad();</script>
     
 

@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>  JSON Web Token |    freedom</title>
@@ -16,15 +16,19 @@
   <!-- 动画库 -->
   
   <!-- css文件 -->
-  <link rel="stylesheet" href="/css/white.css">
+  
+<link rel="stylesheet" href="/css/white.css">
+
   <!-- 代码高亮 -->
   
     
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+
     
   
-</head>
-</html>
+<meta name="generator" content="Hexo 7.0.0-rc1"></head>
+
 
 <body>
 
@@ -55,7 +59,7 @@
           <li class="menu-li " id="sort">
              CATEGORY
              <div class="categories-outer " id="sort-div">
-               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
+               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E4%B9%90/">音乐</a></li></ul>
              </div>
           </li>
         
@@ -147,88 +151,18 @@
 <p>3：之后客户端每次向服务端发送请求都会携带这个token，服务端可以解密token验证用户的合法性，获取用户的信息而不用每次都去数据库查询了。</p>
 <p><strong>说的再多都是浮云，一篇小小的demo就能说明一切（本次我们使用第三方针对Java的一个开源JSON Web Token：jjwt）：</strong></p>
 <p>我们就使用官方提供的最简单的例子：</p>
-<pre><code class="java">
-/**
- * @author JiaShun
- * @date 2018/4/29 23:57
- */
-@Component
-public class JWTUtil {
-    /**
-     * 根据一个String字符串生成一个密钥key，这个字符串只有应用层自己知道，千万不能泄露，建议经常修改。
-     * 这个key相当于你所有用户所公有的一个用户密码。
-     */
-    public SecretKey generalKey() {
-        String stringKey = &quot;helloWorld&quot;;
-        byte[] encodedKey = Base64.decodeBase64(stringKey);
-        SecretKey key = new SecretKeySpec(encodedKey,0,encodedKey.length,&quot;AES&quot;);
-        return key;
-    }
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> JiaShun</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@date</span> 2018/4/29 23:57</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JWTUtil</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 根据一个String字符串生成一个密钥key，这个字符串只有应用层自己知道，千万不能泄露，建议经常修改。</span></span><br><span class="line"><span class="comment">     * 这个key相当于你所有用户所公有的一个用户密码。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> SecretKey <span class="title function_">generalKey</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">stringKey</span> <span class="operator">=</span> <span class="string">&quot;helloWorld&quot;</span>;</span><br><span class="line">        <span class="type">byte</span>[] encodedKey = Base64.decodeBase64(stringKey);</span><br><span class="line">        <span class="type">SecretKey</span> <span class="variable">key</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SecretKeySpec</span>(encodedKey,<span class="number">0</span>,encodedKey.length,<span class="string">&quot;AES&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> key;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建JWT</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> subject 用户详细信息</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">createJWT</span><span class="params">(String subject)</span><span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">SignatureAlgorithm</span> <span class="variable">signatureAlgorithm</span> <span class="operator">=</span> SignatureAlgorithm.HS256;</span><br><span class="line">        <span class="type">SecretKey</span> <span class="variable">key</span> <span class="operator">=</span> generalKey();</span><br><span class="line">        <span class="type">JwtBuilder</span> <span class="variable">builder</span> <span class="operator">=</span> Jwts.builder()</span><br><span class="line">                .setSubject(subject)</span><br><span class="line">                .signWith(signatureAlgorithm,key);</span><br><span class="line">        <span class="keyword">return</span> builder.compact();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解析JWT</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> jwt</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> Claims <span class="title function_">parseJWT</span><span class="params">(String jwt)</span><span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">SecretKey</span> <span class="variable">key</span> <span class="operator">=</span> generalKey();</span><br><span class="line">        <span class="keyword">return</span> Jwts.parser().setSigningKey(key).parseClaimsJws(jwt).getBody();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-    /**
-     * 创建JWT
-     * @param subject 用户详细信息
-     * @return
-     * @throws Exception
-     */
-    public String createJWT(String subject)throws Exception {
-        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-        SecretKey key = generalKey();
-        JwtBuilder builder = Jwts.builder()
-                .setSubject(subject)
-                .signWith(signatureAlgorithm,key);
-        return builder.compact();
-    }
-
-    /**
-     * 解析JWT
-     * @param jwt
-     * @return
-     * @throws Exception
-     */
-    public Claims parseJWT(String jwt)throws Exception {
-        SecretKey key = generalKey();
-        return Jwts.parser().setSigningKey(key).parseClaimsJws(jwt).getBody();
-    }
-
-}
-
-</code></pre>
 <p>代码就这么简单！</p>
 <p>下面我们做一个单元测试：</p>
-<pre><code class="java">@RunWith(SpringRunner.class)
-@SpringBootTest
-public class TokenApplicationTests {
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TokenApplicationTests</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Autowired</span></span><br><span class="line">	<span class="keyword">private</span> JWTUtil jwtUtil;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">contextLoads</span><span class="params">()</span> &#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testCreateJWT</span><span class="params">()</span><span class="keyword">throws</span> Exception &#123;</span><br><span class="line">		<span class="type">JSONObject</span> <span class="variable">json</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JSONObject</span>();</span><br><span class="line">		json.put(<span class="string">&quot;userId&quot;</span>,<span class="string">&quot;1&quot;</span>);</span><br><span class="line">		json.put(<span class="string">&quot;name&quot;</span>,<span class="string">&quot;JiaShun&quot;</span>);</span><br><span class="line">		<span class="type">String</span> <span class="variable">subject</span> <span class="operator">=</span> json.toJSONString();</span><br><span class="line">		<span class="type">String</span> <span class="variable">token</span> <span class="operator">=</span> jwtUtil.createJWT(subject);</span><br><span class="line">		System.out.println(token);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    @Autowired
-    private JWTUtil jwtUtil;
-
-    @Test
-    public void contextLoads() {
-    }
-
-    @Test
-    public void testCreateJWT()throws Exception {
-        JSONObject json = new JSONObject();
-        json.put(&quot;userId&quot;,&quot;1&quot;);
-        json.put(&quot;name&quot;,&quot;JiaShun&quot;);
-        String subject = json.toJSONString();
-        String token = jwtUtil.createJWT(subject);
-        System.out.println(token);
-    }
-
-}</code></pre>
 <p>输出的结果为：</p>
 <p><code>eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ7XCJuYW1lXCI6XCJKaWFTaHVuXCIsXCJ1c2VySWRcIjpcIjFcIn0ifQ.NqYVyNM2XT_2hKkgTakPf0I6ira00IDANGpZTTLJi_8</code></p>
 <p>这就是一个完整的JSON Web Token。</p>
 <p>随后我们解析这个token，看得到什么信息：</p>
-<pre><code class="java">    @Test
-    public void testParseJWT()throws Exception {
-        Claims claims = jwtUtil.parseJWT(&quot;eyJhbGciOiJIUzI1NiJ9&quot; +
-                &quot;.eyJzdWIiOiJ7XCJuYW1lXCI6XCJKaWFTaHVuXCIsXCJ1c2VySWRcIjpcIjFcIn0ifQ&quot; +
-                &quot;.NqYVyNM2XT_2hKkgTakPf0I6ira00IDANGpZTTLJi_8&quot;);
-        System.out.println(claims);
-    }</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testParseJWT</span><span class="params">()</span><span class="keyword">throws</span> Exception &#123;</span><br><span class="line">	<span class="type">Claims</span> <span class="variable">claims</span> <span class="operator">=</span> jwtUtil.parseJWT(<span class="string">&quot;eyJhbGciOiJIUzI1NiJ9&quot;</span> +</span><br><span class="line">			<span class="string">&quot;.eyJzdWIiOiJ7XCJuYW1lXCI6XCJKaWFTaHVuXCIsXCJ1c2VySWRcIjpcIjFcIn0ifQ&quot;</span> +</span><br><span class="line">			<span class="string">&quot;.NqYVyNM2XT_2hKkgTakPf0I6ira00IDANGpZTTLJi_8&quot;</span>);</span><br><span class="line">	System.out.println(claims);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>打印出的信息为：</p>
 <p>{sub={“name”:”JiaShun”,”userId”:”1”}}</p>
 <p>这样我们就得到了用户的所有信息，而不用去数据层反复查询请求的真实性了。</p>
@@ -248,7 +182,7 @@ public class TokenApplicationTests {
             
               
                 <li class="base">
-                  <a  href="/2017/11/16/基于SpringBoot、STOMP使用WebSocket实现聊天室功能/" class="post-categoris-bottom-link">
+                  <a  href="/2017/11/16/%E5%9F%BA%E4%BA%8ESpringBoot%E3%80%81STOMP%E4%BD%BF%E7%94%A8WebSocket%E5%AE%9E%E7%8E%B0%E8%81%8A%E5%A4%A9%E5%AE%A4%E5%8A%9F%E8%83%BD/" class="post-categoris-bottom-link">
                   基于SpringBoot、STOMP使用WebSocket实现聊天室功能
                 </a>
                 </li>
@@ -270,7 +204,7 @@ public class TokenApplicationTests {
             
               
                 <li class="base">
-                  <a  href="/2018/07/14/TiDB-重新定义下一代关系型数据库/" class="post-categoris-bottom-link">
+                  <a  href="/2018/07/14/TiDB-%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89%E4%B8%8B%E4%B8%80%E4%BB%A3%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-categoris-bottom-link">
                   TiDB:重新定义下一代关系型数据库
                 </a>
                 </li>
@@ -304,7 +238,7 @@ public class TokenApplicationTests {
             
               
                 <li class="base">
-                  <a  href="/2019/08/20/关于RabbitMQ，看这篇文章就够了/" class="post-categoris-bottom-link">
+                  <a  href="/2019/08/20/%E5%85%B3%E4%BA%8ERabbitMQ%EF%BC%8C%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/" class="post-categoris-bottom-link">
                   关于RabbitMQ，看这篇文章就够了
                 </a>
                 </li>
@@ -352,7 +286,7 @@ public class TokenApplicationTests {
             
               
                 <li class="base">
-                  <a  href="/2021/03/22/管理小记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/03/22/%E7%AE%A1%E7%90%86%E5%B0%8F%E8%AE%B0/" class="post-categoris-bottom-link">
                   管理小记
                 </a>
                 </li>
@@ -367,7 +301,7 @@ public class TokenApplicationTests {
             
               
                 <li class="base">
-                  <a  href="/2021/05/05/架构笔记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/05/05/%E6%9E%B6%E6%9E%84%E7%AC%94%E8%AE%B0/" class="post-categoris-bottom-link">
                   架构笔记
                 </a>
                 </li>
@@ -378,7 +312,7 @@ public class TokenApplicationTests {
             
               
                 <li class="base">
-                  <a  href="/2021/08/20/Spring Data JPA/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/20/Spring%20Data%20JPA/" class="post-categoris-bottom-link">
                   Spring Data JPA
                 </a>
                 </li>
@@ -400,7 +334,7 @@ public class TokenApplicationTests {
             
               
                 <li class="base">
-                  <a  href="/2021/08/21/Java单元测试/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/21/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" class="post-categoris-bottom-link">
                   Java Unit Test
                 </a>
                 </li>
@@ -411,7 +345,7 @@ public class TokenApplicationTests {
             
               
                 <li class="base">
-                  <a  href="/2022/02/12/Code Review/" class="post-categoris-bottom-link">
+                  <a  href="/2022/02/12/Code%20Review/" class="post-categoris-bottom-link">
                   Code Review
                 </a>
                 </li>
@@ -422,7 +356,7 @@ public class TokenApplicationTests {
             
               
                 <li class="base">
-                  <a  href="/2022/06/06/技术思维/" class="post-categoris-bottom-link">
+                  <a  href="/2022/06/06/%E6%8A%80%E6%9C%AF%E6%80%9D%E7%BB%B4/" class="post-categoris-bottom-link">
                   技术思维
                 </a>
                 </li>
@@ -487,11 +421,15 @@ public class TokenApplicationTests {
 
 
 
+
 <script src="/js/white.js"></script>
 
 
+
     
-      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+      
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
       <script>hljs.initHighlightingOnLoad();</script>
     
 

@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>  Spring Data JPA |    freedom</title>
@@ -16,15 +16,19 @@
   <!-- 动画库 -->
   
   <!-- css文件 -->
-  <link rel="stylesheet" href="/css/white.css">
+  
+<link rel="stylesheet" href="/css/white.css">
+
   <!-- 代码高亮 -->
   
     
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+
     
   
-</head>
-</html>
+<meta name="generator" content="Hexo 7.0.0-rc1"></head>
+
 
 <body>
 
@@ -55,7 +59,7 @@
           <li class="menu-li " id="sort">
              CATEGORY
              <div class="categories-outer " id="sort-div">
-               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
+               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E4%B9%90/">音乐</a></li></ul>
              </div>
           </li>
         
@@ -120,7 +124,7 @@
       <div class="post-content-main animate__animated  animate__fadeInUp">
         <!-- top型目录 -->
         
-        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/spring-data-jpa.jpeg" alt></p>
+        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/spring-data-jpa.jpeg" alt=""></p>
 <h2 id="认识-Spring-Data-JPA"><a href="#认识-Spring-Data-JPA" class="headerlink" title="认识 Spring Data JPA"></a>认识 Spring Data JPA</h2><p><strong>一. ORM</strong></p>
 <blockquote>
 <p><strong>概述：</strong></p>
@@ -128,41 +132,8 @@
 <p><strong>简单说，ORM就是通过实例对象的语法，完成关系型数据库的操作。是“对象-关系映射”(Object/Relational Mapping)的缩写。</strong></p>
 </blockquote>
 <p>首先先看一段Java JDBC的代码：</p>
-<pre><code class="java">   private static final ThreadLocal&lt;Connection&gt; THREAD_LOCAL = new ThreadLocal&lt;&gt;();
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> ThreadLocal&lt;Connection&gt; THREAD_LOCAL = <span class="keyword">new</span> <span class="title class_">ThreadLocal</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 取得数据库的连接对象，如果没有则自动创建新的连接。</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> Connection</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">static</span> Connection <span class="title function_">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> ClassNotFoundException, SQLException &#123;</span><br><span class="line">     <span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> THREAD_LOCAL.get();</span><br><span class="line">     <span class="keyword">if</span> (conn == <span class="literal">null</span>) &#123;</span><br><span class="line">         Class.forName(<span class="string">&quot;$&#123;driver&#125;&quot;</span>);</span><br><span class="line">         conn = DriverManager.getConnection(<span class="string">&quot;$&#123;url&#125;&quot;</span>, <span class="string">&quot;#&#123;username&#125;&quot;</span>, <span class="string">&quot;$&#123;password&#125;&quot;</span>);</span><br><span class="line">         THREAD_LOCAL.set(conn);</span><br><span class="line">     &#125;</span><br><span class="line">     <span class="keyword">return</span> conn;</span><br><span class="line"> &#125;</span><br><span class="line"></span><br><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 添加用户</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> user</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"> <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addUser</span><span class="params">(User user)</span> <span class="keyword">throws</span> ClassNotFoundException, SQLException &#123;</span><br><span class="line">     <span class="comment">//拿到数据库连接</span></span><br><span class="line">     <span class="type">Connection</span> <span class="variable">con</span> <span class="operator">=</span> getConnection();</span><br><span class="line">     <span class="comment">//参数用占位符 ? 表示</span></span><br><span class="line">     <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;INSERT INTO user (id, first_name, last_name, age) VALUES (?, ?, ?, ?)&quot;</span>;</span><br><span class="line">     <span class="comment">//预编译sql预计</span></span><br><span class="line">     <span class="type">PreparedStatement</span> <span class="variable">psmt</span> <span class="operator">=</span> con.prepareStatement(sql);</span><br><span class="line">     <span class="comment">//给sql语句传递参数</span></span><br><span class="line">     psmt.setLong(<span class="number">1</span>, user.getId());</span><br><span class="line">     psmt.setString(<span class="number">2</span>, user.getFirstName());</span><br><span class="line">     psmt.setString(<span class="number">3</span>, user.getLastName());</span><br><span class="line">     psmt.setInt(<span class="number">4</span>, user.getAge());</span><br><span class="line">     <span class="comment">//执行sql语句</span></span><br><span class="line">     psmt.execute();</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
 
-    /**
-     * 取得数据库的连接对象，如果没有则自动创建新的连接。
-     * @return Connection
-     */
-    public static Connection getConnection() throws ClassNotFoundException, SQLException {
-        Connection conn = THREAD_LOCAL.get();
-        if (conn == null) {
-            Class.forName(&quot;${driver}&quot;);
-            conn = DriverManager.getConnection(&quot;${url}&quot;, &quot;#{username}&quot;, &quot;${password}&quot;);
-            THREAD_LOCAL.set(conn);
-        }
-        return conn;
-    }
-
-    /**
-     * 添加用户
-     * @param user
-     */
-    public void addUser(User user) throws ClassNotFoundException, SQLException {
-        //拿到数据库连接
-        Connection con = getConnection();
-        //参数用占位符 ? 表示
-        String sql = &quot;INSERT INTO user (id, first_name, last_name, age) VALUES (?, ?, ?, ?)&quot;;
-        //预编译sql预计
-        PreparedStatement psmt = con.prepareStatement(sql);
-        //给sql语句传递参数
-        psmt.setLong(1, user.getId());
-        psmt.setString(2, user.getFirstName());
-        psmt.setString(3, user.getLastName());
-        psmt.setInt(4, user.getAge());
-        //执行sql语句
-        psmt.execute();
-    }</code></pre>
 <p>以上是基于<code>mysql-connector-java</code>包中的原生方法操作<code>MySQL</code>数据库。</p>
 <p>虽然基本实现了实体和数据库对象的映射，但如果完全这么写的话，项目中会有大量的拼接<code>SQL</code>、参数传递等看起来既冗余不优雅又容易出错的代码。</p>
 <p>在此基础上，我们的<strong>需求</strong>就变成了需要功能更完善的ORM框架：</p>
@@ -176,8 +147,8 @@
 <thead>
 <tr>
 <th></th>
-<th><a href="https://mybatis.org/mybatis-3/" target="_blank" rel="noopener">MyBatis</a></th>
-<th><a href="https://hibernate.org/" target="_blank" rel="noopener">Hibernate</a></th>
+<th><a href="https://mybatis.org/mybatis-3/">MyBatis</a></th>
+<th><a href="https://hibernate.org/">Hibernate</a></th>
 </tr>
 </thead>
 <tbody><tr>
@@ -235,13 +206,13 @@
 <p>别着急，我们往下聊。</p>
 <p><strong>三： Spring-Data-JPA</strong></p>
 <p><strong>1. JPA</strong></p>
-<p>JDK5.0新增了<a href="https://docs.oracle.com/javaee/6/tutorial/doc/bnbpz.html" target="_blank" rel="noopener">JPA</a> (Java Persistence API) 协议：通过相关持久层注解来实现对象和关系型数据库表映射关系，并将Java项目运行期的实体对象，通过一种Session持久化到数据库中。</p>
+<p>JDK5.0新增了<a href="https://docs.oracle.com/javaee/6/tutorial/doc/bnbpz.html">JPA</a> (Java Persistence API) 协议：通过相关持久层注解来实现对象和关系型数据库表映射关系，并将Java项目运行期的实体对象，通过一种Session持久化到数据库中。</p>
 <p>有了协议就有了标准规范，有了规范按照API去实现就可以了。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa.png" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa.png" alt=""></p>
 <p>通过上图可以看出来Hibernate就是基于JPA的标准实现。</p>
 <p>你是想做一个挑战者用JPA还是只做“搬砖者”用MyBatis？</p>
 <p><strong>2. Spring Data</strong></p>
-<p><a href="https://spring.io/projects/spring-data" target="_blank" rel="noopener">Spring Data</a> 作为Spring旗下的一个父项目，旨在统一和简化对各种类型持久化存储，而不拘泥于关系型数据库还是NoSQL存储。</p>
+<p><a href="https://spring.io/projects/spring-data">Spring Data</a> 作为Spring旗下的一个父项目，旨在统一和简化对各种类型持久化存储，而不拘泥于关系型数据库还是NoSQL存储。</p>
 <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_spring_data.jpg" alt="spring_data_jpa"></p>
 <p>无论是哪种存储，数据访问对象通常都会提供单一域对象的CRUD、排序、分页等操作。Spring Data则提供了基于这些层面的统一接口(CrudRepository，PagingAndSortingRepository)以及对持久存储的实现。</p>
 <p>通过上图发现Spring Data JPA就是其中的一个子项目，是Spring针对JPA协议的实现。</p>
@@ -258,90 +229,26 @@
 </ol>
 <p>在可预见的时间内，我们的项目Spring Data JPA基本可以满足，基于此，我们选择Spring Data JPA。下面我们用一个简单的Quick Start感受一下使用Spring Data JPA开发的便捷性。</p>
 <h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><p><strong>1. 引入依赖</strong></p>
-<pre><code class="groovy">dependencies {
-    implementation &#39;org.springframework.boot:spring-boot-starter-data-jpa:2.5.2&#39;
-    runtimeOnly &#39;com.h2database:h2:1.4.200&#39;
-}</code></pre>
+<figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">dependencies &#123;</span><br><span class="line">    implementation <span class="string">&#x27;org.springframework.boot:spring-boot-starter-data-jpa:2.5.2&#x27;</span></span><br><span class="line">    runtimeOnly <span class="string">&#x27;com.h2database:h2:1.4.200&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>我们使用了内存数据库<code>H2</code></p>
 <p><strong>2. 实现用户CRUD的功能</strong></p>
 <p>2.1 实体类：User</p>
-<pre><code class="java">@Entity
-public class User implements Serializable {
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Entity</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">134679228697801572L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 主键</span></span><br><span class="line"><span class="comment">     * 用户id</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Id</span></span><br><span class="line">    <span class="meta">@GeneratedValue(strategy = GenerationType.IDENTITY)</span></span><br><span class="line">    <span class="keyword">private</span> Long id;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户名</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String firstName;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户姓</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> String lastName;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 用户年龄</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Integer age;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Instant createTime;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 更新时间</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> Instant updateTime;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//setter、getter、toString 略</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    private static final long serialVersionUID = 134679228697801572L;
-
-    /**
-     * 主键
-     * 用户id
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    /**
-     * 用户名
-     */
-    private String firstName;
-
-    /**
-     * 用户姓
-     */
-    private String lastName;
-
-    /**
-     * 用户年龄
-     */
-    private Integer age;
-
-    /**
-     * 创建时间
-     */
-    private Instant createTime;
-
-    /**
-     * 更新时间
-     */
-    private Instant updateTime;
-
-    //setter、getter、toString 略
-
-}</code></pre>
 <p>2.2 数据访问层：UserRepository</p>
-<pre><code class="java">public interface UserRepository extends JpaRepository&lt;User, Long&gt; {
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserRepository</span> <span class="keyword">extends</span> <span class="title class_">JpaRepository</span>&lt;User, Long&gt; &#123;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-}</code></pre>
 <p><strong>3. 测试</strong></p>
-<pre><code class="java">@SpringBootTest
-class GvApplicationTests {
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">GvApplicationTests</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> UserRepository userRepository;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ObjectMapper objectMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">void</span> <span class="title function_">userTest</span><span class="params">()</span> <span class="keyword">throws</span> JsonProcessingException &#123;</span><br><span class="line">        <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">        user.setFirstName(<span class="string">&quot;Michael&quot;</span>);</span><br><span class="line">        user.setLastName(<span class="string">&quot;Jackson&quot;</span>);</span><br><span class="line">        user.setAge(<span class="number">18</span>);</span><br><span class="line">        <span class="type">Long</span> <span class="variable">id</span> <span class="operator">=</span> userRepository.save(user).getId();</span><br><span class="line">        System.out.println(<span class="string">&quot;saved user id: &quot;</span> + id);</span><br><span class="line">        Optional&lt;User&gt; userOptional = userRepository.findById(id);</span><br><span class="line">        <span class="keyword">if</span> (userOptional.isPresent()) &#123;</span><br><span class="line">            <span class="type">User</span> <span class="variable">vo</span> <span class="operator">=</span> userOptional.get();</span><br><span class="line">            System.out.println(<span class="string">&quot;saved user info: &quot;</span> + objectMapper.writeValueAsString(vo));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    @Autowired
-    private UserRepository userRepository;
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @Test
-    void userTest() throws JsonProcessingException {
-        User user = new User();
-        user.setFirstName(&quot;Michael&quot;);
-        user.setLastName(&quot;Jackson&quot;);
-        user.setAge(18);
-        Long id = userRepository.save(user).getId();
-        System.out.println(&quot;saved user id: &quot; + id);
-        Optional&lt;User&gt; userOptional = userRepository.findById(id);
-        if (userOptional.isPresent()) {
-            User vo = userOptional.get();
-            System.out.println(&quot;saved user info: &quot; + objectMapper.writeValueAsString(vo));
-        }
-    }
-
-}</code></pre>
 <p>结果：</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_test.jpeg" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_test.jpeg" alt=""></p>
 <p>可以看到，我们基本没写什么代码，没有关注数据层，只是定义了实体类和一个UserRepository接口却完整的实现了针对User的CRUD。</p>
 <p>下面让我们一点点揭开Spring Data JPA的面纱。</p>
 <h2 id="基础用法"><a href="#基础用法" class="headerlink" title="基础用法"></a>基础用法</h2><p><strong>1. Repository</strong></p>
 <p>我们先来看一下UserRepository的继承关系图：</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_user_diagram.jpg" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_user_diagram.jpg" alt=""></p>
 <p><strong>四大Repository接口</strong></p>
 <p>前三个类都是Spring Data的基本接口。JpaRepository是基于JPA的扩展和实现。</p>
 <ul>
@@ -350,7 +257,7 @@ class GvApplicationTests {
 <li><p><strong>CrudRepository：</strong> Repository的直接子类，提供基础的CRUD方法。</p>
 </li>
 </ul>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_crud_repository.jpg" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_crud_repository.jpg" alt=""></p>
 <p>通过IDEA工具我们可以看到CrudRepository中的所有方法，基本涵盖了所有CRUD相关的方法实现。</p>
 <p><strong>注：</strong></p>
 <p>是不是发现没有update相关的方法。通过查看源码发现，save方法接收的参数是一个entity实体，而当传递的参数中没有ID，Spring Data会直接insert，当有ID的时候，会触发select查询，此方法会查看这条ID对应的数据是否存在，若存在则update，否则insert。 </p>
@@ -358,7 +265,7 @@ class GvApplicationTests {
 <li><strong>PagingAndSortingRepository：</strong></li>
 </ul>
 <p>是不是发现CrudRepository没有排序和分页相关的基础操作。其实实现交给了它的子类PagingAndSortingRepository。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_paging_and_sorting_repository.jpeg" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_paging_and_sorting_repository.jpeg" alt=""></p>
 <ul>
 <li><strong>JpaRepository：</strong></li>
 </ul>
@@ -372,23 +279,12 @@ class GvApplicationTests {
 <p><strong>2. Defining Query Methods</strong></p>
 <p>Spring Data Jpa的最大特色是利用DQM：方法名定义查询方法(Defining Query Methods)来做Crud操作。</p>
 <p>具体我们看一个例子：</p>
-<pre><code class="java">public interface UserRepository extends JpaRepository&lt;User, Long&gt; {
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserRepository</span> <span class="keyword">extends</span> <span class="title class_">JpaRepository</span>&lt;User, Long&gt; &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * find by name</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> firstName first name</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> Optional</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    Optional&lt;List&lt;User&gt;&gt; <span class="title function_">findByFirstName</span><span class="params">(String firstName)</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    /**
-     * find by name
-     * @param firstName first name
-     * @return Optional
-     */
-    Optional&lt;List&lt;User&gt;&gt; findByFirstName(String firstName);
-
-}</code></pre>
 <p>在UserRepository中我们增加了一个findByFirstName()的方法，而此方法我们并没有手动做任何的实现。</p>
 <p>测试：</p>
-<pre><code class="java">Optional&lt;List&lt;User&gt;&gt; optional = userRepository.findByFirstName(user.getFirstName());
-if (optional.isPresent()) {
-    User vo = optional.get().stream().findFirst().orElseThrow();
-    System.out.println(&quot;saved user info: &quot; + objectMapper.writeValueAsString(vo));
-}</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Optional&lt;List&lt;User&gt;&gt; optional = userRepository.findByFirstName(user.getFirstName());</span><br><span class="line"><span class="keyword">if</span> (optional.isPresent()) &#123;</span><br><span class="line">    <span class="type">User</span> <span class="variable">vo</span> <span class="operator">=</span> optional.get().stream().findFirst().orElseThrow();</span><br><span class="line">    System.out.println(<span class="string">&quot;saved user info: &quot;</span> + objectMapper.writeValueAsString(vo));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>测试结果发现我们成功基于findByFirstName()获取了数据库数据。是不是很简单。</p>
 <p>我们可以使用JPA标准创建一个查询，Spring Data JPA会帮我们转换成数据库操作。</p>
 <p>下表描述了 JPA 支持的关键字以及包含该关键字的方法转换：</p>
@@ -527,50 +423,20 @@ if (optional.isPresent()) {
 </tr>
 </tbody></table>
 <p>Spring Data JPA基于Pageable和Sort，以及限制查询结果的First和Top关键字等还提供了一些更便捷的实现。很简单，看例子就可以明白：</p>
-<pre><code class="java">    /**
-     * 基于name查询user信息并基于Pageable进行分页返回
-     */
-    Page&lt;User&gt; findByName(String name, Pageable page);
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 基于name查询user信息并基于Pageable进行分页返回</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">Page&lt;User&gt; <span class="title function_">findByName</span><span class="params">(String name, Pageable page)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查询结果以sort进行排序返回</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">List&lt;User&gt; <span class="title function_">findByName</span><span class="params">(String name, Sort sort)</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 基于name查询并按照age排序返回第一个</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">User <span class="title function_">findFirstByNameOrderByAgeDesc</span><span class="params">(String name)</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 基于name查询并返回前10条结果</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line">List&lt;User&gt; <span class="title function_">findTop10ByName</span><span class="params">(String name, Pageable pageable)</span>;</span><br></pre></td></tr></table></figure>
 
-    /**
-     * 查询结果以sort进行排序返回
-     */
-    List&lt;User&gt; findByName(String name, Sort sort);
-
-
-    /**
-     * 基于name查询并按照age排序返回第一个
-     */
-    User findFirstByNameOrderByAgeDesc(String name);
-
-    /**
-     * 基于name查询并返回前10条结果
-     */
-    List&lt;User&gt; findTop10ByName(String name, Pageable pageable);</code></pre>
 <p><strong>3. Query注解</strong></p>
 <p>如果封装的这些方法都不能满足需求，或者我们就像写SQL语句进行数据库操作怎么办？Spring Data JPA也有相对应的支持，就是Query注解。</p>
-<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_query.png" alt></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/spring-data-jpa/jpa_query.png" alt=""></p>
 <p>@Query是基于JPQL为实体创建声明式的查询方法。简单介绍下JPQL语法：</p>
-<pre><code class="sql">SELECT ... FROM ...
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> ... <span class="keyword">FROM</span> ...</span><br><span class="line"></span><br><span class="line">[<span class="keyword">WHERE</span> ...]</span><br><span class="line"></span><br><span class="line">[<span class="keyword">GROUP</span> <span class="keyword">BY</span> ... [<span class="keyword">HAVING</span> ...]]</span><br><span class="line"></span><br><span class="line">[<span class="keyword">ORDER</span> <span class="keyword">BY</span> ...]</span><br><span class="line"></span><br><span class="line"><span class="keyword">DELETE</span> <span class="keyword">FROM</span> ... [<span class="keyword">WHERE</span> ...]</span><br><span class="line"></span><br><span class="line"><span class="keyword">UPDATE</span> ... <span class="keyword">SET</span> ... [<span class="keyword">WHERE</span> ...]</span><br></pre></td></tr></table></figure>
 
-[WHERE ...]
-
-[GROUP BY ... [HAVING ...]]
-
-[ORDER BY ...]
-
-DELETE FROM ... [WHERE ...]
-
-UPDATE ... SET ... [WHERE ...]</code></pre>
 <p>其中 … 是实体对象的和对象字段名字。</p>
 <p>哎，这不就是SQL吗？</p>
 <p>其实可以简单的这么认为。只不过操作的对象由数据库表字段编程实体类字段。</p>
 <p>关于@Query的使用一个简单的例子就可以说明：</p>
-<pre><code class="java">@Query(&quot;SELECT * FROM User u WHERE u.firstName = ?1&quot;)
-User findByFirstName(String firstName);
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Query(&quot;SELECT * FROM User u WHERE u.firstName = ?1&quot;)</span></span><br><span class="line">User <span class="title function_">findByFirstName</span><span class="params">(String firstName)</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Query(value = &quot;SELECT * FROM user WHERE first_name = ?1&quot;, nativeQuery = true)</span></span><br><span class="line">User <span class="title function_">findByFirstName</span><span class="params">(String firstName)</span>;</span><br></pre></td></tr></table></figure>
 
-@Query(value = &quot;SELECT * FROM user WHERE first_name = ?1&quot;, nativeQuery = true)
-User findByFirstName(String firstName);</code></pre>
 <p>这两个方法都可以基于name查询出用户信息，区别在于第一个使用JPQL，第二个使用原生SQL(使用nativeQuery = true声明)。</p>
 <p>Spring发现方法名字上有@Query注解就会优先使用注解中的语句执行数据库操作，否则使用DQM。</p>
 <p>注：建议统一使用JPQL，风格保持统一。</p>
@@ -579,17 +445,12 @@ User findByFirstName(String firstName);</code></pre>
 <p>乐观锁基于CAS的思想，在实际开发过程中经常使用。它没有加锁、没有阻塞，在多线程环境下及高并发的情况下CPU的利用率是最高的，吞吐量也是最大的。</p>
 </blockquote>
 <p>而JPA协议也对乐观锁的操作做了规定：通过指定@Version字段对数据增加版本号，进而在更新的时候判断版本号是否有变化。如果没有变化则直接更新，否则就会抛出<code>OptimisticLockException</code>。我们用SQL表示一下乐观锁：</p>
-<pre><code class="sql">SELECT id, name, version FROM user WHERE id = 1;
-UPDATE user SET name = &#39;jackson&#39;, version = version + 1 WHERE id = 1 AND version = 1;</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> id, name, version <span class="keyword">FROM</span> <span class="keyword">user</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"><span class="keyword">UPDATE</span> <span class="keyword">user</span> <span class="keyword">SET</span> name <span class="operator">=</span> <span class="string">&#x27;jackson&#x27;</span>, version <span class="operator">=</span> version <span class="operator">+</span> <span class="number">1</span> <span class="keyword">WHERE</span> id <span class="operator">=</span> <span class="number">1</span> <span class="keyword">AND</span> version <span class="operator">=</span> <span class="number">1</span>;</span><br></pre></td></tr></table></figure>
+
 <p>假设本次查询的version是1，在更新操作时会依据WHERE条件中的version值进行对比，如果version值没有变化则执行更新操作，如果更新失败代表version不再是1，中间过程应该是别的线程修改了version的值。多个线程之间并且不会相互覆盖，保证了数据的原子性。</p>
 <p>那么Spring Data JPA又是如何实现的呢？</p>
-<pre><code class="java">public class UserEntity {
-   @Id
-   @GeneratedValue(strategy= GenerationType.AUTO)
-   private Long id;
-   @Version
-   private Long version;
-}</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserEntity</span> &#123;</span><br><span class="line">   <span class="meta">@Id</span></span><br><span class="line">   <span class="meta">@GeneratedValue(strategy= GenerationType.AUTO)</span></span><br><span class="line">   <span class="keyword">private</span> Long id;</span><br><span class="line">   <span class="meta">@Version</span></span><br><span class="line">   <span class="keyword">private</span> Long version;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>是的就这么简单，一个@Version注解搞定。</p>
 <p>同样的，Spring Data JPA发现有@Version注解会基于动态代理映射上面的乐观锁SQL。</p>
 <p><strong>注：</strong></p>
@@ -609,7 +470,7 @@ UPDATE user SET name = &#39;jackson&#39;, version = version + 1 WHERE id = 1 AND
             
               
                 <li class="base">
-                  <a  href="/2017/11/16/基于SpringBoot、STOMP使用WebSocket实现聊天室功能/" class="post-categoris-bottom-link">
+                  <a  href="/2017/11/16/%E5%9F%BA%E4%BA%8ESpringBoot%E3%80%81STOMP%E4%BD%BF%E7%94%A8WebSocket%E5%AE%9E%E7%8E%B0%E8%81%8A%E5%A4%A9%E5%AE%A4%E5%8A%9F%E8%83%BD/" class="post-categoris-bottom-link">
                   基于SpringBoot、STOMP使用WebSocket实现聊天室功能
                 </a>
                 </li>
@@ -631,7 +492,7 @@ UPDATE user SET name = &#39;jackson&#39;, version = version + 1 WHERE id = 1 AND
             
               
                 <li class="base">
-                  <a  href="/2018/07/14/TiDB-重新定义下一代关系型数据库/" class="post-categoris-bottom-link">
+                  <a  href="/2018/07/14/TiDB-%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89%E4%B8%8B%E4%B8%80%E4%BB%A3%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-categoris-bottom-link">
                   TiDB:重新定义下一代关系型数据库
                 </a>
                 </li>
@@ -665,7 +526,7 @@ UPDATE user SET name = &#39;jackson&#39;, version = version + 1 WHERE id = 1 AND
             
               
                 <li class="base">
-                  <a  href="/2019/08/20/关于RabbitMQ，看这篇文章就够了/" class="post-categoris-bottom-link">
+                  <a  href="/2019/08/20/%E5%85%B3%E4%BA%8ERabbitMQ%EF%BC%8C%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/" class="post-categoris-bottom-link">
                   关于RabbitMQ，看这篇文章就够了
                 </a>
                 </li>
@@ -713,7 +574,7 @@ UPDATE user SET name = &#39;jackson&#39;, version = version + 1 WHERE id = 1 AND
             
               
                 <li class="base">
-                  <a  href="/2021/03/22/管理小记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/03/22/%E7%AE%A1%E7%90%86%E5%B0%8F%E8%AE%B0/" class="post-categoris-bottom-link">
                   管理小记
                 </a>
                 </li>
@@ -728,7 +589,7 @@ UPDATE user SET name = &#39;jackson&#39;, version = version + 1 WHERE id = 1 AND
             
               
                 <li class="base">
-                  <a  href="/2021/05/05/架构笔记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/05/05/%E6%9E%B6%E6%9E%84%E7%AC%94%E8%AE%B0/" class="post-categoris-bottom-link">
                   架构笔记
                 </a>
                 </li>
@@ -739,7 +600,7 @@ UPDATE user SET name = &#39;jackson&#39;, version = version + 1 WHERE id = 1 AND
             
               
                 <li class="me base">
-                  <a  href="/2021/08/20/Spring Data JPA/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/20/Spring%20Data%20JPA/" class="post-categoris-bottom-link">
                   Spring Data JPA
                 </a>
                 </li>
@@ -761,7 +622,7 @@ UPDATE user SET name = &#39;jackson&#39;, version = version + 1 WHERE id = 1 AND
             
               
                 <li class="base">
-                  <a  href="/2021/08/21/Java单元测试/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/21/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" class="post-categoris-bottom-link">
                   Java Unit Test
                 </a>
                 </li>
@@ -772,7 +633,7 @@ UPDATE user SET name = &#39;jackson&#39;, version = version + 1 WHERE id = 1 AND
             
               
                 <li class="base">
-                  <a  href="/2022/02/12/Code Review/" class="post-categoris-bottom-link">
+                  <a  href="/2022/02/12/Code%20Review/" class="post-categoris-bottom-link">
                   Code Review
                 </a>
                 </li>
@@ -783,7 +644,7 @@ UPDATE user SET name = &#39;jackson&#39;, version = version + 1 WHERE id = 1 AND
             
               
                 <li class="base">
-                  <a  href="/2022/06/06/技术思维/" class="post-categoris-bottom-link">
+                  <a  href="/2022/06/06/%E6%8A%80%E6%9C%AF%E6%80%9D%E7%BB%B4/" class="post-categoris-bottom-link">
                   技术思维
                 </a>
                 </li>
@@ -848,11 +709,15 @@ UPDATE user SET name = &#39;jackson&#39;, version = version + 1 WHERE id = 1 AND
 
 
 
+
 <script src="/js/white.js"></script>
 
 
+
     
-      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+      
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
       <script>hljs.initHighlightingOnLoad();</script>
     
 

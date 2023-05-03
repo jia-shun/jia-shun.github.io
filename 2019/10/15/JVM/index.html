@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>  JVM |    freedom</title>
@@ -16,15 +16,19 @@
   <!-- 动画库 -->
   
   <!-- css文件 -->
-  <link rel="stylesheet" href="/css/white.css">
+  
+<link rel="stylesheet" href="/css/white.css">
+
   <!-- 代码高亮 -->
   
     
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+
     
   
-</head>
-</html>
+<meta name="generator" content="Hexo 7.0.0-rc1"></head>
+
 
 <body>
 
@@ -55,7 +59,7 @@
           <li class="menu-li " id="sort">
              CATEGORY
              <div class="categories-outer " id="sort-div">
-               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
+               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E4%B9%90/">音乐</a></li></ul>
              </div>
           </li>
         
@@ -169,34 +173,11 @@
 <li><p>运行时常量池：用于存放编译期生成各种字面量和符号引用。Java语言并不要求常量一定只有编译期才能产生，运行期间也可能将新的常量放入池中，比如最常用的String的intern()方法。</p>
 </li>
 <li><p>基本数据类型的包装类和常量池：Java中基本类型的包装类大都实现了常量池技术，即Byte、Short、Integer、Long、Character、Boolean。这五种包装类默认创建了数值[-128， 127]的相应类型的缓存数据，但是超出此范围仍然会去创建新的对象。两种浮点数类型的包装类Float、Double并没有实现常量池技术。</p>
-<pre><code class="java">
-  String str1 = new String(&quot;hello&quot;);
-  String str2 = str1.intern();
-  String str3 = &quot;hello&quot;;
-  System.out.println(&quot;str1=str2: &quot; + (str1 == str2));
-  System.out.println(&quot;str2=str3: &quot; + (str2 == str3));      
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">		</span><br><span class="line"><span class="type">String</span> <span class="variable">str1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">str2</span> <span class="operator">=</span> str1.intern();</span><br><span class="line"><span class="type">String</span> <span class="variable">str3</span> <span class="operator">=</span> <span class="string">&quot;hello&quot;</span>;</span><br><span class="line">System.out.println(<span class="string">&quot;str1=str2: &quot;</span> + (str1 == str2));</span><br><span class="line">System.out.println(<span class="string">&quot;str2=str3: &quot;</span> + (str2 == str3));  	</span><br><span class="line"></span><br><span class="line"><span class="type">Integer</span> <span class="variable">i1</span> <span class="operator">=</span> <span class="number">40</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">i2</span> <span class="operator">=</span> <span class="number">40</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">i3</span> <span class="operator">=</span> <span class="number">200</span>;</span><br><span class="line"><span class="type">Integer</span> <span class="variable">i4</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Integer</span>(<span class="number">40</span>);</span><br><span class="line"><span class="type">Integer</span> <span class="variable">i5</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Integer</span>(<span class="number">40</span>);</span><br><span class="line">System.out.println(<span class="string">&quot;i1地址：&quot;</span> + System.identityHashCode(i1));</span><br><span class="line">System.out.println(<span class="string">&quot;i2地址：&quot;</span> + System.identityHashCode(i2));</span><br><span class="line">System.out.println(<span class="string">&quot;i4地址：&quot;</span> + System.identityHashCode(i4));</span><br><span class="line">System.out.println(<span class="string">&quot;i1=i2: &quot;</span> + (i1 == i2));</span><br><span class="line">System.out.println(<span class="string">&quot;i4=i5: &quot;</span> + (i4 == i5));</span><br><span class="line">      </span><br></pre></td></tr></table></figure>
 
-  Integer i1 = 40;
-  Integer i2 = 40;
-  Integer i3 = 200;
-  Integer i4 = new Integer(40);
-  Integer i5 = new Integer(40);
-  System.out.println(&quot;i1地址：&quot; + System.identityHashCode(i1));
-  System.out.println(&quot;i2地址：&quot; + System.identityHashCode(i2));
-  System.out.println(&quot;i4地址：&quot; + System.identityHashCode(i4));
-  System.out.println(&quot;i1=i2: &quot; + (i1 == i2));
-  System.out.println(&quot;i4=i5: &quot; + (i4 == i5));
-</code></pre>
 <p>思考：以上代码创建了几个新的对象？</p>
 <p>result:</p>
-<pre><code class="java">str1=str2: false
-str2=str3: true
-i1地址：672320506
-i2地址：672320506
-i4地址：1349414238
-i1=i2: true
-i4=i5: false
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">str1=str2: <span class="literal">false</span></span><br><span class="line">str2=str3: <span class="literal">true</span></span><br><span class="line">i1地址：<span class="number">672320506</span></span><br><span class="line">i2地址：<span class="number">672320506</span></span><br><span class="line">i4地址：<span class="number">1349414238</span></span><br><span class="line">i1=i2: <span class="literal">true</span></span><br><span class="line">i4=i5: <span class="literal">false</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p> 注意：</p>
 <p> 方法区是JVM规范层面的东西，规定了这一个区域应该存放那些东西。而对于如何实现并没有强制规定。</p>
@@ -238,7 +219,7 @@ i4=i5: false
 <h4 id="三：GC"><a href="#三：GC" class="headerlink" title="三：GC"></a>三：GC</h4><p>理论上，如果有一些数据已经不再使用了，我们要释放掉它所占用的内存空间。</p>
 <p>垃圾自动回收最早可以追溯到50年代的Lisp语言，后续大部分的高级语言都实现了自动回收。但相对来说Java的垃圾回收是比较复杂比较成熟的。</p>
 <p><strong>对象创建：</strong></p>
-<img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/jvm_create_obj.png" alt="jvm_create_obj" style="zoom:28%;">
+<img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/jvm/jvm_create_obj.png" alt="jvm_create_obj" style="zoom:28%;" />
 
 <p><strong>TLAB：</strong></p>
 <p>如果有大片连续的内存可用于分配给新对象，这种情况下分配空间时非常简单快速的，只需要一个简单的指针碰撞就可以，每次分配对象空间只要检测一下是否有足够的空间，如果有，指针往前移动N位就分配好空间了，然后就可以初始化这个对象了。</p>
@@ -248,22 +229,8 @@ i4=i5: false
 <li><p>引用计数法：</p>
 <p>实现：为每个对象添加一个引用计数器，用来统计该对象的引用个数。一旦某个对象的引用计数为0，则说明该对象已死亡，便可以回收。</p>
 <p>缺陷：除了需要额外的空间存储计数器，以及繁琐的更新操作。还有最大的漏洞，就是无法处理循环引用对象。</p>
-<pre><code class="java">              class  A {
-                  public B bb;
-              }
-              class  B {
-                  public A aa;
-              }
-              public class TestGC {
-                  public static  void main(String[] args) {
-                      A a = new A();
-                      B b = new B();
-                      a.bb = b;
-                      b.aa = a;
-                      a = null;
-                      b = null;
-                  }
-              }</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span>  <span class="title class_">A</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> B bb;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">class</span>  <span class="title class_">B</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> A aa;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestGC</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span>  <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">A</span> <span class="variable">a</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">A</span>();</span><br><span class="line">        <span class="type">B</span> <span class="variable">b</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">B</span>();</span><br><span class="line">        a.bb = b;</span><br><span class="line">        b.aa = a;</span><br><span class="line">        a = <span class="literal">null</span>;</span><br><span class="line">        b = <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>以上程序中，b对象因为有a的引用，计数器+1，a对象因为有b的引用，计数器+1。但其实最终a和b对象都已经成为了垃圾却因为计数器不为0导致无法回收。</p>
 </li>
 <li><p>可达性分析：</p>
@@ -391,7 +358,7 @@ i4=i5: false
             
               
                 <li class="base">
-                  <a  href="/2017/11/16/基于SpringBoot、STOMP使用WebSocket实现聊天室功能/" class="post-categoris-bottom-link">
+                  <a  href="/2017/11/16/%E5%9F%BA%E4%BA%8ESpringBoot%E3%80%81STOMP%E4%BD%BF%E7%94%A8WebSocket%E5%AE%9E%E7%8E%B0%E8%81%8A%E5%A4%A9%E5%AE%A4%E5%8A%9F%E8%83%BD/" class="post-categoris-bottom-link">
                   基于SpringBoot、STOMP使用WebSocket实现聊天室功能
                 </a>
                 </li>
@@ -413,7 +380,7 @@ i4=i5: false
             
               
                 <li class="base">
-                  <a  href="/2018/07/14/TiDB-重新定义下一代关系型数据库/" class="post-categoris-bottom-link">
+                  <a  href="/2018/07/14/TiDB-%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89%E4%B8%8B%E4%B8%80%E4%BB%A3%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-categoris-bottom-link">
                   TiDB:重新定义下一代关系型数据库
                 </a>
                 </li>
@@ -447,7 +414,7 @@ i4=i5: false
             
               
                 <li class="base">
-                  <a  href="/2019/08/20/关于RabbitMQ，看这篇文章就够了/" class="post-categoris-bottom-link">
+                  <a  href="/2019/08/20/%E5%85%B3%E4%BA%8ERabbitMQ%EF%BC%8C%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/" class="post-categoris-bottom-link">
                   关于RabbitMQ，看这篇文章就够了
                 </a>
                 </li>
@@ -495,7 +462,7 @@ i4=i5: false
             
               
                 <li class="base">
-                  <a  href="/2021/03/22/管理小记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/03/22/%E7%AE%A1%E7%90%86%E5%B0%8F%E8%AE%B0/" class="post-categoris-bottom-link">
                   管理小记
                 </a>
                 </li>
@@ -510,7 +477,7 @@ i4=i5: false
             
               
                 <li class="base">
-                  <a  href="/2021/05/05/架构笔记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/05/05/%E6%9E%B6%E6%9E%84%E7%AC%94%E8%AE%B0/" class="post-categoris-bottom-link">
                   架构笔记
                 </a>
                 </li>
@@ -521,7 +488,7 @@ i4=i5: false
             
               
                 <li class="base">
-                  <a  href="/2021/08/20/Spring Data JPA/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/20/Spring%20Data%20JPA/" class="post-categoris-bottom-link">
                   Spring Data JPA
                 </a>
                 </li>
@@ -543,7 +510,7 @@ i4=i5: false
             
               
                 <li class="base">
-                  <a  href="/2021/08/21/Java单元测试/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/21/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" class="post-categoris-bottom-link">
                   Java Unit Test
                 </a>
                 </li>
@@ -554,7 +521,7 @@ i4=i5: false
             
               
                 <li class="base">
-                  <a  href="/2022/02/12/Code Review/" class="post-categoris-bottom-link">
+                  <a  href="/2022/02/12/Code%20Review/" class="post-categoris-bottom-link">
                   Code Review
                 </a>
                 </li>
@@ -565,7 +532,7 @@ i4=i5: false
             
               
                 <li class="base">
-                  <a  href="/2022/06/06/技术思维/" class="post-categoris-bottom-link">
+                  <a  href="/2022/06/06/%E6%8A%80%E6%9C%AF%E6%80%9D%E7%BB%B4/" class="post-categoris-bottom-link">
                   技术思维
                 </a>
                 </li>
@@ -630,11 +597,15 @@ i4=i5: false
 
 
 
+
 <script src="/js/white.js"></script>
 
 
+
     
-      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+      
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
       <script>hljs.initHighlightingOnLoad();</script>
     
 

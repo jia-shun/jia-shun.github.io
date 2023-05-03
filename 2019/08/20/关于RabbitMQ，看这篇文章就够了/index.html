@@ -3,7 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>  关于RabbitMQ，看这篇文章就够了 |    freedom</title>
@@ -16,15 +16,19 @@
   <!-- 动画库 -->
   
   <!-- css文件 -->
-  <link rel="stylesheet" href="/css/white.css">
+  
+<link rel="stylesheet" href="/css/white.css">
+
   <!-- 代码高亮 -->
   
     
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.1.1/styles/github.css">
+
     
   
-</head>
-</html>
+<meta name="generator" content="Hexo 7.0.0-rc1"></head>
+
 
 <body>
 
@@ -55,7 +59,7 @@
           <li class="menu-li " id="sort">
              CATEGORY
              <div class="categories-outer " id="sort-div">
-               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/技术/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/生活/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/音乐/">音乐</a></li></ul>
+               <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E6%B4%BB/">生活</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%9F%B3%E4%B9%90/">音乐</a></li></ul>
              </div>
           </li>
         
@@ -146,88 +150,26 @@
 <ul>
 <li>生产者</li>
 </ul>
-<pre><code class="java">public class RabbitProducer {  
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RabbitProducer</span> &#123;  </span><br><span class="line">      </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">EXCHANGE_NAME</span> <span class="operator">=</span> <span class="string">&quot;exchange_test&quot;</span>;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">ROUTING_KEY</span> <span class="operator">=</span> <span class="string">&quot;routing_test&quot;</span>;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">QUEUE_NAME</span> <span class="operator">=</span> <span class="string">&quot;queue_test&quot;</span>;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">IP_ADDRESS</span> <span class="operator">=</span> <span class="string">&quot;192.168.1.1&quot;</span>;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">PORT</span> <span class="operator">=</span> <span class="number">5672</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, TimeoutException &#123;  </span><br><span class="line">        <span class="type">ConnectionFactory</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ConnectionFactory</span>();  </span><br><span class="line">        factory.setHost(IP_ADDRESS);  </span><br><span class="line">        factory.setPort(PORT);  </span><br><span class="line">        factory.setUsername(<span class="string">&quot;root&quot;</span>);  </span><br><span class="line">        factory.setPassword(<span class="string">&quot;root0000&quot;</span>);  </span><br><span class="line">        <span class="type">Connection</span> <span class="variable">connection</span> <span class="operator">=</span> factory.newConnection();  </span><br><span class="line">        <span class="type">Channel</span> <span class="variable">channel</span> <span class="operator">=</span> connection.createChannel();  </span><br><span class="line">        <span class="comment">//type:direct, durable:true, autoDelete:false, arguments:null  </span></span><br><span class="line">        channel.exchangeDeclare(EXCHANGE_NAME, <span class="string">&quot;direct&quot;</span>, <span class="literal">true</span>, <span class="literal">false</span>, <span class="literal">null</span>);  </span><br><span class="line">        <span class="comment">//durable:true, exclusive:false, autoDelete:false, arguments:null  </span></span><br><span class="line">        channel.queueDeclare(QUEUE_NAME, <span class="literal">true</span>, <span class="literal">false</span>, <span class="literal">false</span>, <span class="literal">null</span>);  </span><br><span class="line">        channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY);  </span><br><span class="line">        <span class="type">String</span> <span class="variable">message</span> <span class="operator">=</span> <span class="string">&quot;Hello World!&quot;</span>;  </span><br><span class="line">        channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY,  </span><br><span class="line">                MessageProperties.PERSISTENT_TEXT_PLAIN,  </span><br><span class="line">                message.getBytes());  </span><br><span class="line">        channel.close();  </span><br><span class="line">        connection.close();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    private static final String EXCHANGE_NAME = &quot;exchange_test&quot;;  
-    private static final String ROUTING_KEY = &quot;routing_test&quot;;  
-    private static final String QUEUE_NAME = &quot;queue_test&quot;;  
-    private static final String IP_ADDRESS = &quot;192.168.1.1&quot;;  
-    private static final int PORT = 5672;
-
-    public static void main(String[] args) throws IOException, TimeoutException {  
-        ConnectionFactory factory = new ConnectionFactory();  
-        factory.setHost(IP_ADDRESS);  
-        factory.setPort(PORT);  
-        factory.setUsername(&quot;root&quot;);  
-        factory.setPassword(&quot;root0000&quot;);  
-        Connection connection = factory.newConnection();  
-        Channel channel = connection.createChannel();  
-        //type:direct, durable:true, autoDelete:false, arguments:null  
-        channel.exchangeDeclare(EXCHANGE_NAME, &quot;direct&quot;, true, false, null);  
-        //durable:true, exclusive:false, autoDelete:false, arguments:null  
-        channel.queueDeclare(QUEUE_NAME, true, false, false, null);  
-        channel.queueBind(QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY);  
-        String message = &quot;Hello World!&quot;;  
-        channel.basicPublish(EXCHANGE_NAME, ROUTING_KEY,  
-                MessageProperties.PERSISTENT_TEXT_PLAIN,  
-                message.getBytes());  
-        channel.close();  
-        connection.close();  
-    }  
-}</code></pre>
 <p><strong>exchangeDeclare方法详解：</strong><br>exchangeDeclare有多个重载方法，返回值为Exchange.DeclareOK，用来标识成功声明了一个交换器。<br>各个参数说明：<br>exchange：交换器名称。<br>type：交换器类型，如：direct，fanout，topic等<br>durable：设置是否持久化。durable设置为true表示持久化。反之。持久化可以将交换器存盘，在服务重启的时候不会丢失相关信息。<br>autoDelete：设置是否自动删除。设置为true表示自动删除。自动删除的前提是至少有一个队列或交换器与这个交换器绑定，之后所有与这个交换器绑定的队列或者交换器解绑。注意不能错误地把这个参数理解为：当与此交换器的连接客户端都断开时，自动删除本交换器。<br>internal：设置是否是内置的。true则表示内置交换器，客户端程序无法直接发送消息到这个交换器中，只能通过交换器路由到交换器的这种方式。<br>argument：其他一些结构化参数。<br><strong>queueDeclare方法详解：</strong><br>不带任何参数的queueDeclare方法默认创建一个由RabbitMQ命名的匿名队列、排他的、自动删除、非持久化的队列。<br>各个参数说明：<br>queue：队列名字。<br>durable：持久化。<br>exclusive：设置是否排他。如果一个队列被声明为排他队列。改队列仅对首次声明它的连接可见，并在连接断开时自动删除。<br>autoDelete：设置是否自动删除。自动删除的前提是：至少有一个消费者连接到这个队列，之后所有与这个队列连接的消费者都断开时，才会自动删除。不能把这个参数错误的理解为：当连接到此队列的所有客户端断开时，这个队列自动删除。不能把这个参数错误的理解为：当连接到此队列的所有客户端断开时，这个队列自动删除。因为生产者客户端创建这个队列，或者没有消费者客户端与这个队列连接时，都不会自动删除这个队列。<br>arguments：设置队列的其他一些参数。<br><strong>queueBind方法详解：</strong><br>将队列和交换器绑定的方法。<br>各个参数说明：<br>queue：队列名字。<br>exchange：交换器名称。<br>routingKey：用来绑定队列和交换器的路由键。<br>argum：定义绑定的一些参数。<br>除了queueBind()方法，也可以使用queueUnbind()方法将已绑定的队列和交换器进行解绑。<br>当然，不仅可以将交换器和队列绑定，也可以将交换器和交换器绑定。使用exchangeBinding()。但这两个方法都不太常用。<br><strong>channel.basicPublish方法详解：</strong><br>如果要发送一个消息，可以使用Channel类的basicPublish方法，比如发送内容为“hello world”的消息：</p>
-<pre><code class="java">byte[] body = &quot;Hello wrold&quot;.getBytes();  
-channel.basicPublish(exchangeName, routingKey, null, body);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">byte</span>[] body = <span class="string">&quot;Hello wrold&quot;</span>.getBytes();  </span><br><span class="line">channel.basicPublish(exchangeName, routingKey, <span class="literal">null</span>, body);</span><br></pre></td></tr></table></figure>
+
 <p>为了更好的控制发送，可以使用mandatory这个参数，或者发送一些特定属性的信息：</p>
-<pre><code class="java">channel.basicPublish(exchange, routingKey, mandatory, immediate,   
-                MessageProperties.PERSISTENT_TEXT_PLAIN,  
-                meessageBodyBytes);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">channel.basicPublish(exchange, routingKey, mandatory, immediate,   </span><br><span class="line">                MessageProperties.PERSISTENT_TEXT_PLAIN,  </span><br><span class="line">                meessageBodyBytes);</span><br></pre></td></tr></table></figure>
+
 <p>例：下面这行代码发送了一条消息，投递模式为2，即消息会被持久化在服务器中。同时消息的优先级为1，content-type为“text/plain”。</p>
-<pre><code class="java">channel.basicPublish(exchange, routingKey,   
-                new AMQP.BasicProperties.Builder()  
-                        .contentType(&quot;text/plain&quot;)  
-                        .deliveryMode(2)  
-                        .priority(1)  
-                        .userId(&quot;root&quot;)  
-                        .build(),  
-                messageBodyBytes);</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">channel.basicPublish(exchange, routingKey,   </span><br><span class="line">                <span class="keyword">new</span> <span class="title class_">AMQP</span>.BasicProperties.Builder()  </span><br><span class="line">                        .contentType(<span class="string">&quot;text/plain&quot;</span>)  </span><br><span class="line">                        .deliveryMode(<span class="number">2</span>)  </span><br><span class="line">                        .priority(<span class="number">1</span>)  </span><br><span class="line">                        .userId(<span class="string">&quot;root&quot;</span>)  </span><br><span class="line">                        .build(),  </span><br><span class="line">                messageBodyBytes);</span><br></pre></td></tr></table></figure>
+
 <p>各个参数说明：<br>BasicProperties：消息的基本属性值，其包含14个属性成员，分别有：contentType、contentEncoding、headers(Map&lt;String, Object&gt;)、deliverMode、priority、correlationId、replyTo、expiration、messageId、timestamp、type、userId、appId、clusterId。</p>
 <ul>
 <li>消费者</li>
 </ul>
-<pre><code class="java">public class RabbitConsumer {
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RabbitConsumer</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">QUEUE_NAME</span> <span class="operator">=</span> <span class="string">&quot;queue_test&quot;</span>;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">IP_ADDRESS</span> <span class="operator">=</span> <span class="string">&quot;192.168.1.1&quot;</span>;  </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">PORT</span> <span class="operator">=</span> <span class="number">5672</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException, TimeoutException &#123;  </span><br><span class="line">        <span class="type">ConnectionFactory</span> <span class="variable">factory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ConnectionFactory</span>();  </span><br><span class="line">        factory.setHost(IP_ADDRESS);  </span><br><span class="line">        factory.setPort(PORT);  </span><br><span class="line">        factory.setUsername(<span class="string">&quot;root&quot;</span>);  </span><br><span class="line">        factory.setPassword(<span class="string">&quot;root0000&quot;</span>);  </span><br><span class="line">        <span class="type">Connection</span> <span class="variable">connection</span> <span class="operator">=</span> factory.newConnection();  </span><br><span class="line">        <span class="type">Channel</span> <span class="variable">channel</span> <span class="operator">=</span> connection.createChannel();  </span><br><span class="line">        <span class="comment">//设置客户端最多接收未被ack的消息的个数  </span></span><br><span class="line">        channel.basicQos(<span class="number">64</span>);  </span><br><span class="line">        <span class="type">Consumer</span> <span class="variable">consumer</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DefaultConsumer</span>(channel) &#123;  </span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">handleDelivery</span><span class="params">(String consumerTag, Envelope envelope,  </span></span><br><span class="line"><span class="params">                                       BasicProperties properties, <span class="type">byte</span>[] body)</span> <span class="keyword">throws</span> IOException &#123;  </span><br><span class="line">                System.out.println(<span class="string">&quot;recv message: &quot;</span> + <span class="keyword">new</span> <span class="title class_">String</span>(body));  </span><br><span class="line">                channel.basicAck(envelope.getDeliveryTag(), <span class="literal">false</span>);  </span><br><span class="line">            &#125;  </span><br><span class="line">        &#125;;  </span><br><span class="line">        channel.basicConsume(QUEUE_NAME, consumer);  </span><br><span class="line">        channel.close();  </span><br><span class="line">        connection.close();  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    private static final String QUEUE_NAME = &quot;queue_test&quot;;  
-    private static final String IP_ADDRESS = &quot;192.168.1.1&quot;;  
-    private static final int PORT = 5672;
-
-    public static void main(String[] args) throws IOException, TimeoutException {  
-        ConnectionFactory factory = new ConnectionFactory();  
-        factory.setHost(IP_ADDRESS);  
-        factory.setPort(PORT);  
-        factory.setUsername(&quot;root&quot;);  
-        factory.setPassword(&quot;root0000&quot;);  
-        Connection connection = factory.newConnection();  
-        Channel channel = connection.createChannel();  
-        //设置客户端最多接收未被ack的消息的个数  
-        channel.basicQos(64);  
-        Consumer consumer = new DefaultConsumer(channel) {  
-            public void handleDelivery(String consumerTag, Envelope envelope,  
-                                       BasicProperties properties, byte[] body) throws IOException {  
-                System.out.println(&quot;recv message: &quot; + new String(body));  
-                channel.basicAck(envelope.getDeliveryTag(), false);  
-            }  
-        };  
-        channel.basicConsume(QUEUE_NAME, consumer);  
-        channel.close();  
-        connection.close();  
-    }  
-}</code></pre>
 <p>上面代码中显式的设置autoAck为false，然后在接收到消息之后进行显式ack操作。对于消费者来说，这个设置可以防止消息不必要的丢失。<br><strong>basicCosume方法详解：</strong></p>
-<pre><code class="java">String basicConsume(String queue, boolean autoAck,   
-                String consumerTag, boolean noLocal,   
-                boolean exclusive, Map&lt;String, Object&gt; arguments,   
-                Consumer callback) throws IOException;</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">String <span class="title function_">basicConsume</span><span class="params">(String queue, <span class="type">boolean</span> autoAck,   </span></span><br><span class="line"><span class="params">                String consumerTag, <span class="type">boolean</span> noLocal,   </span></span><br><span class="line"><span class="params">                <span class="type">boolean</span> exclusive, Map&lt;String, Object&gt; arguments,   </span></span><br><span class="line"><span class="params">                Consumer callback)</span> <span class="keyword">throws</span> IOException;</span><br></pre></td></tr></table></figure>
+
 <p>各个参数说明：<br>queue：队列名称。<br>autoAck：设置是否自动确认，建议为false。<br>consumerTag：消费者标签，用来区分多个消费者。<br>noLocal：设置为true表示不能将同一个Connection中生产者发送的消息传送给这个Connection的消费者。<br>exclusive：设置是否排他。<br>arguments：设置消费者的其他参数。<br>callback：设置消费者的回调函数，用来处理RabbitMQ推送过来的消息。</p>
 <h3 id="三：RabbitMQ进阶"><a href="#三：RabbitMQ进阶" class="headerlink" title="三：RabbitMQ进阶"></a>三：RabbitMQ进阶</h3><ul>
 <li>消息何去何从：<br>以上channel.basicPublish()中有两个参数：mandatory和immediate。他们都有当消息传递过程中不可达目的地时将消息返回给生产者的功能。<ul>
@@ -274,16 +216,16 @@ channel.basicPublish(&quot;&quot;, &quot;rpc_queue&quot;, properties, messageBod
 </ul>
 </li>
 <li>生产者确认：<br>在使用RabbitMQ的时候，可以通过消息持久化操作来解决因为服务器的异常崩溃而导致的消息丢失。除此之外，我们还会遇到一个问题，当消息的生产者将消息发送出去之后，消息到底有没有正确的到达服务器呢？如果不进行特殊的设置，默认情况下发送消息的操作是不会返回任何信息给生产者的。如果消息在到达服务器之前已经丢失，持久化操作也解决不了这个问题，因为消息根本没有到达服务器，何谈持久化？<br>RabbitMQ针对这个问题，提供了两种解决方案：<ul>
-<li>通过事务机制实现：<br>RabbitMQ客户端与事务机制相关的方法有三个：channel.txSelect、channel.txCommint和channel.txRollback。channel.txSelect用于将当前的信道设置为事务模式，channel.txCommit用于提交事务，channel.txRollback用于事务回滚。<code>try {  
+<li>通过事务机制实现：<br>RabbitMQ客户端与事务机制相关的方法有三个：channel.txSelect、channel.txCommint和channel.txRollback。channel.txSelect用于将当前的信道设置为事务模式，channel.txCommit用于提交事务，channel.txRollback用于事务回滚。<code>try &#123;  
   channel.txSelect();  
   channel.basicPublish(exchangeName, routingKey,   
    MessageProperties.PERSISTENT_TEXT_PLAIN, msg.getBytes());  
   int result = 1 / 0;  
   channel.txCommit();  
-} catch (Exception e) {  
+&#125; catch (Exception e) &#123;  
   e.printStackTrace();  
   channel.txRollback();  
-}</code>事务确实能够解决消息发送发和RabbitMQ之间消息确认的问题，只有消息成功被RabbitMQ接收，事务才会提交成功，否则便可以在捕获异常之后进行事务回滚，与此同时也可以进行消息重发。但是使用事务会导致RabbitMQ的性能大幅降低。有没有更好的方法既能够保证消息正确送达，又基本上不浪费性能的损失？</li>
+&#125;</code>事务确实能够解决消息发送发和RabbitMQ之间消息确认的问题，只有消息成功被RabbitMQ接收，事务才会提交成功，否则便可以在捕获异常之后进行事务回滚，与此同时也可以进行消息重发。但是使用事务会导致RabbitMQ的性能大幅降低。有没有更好的方法既能够保证消息正确送达，又基本上不浪费性能的损失？</li>
 <li>通过发送方确认机制实现：<br>生产者将信道设置成confirm(确认)模式，一旦信道进入confirm模式，所有在该信道上面发布的消息都会被指派一个唯一的ID(从1开始)，一旦消息被投递到所有匹配的队列之后，RabbitMQ就会发送一个确认(Basic.Ack)给生产者(包含该消息的唯一ID)。这就使得生产者知晓消息已经正确到达目的地了。如果消息和队列是可持久化的，那么确认消息会在消息写入磁盘之后发出。RabbitMQ回传给生产者的确认消息中的deliveryTag包含了确认消息的序号。<br>事务机制在一条消息发送之后会使发送端阻塞，以等待RabbitMQ的回应，之后才能继续发送下一条消息。相比之下，发送方确认机制最大的好处在于它是异步的，一旦发布一条消息，生产者应用程序就可以在等信道返回确认的同事继续发送下一条消息。<br><strong>注意：</strong><br>事务机制和publish confirm机制两者是互斥的，不能共存。<br>事务机制和publish confirm机制确保的是消息能够正确的发送至RabbitMQ，这里的RabbitMQ指的发送到交换器。如果此交换器没有匹配的队列，那么消息也会丢失。</li>
 </ul>
 </li>
@@ -323,7 +265,7 @@ channel.queueDeclare(queueName, false, false, false, args);</code>惰性队列�
             
               
                 <li class="base">
-                  <a  href="/2017/11/16/基于SpringBoot、STOMP使用WebSocket实现聊天室功能/" class="post-categoris-bottom-link">
+                  <a  href="/2017/11/16/%E5%9F%BA%E4%BA%8ESpringBoot%E3%80%81STOMP%E4%BD%BF%E7%94%A8WebSocket%E5%AE%9E%E7%8E%B0%E8%81%8A%E5%A4%A9%E5%AE%A4%E5%8A%9F%E8%83%BD/" class="post-categoris-bottom-link">
                   基于SpringBoot、STOMP使用WebSocket实现聊天室功能
                 </a>
                 </li>
@@ -345,7 +287,7 @@ channel.queueDeclare(queueName, false, false, false, args);</code>惰性队列�
             
               
                 <li class="base">
-                  <a  href="/2018/07/14/TiDB-重新定义下一代关系型数据库/" class="post-categoris-bottom-link">
+                  <a  href="/2018/07/14/TiDB-%E9%87%8D%E6%96%B0%E5%AE%9A%E4%B9%89%E4%B8%8B%E4%B8%80%E4%BB%A3%E5%85%B3%E7%B3%BB%E5%9E%8B%E6%95%B0%E6%8D%AE%E5%BA%93/" class="post-categoris-bottom-link">
                   TiDB:重新定义下一代关系型数据库
                 </a>
                 </li>
@@ -379,7 +321,7 @@ channel.queueDeclare(queueName, false, false, false, args);</code>惰性队列�
             
               
                 <li class="me base">
-                  <a  href="/2019/08/20/关于RabbitMQ，看这篇文章就够了/" class="post-categoris-bottom-link">
+                  <a  href="/2019/08/20/%E5%85%B3%E4%BA%8ERabbitMQ%EF%BC%8C%E7%9C%8B%E8%BF%99%E7%AF%87%E6%96%87%E7%AB%A0%E5%B0%B1%E5%A4%9F%E4%BA%86/" class="post-categoris-bottom-link">
                   关于RabbitMQ，看这篇文章就够了
                 </a>
                 </li>
@@ -427,7 +369,7 @@ channel.queueDeclare(queueName, false, false, false, args);</code>惰性队列�
             
               
                 <li class="base">
-                  <a  href="/2021/03/22/管理小记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/03/22/%E7%AE%A1%E7%90%86%E5%B0%8F%E8%AE%B0/" class="post-categoris-bottom-link">
                   管理小记
                 </a>
                 </li>
@@ -442,7 +384,7 @@ channel.queueDeclare(queueName, false, false, false, args);</code>惰性队列�
             
               
                 <li class="base">
-                  <a  href="/2021/05/05/架构笔记/" class="post-categoris-bottom-link">
+                  <a  href="/2021/05/05/%E6%9E%B6%E6%9E%84%E7%AC%94%E8%AE%B0/" class="post-categoris-bottom-link">
                   架构笔记
                 </a>
                 </li>
@@ -453,7 +395,7 @@ channel.queueDeclare(queueName, false, false, false, args);</code>惰性队列�
             
               
                 <li class="base">
-                  <a  href="/2021/08/20/Spring Data JPA/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/20/Spring%20Data%20JPA/" class="post-categoris-bottom-link">
                   Spring Data JPA
                 </a>
                 </li>
@@ -475,7 +417,7 @@ channel.queueDeclare(queueName, false, false, false, args);</code>惰性队列�
             
               
                 <li class="base">
-                  <a  href="/2021/08/21/Java单元测试/" class="post-categoris-bottom-link">
+                  <a  href="/2021/08/21/Java%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" class="post-categoris-bottom-link">
                   Java Unit Test
                 </a>
                 </li>
@@ -486,7 +428,7 @@ channel.queueDeclare(queueName, false, false, false, args);</code>惰性队列�
             
               
                 <li class="base">
-                  <a  href="/2022/02/12/Code Review/" class="post-categoris-bottom-link">
+                  <a  href="/2022/02/12/Code%20Review/" class="post-categoris-bottom-link">
                   Code Review
                 </a>
                 </li>
@@ -497,7 +439,7 @@ channel.queueDeclare(queueName, false, false, false, args);</code>惰性队列�
             
               
                 <li class="base">
-                  <a  href="/2022/06/06/技术思维/" class="post-categoris-bottom-link">
+                  <a  href="/2022/06/06/%E6%8A%80%E6%9C%AF%E6%80%9D%E7%BB%B4/" class="post-categoris-bottom-link">
                   技术思维
                 </a>
                 </li>
@@ -562,11 +504,15 @@ channel.queueDeclare(queueName, false, false, false, args);</code>惰性队列�
 
 
 
+
 <script src="/js/white.js"></script>
 
 
+
     
-      <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+      
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
       <script>hljs.initHighlightingOnLoad();</script>
     
 
