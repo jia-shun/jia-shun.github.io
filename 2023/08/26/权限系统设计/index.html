@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>  Permission System Design |    freedom</title>
+  <title>  权限系统设计 |    freedom</title>
   <meta name="description" content="free soul">
   <!-- 标签页图标 -->
   
@@ -113,7 +113,7 @@
 <article class="post-inner">
   <div class="post-content-outer">
     <div class="post-intro">
-      <div class="post-title animate__animated  animate__fadeInUp">Permission System Design</div>
+      <div class="post-title animate__animated  animate__fadeInUp">权限系统设计</div>
       <div class="meta-intro animate__animated  animate__fadeInUp">8月 26 2023</div>
       
     </div>
@@ -164,8 +164,7 @@
 <p><strong>架构图</strong></p>
 <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/permission-system-design/auth.png" alt="架构图"></p>
 <p><strong>业务流程</strong></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Title: Auth 流程图</span><br><span class="line">web --&gt; gateway: 登录(username、server name)</span><br><span class="line">gateway --&gt; auth: 验证用户名密码</span><br><span class="line">auth --&gt; gateway: 返回token及权限(页面、api)</span><br><span class="line">gateway --&gt; web: token及权限</span><br><span class="line">note left of web: 渲染页面，保存token</span><br><span class="line">web --&gt; gateway: 请求数据</span><br><span class="line">gateway --&gt; auth: token、api验证</span><br><span class="line">auth --&gt; gateway: 验证失败，token无效或无此权限</span><br><span class="line">gateway --&gt; web: 异常</span><br><span class="line">note left of web: 跳转至登录页面</span><br><span class="line">auth --&gt; gateway: 验证通过</span><br><span class="line">gateway --&gt; server: 路由转发</span><br><span class="line">server --&gt; gateway: 业务处理，返回结果</span><br><span class="line">gateway --&gt; web: 返回数据</span><br><span class="line">note left of web: 展示数据</span><br></pre></td></tr></table></figure>
-
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/permission-system-design/flow-chart.png" alt="架构图"></p>
 
         <!-- 分类文章 -->
         
@@ -366,7 +365,7 @@
               
                 <li class="me base">
                   <a  href="/2023/08/26/%E6%9D%83%E9%99%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" class="post-categoris-bottom-link">
-                  Permission System Design
+                  权限系统设计
                 </a>
                 </li>
               
