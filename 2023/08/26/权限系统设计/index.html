@@ -6,7 +6,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>  管理小记 |    freedom</title>
+  <title>  Permission System Design |    freedom</title>
   <meta name="description" content="free soul">
   <!-- 标签页图标 -->
   
@@ -113,8 +113,8 @@
 <article class="post-inner">
   <div class="post-content-outer">
     <div class="post-intro">
-      <div class="post-title animate__animated  animate__fadeInUp">管理小记</div>
-      <div class="meta-intro animate__animated  animate__fadeInUp">3月 22 2021</div>
+      <div class="post-title animate__animated  animate__fadeInUp">Permission System Design</div>
+      <div class="meta-intro animate__animated  animate__fadeInUp">8月 26 2023</div>
       
     </div>
     <div class="post-content-inner">
@@ -124,15 +124,48 @@
       <div class="post-content-main animate__animated  animate__fadeInUp">
         <!-- top型目录 -->
         
-        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/tech-management/tech-hd.jpg" alt=""></p>
-<h3 id="经纬亿万学院"><a href="#经纬亿万学院" class="headerlink" title="经纬亿万学院"></a>经纬亿万学院</h3><ul>
-<li>定位: 在用户头脑里的定位会遮蔽掉所谓的更好的产品，这就是定位的原理，做产品的目标就是做在用户头脑里的定位。</li>
-<li>笃定性: 在创业规划里面最怕游离、摇摆、焦虑。。明确所选赛道是对的之后需要有笃定性。</li>
-<li>透明话: 网状组织的要求就是: 一是每个人必须自己去做决策，每个人都不能再是一个螺丝钉了。第二个是每个人都要有一个非常强的能力和周围的决策者进行连接。第三就是每个人在这个网上不停的成长。</li>
-<li>领导力的本质: 是如何去正确的用人，如何用正确的人。</li>
-<li>我们经常犯的一个错误就是：对不同的人采取同样的激励方式。绝大部分人他真的要的是钱吗？本质上他要的是证明自己的价值。</li>
-<li>绩效必须是CEO主导的，绩效不应该是HR设计的,HR不懂战略，他如何知道考核的重点，如何知道权重，如何知道每个部门的核心方向。</li>
+        <p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/permission-system-design/permission-system-design.jpg" alt=""></p>
+<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>小明加入了新公司的技术部门，技术负责人将小明加入到代码仓库组中，小明就拥有了操作代码的权限，然后小明就可以开发了。如果小明离职了，自然就没有访问代码仓库的权利了。</p>
+<p>在以上流程中，小明是主体，代码仓库是客体，对仓库中代码的操作称之为行为。</p>
+<p>权限控制的本质就是控制主体对客体的行为。</p>
+<h3 id="设计模型"><a href="#设计模型" class="headerlink" title="设计模型"></a>设计模型</h3><h4 id="RBAC-Role-Based-Access-Control-角色访问控制"><a href="#RBAC-Role-Based-Access-Control-角色访问控制" class="headerlink" title="RBAC (Role Based Access Control 角色访问控制)"></a>RBAC (Role Based Access Control 角色访问控制)</h4><ul>
+<li><strong>User:</strong> 主体，代表系统中的用户</li>
+<li><strong>Resource:</strong> 客体，被访问方，资源。可以是系统中的某个菜单、按钮、数据、API等</li>
+<li><strong>Role:</strong> 角色，代表组织内的职责及该职责下的用户拥有某些制定的权限</li>
+<li><strong>Operation:</strong> 系统中可以执行的某个动作，比如编辑、增加</li>
+<li><strong>Permissions:</strong> 权限，代表可向某个resource执行operation</li>
 </ul>
+<p>RBAC在用户(主体)和资源(客体)之间引入了角色的概念，角色解耦了用户和资源之间的关系，使用户具备了某些操作的能力。这是最简单RBAC模型，也被称之为RBAC0。后续又延伸出来RBAC1、RBAC2、RBAC3。</p>
+<ul>
+<li><strong>RBAC0:</strong> 基本模型，权限被赋予角色而不是用户，当一个用户被赋予某个角色时，该用户就拥有了该角色所包含的所有权限。</li>
+<li><strong>RBAC1:</strong> 在RBAC0的基础上，引入了继承机制。即如果角色B继承了角色A，那么当用户赋予了角色B的时候，同时具备了角色A的操作能力。</li>
+<li><strong>RBAC2:</strong> 引入了角色互斥的关系。比如如果用户绑定了角色A就不能绑定角色B。防止现实世界中的又当又立。</li>
+<li><strong>RBAC3:</strong> 结合了RBAC1和RBAC2的能力，同时具备角色互斥和角色继承。</li>
+</ul>
+<h4 id="缺陷："><a href="#缺陷：" class="headerlink" title="缺陷："></a>缺陷：</h4><p>权限控制的本质是为了控制一个实体可以做什么，RBAC通过角色聚合权限，很容易做到这些，但很多时候还有一些其他条件的影响，以及某个人可以访问到什么数据的限制。可以在角色或者权限上加各种属性，然后业务根据各种条件过滤，这样带来的复杂度是指数级上升，且很难通用。</p>
+<h4 id="ABAC-Attribute-Based-Access-Control-属性访问控制"><a href="#ABAC-Attribute-Based-Access-Control-属性访问控制" class="headerlink" title="ABAC(Attribute Based Access Control 属性访问控制)"></a>ABAC(Attribute Based Access Control 属性访问控制)</h4><h4 id="元素"><a href="#元素" class="headerlink" title="元素"></a>元素</h4><ul>
+<li><strong>subject:</strong> 系统使用对象，可以是用户，也可以是非服务的个体</li>
+<li><strong>object：</strong>被访问的数据</li>
+<li><strong>action:</strong> 操作行为</li>
+<li><strong>policy:</strong> 访问策略。它规定了一个用户在什么条件下可以对哪些数据做什么，是ABAC的核心实体</li>
+<li><strong>acm:</strong> access control mechanism，权限管控机制，一般来说是权限系统本身</li>
+<li><strong>attribute:</strong> 泛指各种属性，可以是subject的，也可以是object的</li>
+<li><strong>condition：</strong>额外的限制条件</li>
+</ul>
+<h4 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h4><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;Effect&quot;</span><span class="punctuation">:</span><span class="string">&quot;Allow&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Action&quot;</span><span class="punctuation">:</span><span class="string">&quot;s3:ListBucket&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Resource&quot;</span><span class="punctuation">:</span><span class="string">&quot;arn:aws:s3:::example_bucket&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;Condition&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">        <span class="attr">&quot;NumericLessThanEquals&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span></span><br><span class="line">            <span class="attr">&quot;s3:max-keys&quot;</span><span class="punctuation">:</span><span class="string">&quot;10&quot;</span></span><br><span class="line">        <span class="punctuation">&#125;</span></span><br><span class="line">    <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>上面这个<code>json</code>我们可以把它作为一个访问策略，在ABAC中叫做<code>policy</code>,在这个<code>policy</code>中，<code>Action</code>元素时一系列可以做什么的聚合，<code>Resource</code>元素就是可以访问的资源集合，<code>Condition</code>元素值的是额外的限制条件。那么这个<code>json</code>表述: 和这个<code>policy</code>绑定的主体具有查看<code>bucket</code>列表的权限，且一次最多可以列出 example_bucket 中的 10 个对象。</p>
+<p>其实这是AWS的IAM的访问策略的设计。当然这只是一个很简单的例子。</p>
+<h4 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h4><p>很明显，ABAC的优点是RBAC的缺点，可以胜任在复杂场景下的鉴权，颗粒度小。缺点也很明显，设计一套完善的ABAC权限系统太复杂了，后期维护也是问题。</p>
+<h3 id="业务实践"><a href="#业务实践" class="headerlink" title="业务实践"></a>业务实践</h3><h4 id="现状："><a href="#现状：" class="headerlink" title="现状："></a>现状：</h4><p>多系统都拥有各自的权限管理系统</p>
+<h4 id="设计"><a href="#设计" class="headerlink" title="设计"></a>设计</h4><blockquote>
+<p>使用RBAC</p>
+</blockquote>
+<p><strong>架构图</strong></p>
+<p><img src="https://blog-1257890402.cos.ap-beijing.myqcloud.com/permission-system-design/auth.png" alt="架构图"></p>
+<p><strong>业务流程</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">Title: Auth 流程图</span><br><span class="line">web --&gt; gateway: 登录(username、server name)</span><br><span class="line">gateway --&gt; auth: 验证用户名密码</span><br><span class="line">auth --&gt; gateway: 返回token及权限(页面、api)</span><br><span class="line">gateway --&gt; web: token及权限</span><br><span class="line">note left of web: 渲染页面，保存token</span><br><span class="line">web --&gt; gateway: 请求数据</span><br><span class="line">gateway --&gt; auth: token、api验证</span><br><span class="line">auth --&gt; gateway: 验证失败，token无效或无此权限</span><br><span class="line">gateway --&gt; web: 异常</span><br><span class="line">note left of web: 跳转至登录页面</span><br><span class="line">auth --&gt; gateway: 验证通过</span><br><span class="line">gateway --&gt; server: 路由转发</span><br><span class="line">server --&gt; gateway: 业务处理，返回结果</span><br><span class="line">gateway --&gt; web: 返回数据</span><br><span class="line">note left of web: 展示数据</span><br></pre></td></tr></table></figure>
+
 
         <!-- 分类文章 -->
         
@@ -250,7 +283,7 @@
             
             
               
-                <li class="me base">
+                <li class="base">
                   <a  href="/2021/03/22/%E7%AE%A1%E7%90%86%E5%B0%8F%E8%AE%B0/" class="post-categoris-bottom-link">
                   管理小记
                 </a>
@@ -331,7 +364,7 @@
             
             
               
-                <li class="base">
+                <li class="me base">
                   <a  href="/2023/08/26/%E6%9D%83%E9%99%90%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" class="post-categoris-bottom-link">
                   Permission System Design
                 </a>
